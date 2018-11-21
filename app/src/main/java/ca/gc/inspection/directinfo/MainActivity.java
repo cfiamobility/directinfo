@@ -11,8 +11,6 @@ import android.widget.Button;
 public class MainActivity extends Activity {
 
     Context context;
-//    DirectInfoDbHelper dbHelper;
-//    SQLiteDatabase db;
 
     Button downloadBtn;
     Button searchBtn;
@@ -23,8 +21,6 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         context = getApplicationContext();
-//        dbHelper = new DirectInfoDbHelper(context);
-//        db = dbHelper.getReadableDatabase();
 
         downloadBtn = findViewById(R.id.downloadBtn);
         searchBtn = findViewById(R.id.searchBtn);

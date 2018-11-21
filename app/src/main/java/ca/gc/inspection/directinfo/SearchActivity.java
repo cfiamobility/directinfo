@@ -9,7 +9,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -78,17 +77,11 @@ public class SearchActivity extends Activity {
 
         final String[] projection = {
                 DirectInfo._ID,                             // 0
-                DirectInfo.COLUMN_NAME_GIVEN_NAME + " || ' ' || " + DirectInfo.COLUMN_NAME_SURNAME + " AS 'name'",          // 1
+                DirectInfo.COLUMN_NAME_FIRST_NAME + " || ' ' || " + DirectInfo.COLUMN_NAME_LAST_NAME + " AS 'name'",          // 1
                 DirectInfo.COLUMN_NAME_EMAIL,               // 2
                 DirectInfo.COLUMN_NAME_TELEPHONE_NUMBER,    // 3
                 DirectInfo.COLUMN_NAME_TITLE_EN,            // 4
-                DirectInfo.COLUMN_NAME_STREET_ADDRESS_EN,   // 5
-                DirectInfo.COLUMN_NAME_FLOOR,               // 6
-                DirectInfo.COLUMN_NAME_ROOM,                // 7
-                DirectInfo.COLUMN_NAME_CITY_EN,             // 8
-                DirectInfo.COLUMN_NAME_PROVINCE_EN,         // 9
-                DirectInfo.COLUMN_NAME_POSTAL_CODE,         // 10
-                DirectInfo.COLUMN_NAME_COUNTRY_EN           // 11
+
         };
 
         // Filter resultCount WHERE "title" = 'My Title'
@@ -97,22 +90,17 @@ public class SearchActivity extends Activity {
 
 
         // search only entire GEDS database of employees by first name + last name, email, phone number, or title
-//        final String selection = "name LIKE '%" + textToSearch + "%' OR " +
-//                DirectInfo.COLUMN_NAME_EMAIL + " LIKE '%" + textToSearch + "%'  OR " +
-//                DirectInfo.COLUMN_NAME_TELEPHONE_NUMBER + " LIKE '%" + textToSearch + "%' OR " +
-//                DirectInfo.COLUMN_NAME_TITLE_EN + " LIKE '%" + textToSearch + "%' "
+        final String selection = "name LIKE '%" + textToSearch + "%' OR " +
+                DirectInfo.COLUMN_NAME_EMAIL + " LIKE '%" + textToSearch + "%'  OR " +
+                DirectInfo.COLUMN_NAME_TELEPHONE_NUMBER + " LIKE '%" + textToSearch + "%' OR " +
+                DirectInfo.COLUMN_NAME_TITLE_EN + " LIKE '%" + textToSearch + "%' ";
 
-        // search only cfia employees by first name + last name, email, phone number, or title
-        final String selection = "( name LIKE '%" + textToSearch + "%' AND " + DirectInfo.COLUMN_NAME_DEPARTMENT_ACRONYM + " = 'CFIA-ACIA' ) OR ( " +
-                DirectInfo.COLUMN_NAME_EMAIL + " LIKE '%" + textToSearch + "%' AND " + DirectInfo.COLUMN_NAME_DEPARTMENT_ACRONYM + " = 'CFIA-ACIA' ) OR ( " +
-                DirectInfo.COLUMN_NAME_TELEPHONE_NUMBER + " LIKE '%" + textToSearch + "%' AND " + DirectInfo.COLUMN_NAME_DEPARTMENT_ACRONYM + " = 'CFIA-ACIA' ) OR ( " +
-                DirectInfo.COLUMN_NAME_TITLE_EN + " LIKE '%" + textToSearch + "%' AND " + DirectInfo.COLUMN_NAME_DEPARTMENT_ACRONYM + " = 'CFIA-ACIA' )" ;
 
 //        String[] selectionArgs = { "%" + textToSearch + "%"};
 
         // How you want the resultCount sorted in the resulting Cursor
         final String sortOrder =
-                DirectInfo.COLUMN_NAME_SURNAME + " ASC LIMIT 500";
+                DirectInfo.COLUMN_NAME_FIRST_NAME + " ASC LIMIT 500";
 
 
         Cursor cursor = db.query(
@@ -136,10 +124,7 @@ public class SearchActivity extends Activity {
                     cursor.getString(2),
                     cursor.getString(3),
                     cursor.getString(4),
-                    cursor.getString(5) + ", " + cursor.getString(6) + ", " +
-                            cursor.getString(7) + "\n" + cursor.getString(8) + ", " +
-                            cursor.getString(9) + "\n" + cursor.getString(10) + "\n" +
-                            cursor.getString(11)
+                    "COMING SOON"
             );
             people.add(person);
             cursor.moveToNext();
