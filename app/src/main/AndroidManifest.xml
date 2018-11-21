@@ -22,7 +22,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".DownloadDatabase" />
-        <activity android:name=".SearchActivity"></activity>
+        <activity android:name=".SearchActivity" />
+        <activity android:name=".PersonDetails"></activity>
     </application>
 
 </manifest>

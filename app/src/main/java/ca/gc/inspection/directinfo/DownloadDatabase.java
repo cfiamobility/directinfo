@@ -47,7 +47,7 @@ public class DownloadDatabase extends Activity {
     ProgressBar progressBar;
     Button search;
 
-    public static final String GEDS_ZIP_FILE_URL = "http://directinfo.agr.gc.ca/directInfo/extracts/searchResults-2fjctouo2svup1rjsb3ijl38f5.csv";
+    public static final String DI_CSV_FILE_URL = "http://directinfo.agr.gc.ca/directInfo/extracts/searchResults-2fjctouo2svup1rjsb3ijl38f5.csv";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +57,8 @@ public class DownloadDatabase extends Activity {
         context = getApplicationContext();
         dbHelper = new DirectInfoDbHelper(context);
         db = dbHelper.getWritableDatabase();
+        db.execSQL(DirectInfo.SQL_DELETE_ENTRIES);
+        db.execSQL(DirectInfo.SQL_CREATE_ENTRIES);
 
         downloadingTv = findViewById(R.id.downloadingTv);
         progressBar = findViewById(R.id.progressBar);
@@ -71,7 +73,7 @@ public class DownloadDatabase extends Activity {
         downloadingTv.setText("DOWNLOADING....");
 
         DownloadGEDSZipFile downloadGEDSZipFile = new DownloadGEDSZipFile();
-        downloadGEDSZipFile.execute(GEDS_ZIP_FILE_URL);
+        downloadGEDSZipFile.execute(DI_CSV_FILE_URL);
 
 
         search.setOnClickListener(new View.OnClickListener() {
@@ -84,8 +86,6 @@ public class DownloadDatabase extends Activity {
     }
 
     public class DownloadGEDSZipFile extends AsyncTask<String , Integer, Void>{
-
-        int count = 0;
 
         public Void doInBackground(String...urls) {
 
@@ -145,6 +145,7 @@ public class DownloadDatabase extends Activity {
         db.beginTransaction();
 
         CsvParserSettings settings = new CsvParserSettings();
+        settings.setNumberOfRowsToSkip(1); // skips the first row of the file as it contains the column names
         settings.setSkipEmptyLines(true);
 
         CsvParser parser = new CsvParser(settings);
@@ -185,5 +186,11 @@ public class DownloadDatabase extends Activity {
 
         db.setTransactionSuccessful();
         db.endTransaction();
+    }
+
+    @Override
+    protected void onDestroy() {
+        db.close();
+        super.onDestroy();
     }
 } // end of class

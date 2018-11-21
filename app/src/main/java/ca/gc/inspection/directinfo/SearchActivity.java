@@ -2,6 +2,7 @@ package ca.gc.inspection.directinfo;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -9,16 +10,20 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import ca.gc.inspection.directinfo.DirectInfoDbContract.DirectInfo;
 
-public class SearchActivity extends Activity {
+public class SearchActivity extends Activity implements RecyclerItemClickListener.OnRecyclerClickListener {
+
+    private static final String TAG = "SearchActivity";
 
     EditText input;
     Button searchBtn;
@@ -29,6 +34,7 @@ public class SearchActivity extends Activity {
 
     RecyclerView recyclerView;
     DirectInfoAdapter adapter;
+    ArrayList<Person> people;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +44,19 @@ public class SearchActivity extends Activity {
         input = findViewById(R.id.searchEditText);
         searchBtn = findViewById(R.id.searchBtn3);
         resultCount = findViewById(R.id.resultCountTv);
+
+        dbHelper = new DirectInfoDbHelper(getApplicationContext());
+        db = dbHelper.getReadableDatabase();
+
+        recyclerView = findViewById(R.id.searchResultsRecyclerView);
+
+        people = new ArrayList<>();
+
+        adapter = new DirectInfoAdapter(people, getApplicationContext());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, recyclerView, this));
 
 
         input.addTextChangedListener(new TextWatcher() {
@@ -57,11 +76,6 @@ public class SearchActivity extends Activity {
 
             }
         });
-
-        dbHelper = new DirectInfoDbHelper(getApplicationContext());
-        db = dbHelper.getReadableDatabase();
-
-        recyclerView = findViewById(R.id.searchResultsRecyclerView);
 
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +99,6 @@ public class SearchActivity extends Activity {
         };
 
         // Filter resultCount WHERE "title" = 'My Title'
-
 //        final String selection = "name LIKE ?";
 
 
@@ -94,7 +107,6 @@ public class SearchActivity extends Activity {
                 DirectInfo.COLUMN_NAME_EMAIL + " LIKE '%" + textToSearch + "%'  OR " +
                 DirectInfo.COLUMN_NAME_TELEPHONE_NUMBER + " LIKE '%" + textToSearch + "%' OR " +
                 DirectInfo.COLUMN_NAME_TITLE_EN + " LIKE '%" + textToSearch + "%' ";
-
 
 //        String[] selectionArgs = { "%" + textToSearch + "%"};
 
@@ -114,7 +126,7 @@ public class SearchActivity extends Activity {
                 sortOrder               // The sort order
         );
 
-        ArrayList<Person> people = new ArrayList<>();
+        people.clear();
         resultCount.setText("Your search returned " + cursor.getCount() + " results");
         cursor.moveToFirst();
         while(!cursor.isAfterLast()) {
@@ -130,12 +142,25 @@ public class SearchActivity extends Activity {
             cursor.moveToNext();
         }
 
+        adapter.notifyDataSetChanged();
         cursor.close();
-
-        adapter = new DirectInfoAdapter(people, getApplicationContext());
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
     } // end of searchDatabase()
 
+    @Override
+    public void onItemClick(View view, int position) {
+        Log.d(TAG, "onItemClick: starts");
+        Toast.makeText(SearchActivity.this, "Name: " +  adapter.getPerson(position).getName(), Toast.LENGTH_LONG).show();
+
+        Intent intent = new Intent(this, PersonDetails.class);
+        intent.putExtra("PERSON", adapter.getPerson(position));
+        startActivity(intent);
+    }
+
+    @Override
+    public void onItemLongClick(View view, int position) {
+        Log.d(TAG, "onItemLongClick: starts");
+        onItemClick(view, position);
+
+    }
 } // end of class

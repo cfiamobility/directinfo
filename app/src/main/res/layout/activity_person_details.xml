@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PersonDetails">
+
+    <TextView
+        android:id="@+id/personDetailsNameTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/personDetailsPhoneTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:autoLink="phone"
+        android:text="TextView"
+        app:layout_constraintBaseline_toBaselineOf="@+id/personDetailsNameTV"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/personDetailsEmailTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:autoLink="email"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="@+id/personDetailsPhoneTV"
+        app:layout_constraintTop_toBottomOf="@+id/personDetailsPhoneTV" />
+
+    <TextView
+        android:id="@+id/personDetailsPositionTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="@+id/personDetailsNameTV"
+        app:layout_constraintTop_toBottomOf="@+id/personDetailsEmailTV" />
+
+    <TextView
+        android:id="@+id/personDetailsAddressTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/personDetailsPositionTV"
+        app:layout_constraintTop_toBottomOf="@+id/personDetailsPositionTV" />
+</android.support.constraint.ConstraintLayout>

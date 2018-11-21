@@ -67,4 +67,8 @@ public class DirectInfoAdapter extends RecyclerView.Adapter<DirectInfoAdapter.Vi
     public int getItemCount() {
         return people.size();
     }
+
+    public Person getPerson(int position) {
+        return ((people != null) && (people.size() != 0) ? people.get(position) : null);
+    }
 }
