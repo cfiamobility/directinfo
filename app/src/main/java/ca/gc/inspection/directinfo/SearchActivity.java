@@ -8,20 +8,27 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.support.v7.app.AppCompatActivity;
+
 
 import java.util.ArrayList;
 
 import ca.gc.inspection.directinfo.DirectInfoDbContract.DirectInfo;
 
-public class SearchActivity extends Activity implements RecyclerItemClickListener.OnRecyclerClickListener {
+public class SearchActivity extends AppCompatActivity implements RecyclerItemClickListener.OnRecyclerClickListener {
 
     private static final String TAG = "SearchActivity";
 
@@ -36,10 +43,15 @@ public class SearchActivity extends Activity implements RecyclerItemClickListene
     DirectInfoAdapter adapter;
     ArrayList<Person> people;
 
+    //searchView widget
+    SearchView searchView ;
+    Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        initToolbar();
 
         input = findViewById(R.id.searchEditText);
         searchBtn = findViewById(R.id.searchBtn3);
@@ -161,6 +173,35 @@ public class SearchActivity extends Activity implements RecyclerItemClickListene
     public void onItemLongClick(View view, int position) {
         Log.d(TAG, "onItemLongClick: starts");
         onItemClick(view, position);
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_search,menu);
+
+        MenuItem menuItem = menu.findItem(R.id.searchView);
+        searchView=(SearchView)menuItem.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                searchDatabase(s);
+                return true;
+            }
+        });
+        return true;
+    }
+    public void initToolbar() {
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+
 
     }
 } // end of class
