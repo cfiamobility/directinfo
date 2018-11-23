@@ -1,7 +1,6 @@
 package ca.gc.inspection.directinfo;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,15 +8,11 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,8 +27,6 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
 
     private static final String TAG = "SearchActivity";
 
-    EditText input;
-    Button searchBtn;
     TextView resultCount;
 
     DirectInfoDbHelper dbHelper;
@@ -42,10 +35,9 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
     RecyclerView recyclerView;
     DirectInfoAdapter adapter;
     ArrayList<Person> people;
-
-    //searchView widget
-    SearchView searchView ;
+    SearchView searchView;
     Toolbar toolbar;
+    String result_query;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +45,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
         setContentView(R.layout.activity_search);
         initToolbar();
 
-        input = findViewById(R.id.searchEditText);
-        searchBtn = findViewById(R.id.searchBtn3);
+
         resultCount = findViewById(R.id.resultCountTv);
 
         dbHelper = new DirectInfoDbHelper(getApplicationContext());
@@ -65,37 +56,17 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
         people = new ArrayList<>();
 
         adapter = new DirectInfoAdapter(people, getApplicationContext());
+        if (savedInstanceState != null) {
+            result_query = savedInstanceState.getString("userInput");
+            searchDatabase(result_query);
+        }
+
+
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, recyclerView, this));
 
-
-        input.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                searchDatabase(input.getText().toString());
-
-            }
-        });
-
-        searchBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                searchDatabase(input.getText().toString());
-
-            }
-        });
     }
 
     @SuppressLint("SetTextI18n")
@@ -141,7 +112,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
         people.clear();
         resultCount.setText("Your search returned " + cursor.getCount() + " results");
         cursor.moveToFirst();
-        while(!cursor.isAfterLast()) {
+        while (!cursor.isAfterLast()) {
 
             Person person = new Person(
                     cursor.getString(1),
@@ -162,7 +133,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
     @Override
     public void onItemClick(View view, int position) {
         Log.d(TAG, "onItemClick: starts");
-        Toast.makeText(SearchActivity.this, "Name: " +  adapter.getPerson(position).getName(), Toast.LENGTH_LONG).show();
+        Toast.makeText(SearchActivity.this, "Name: " + adapter.getPerson(position).getName(), Toast.LENGTH_LONG).show();
 
         Intent intent = new Intent(this, PersonDetails.class);
         intent.putExtra("PERSON", adapter.getPerson(position));
@@ -179,10 +150,14 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu_search,menu);
+        menuInflater.inflate(R.menu.menu_search, menu);
 
         MenuItem menuItem = menu.findItem(R.id.searchView);
-        searchView=(SearchView)menuItem.getActionView();
+        searchView = (SearchView) menuItem.getActionView();
+        searchView.onActionViewExpanded();
+        if (result_query != null) {
+            searchView.setQuery(result_query, false);
+        }
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -190,18 +165,33 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
             }
 
             @Override
-            public boolean onQueryTextChange(String s) {
-                searchDatabase(s);
+            public boolean onQueryTextChange(String newText) {
+
+                result_query = newText;
+                searchDatabase(result_query);
+
+
+
                 return true;
             }
         });
         return true;
     }
+
     public void initToolbar() {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
 
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+
+        outState.putString("userInput", result_query);
+        super.onSaveInstanceState(outState);
 
     }
+
+
 } // end of class
