@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".PersonDetails">
 
+
+
     <TextView
         android:id="@+id/personDetailsNameTV"
         android:layout_width="wrap_content"
