@@ -4,6 +4,16 @@
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/md_red_700</item>
+        <item name="colorPrimaryDark">@color/md_red_900</item>
+        <item name="colorAccent">@color/md_red_A200</item>
+        <item name="android:textColorSecondary">@color/md_grey_300</item>
+        <item name="android:icon">@color/md_white_1000</item>
+        <item name="android:windowBackground">@color/md_grey_100</item>
+        <item name="android:navigationBarColor">@color/md_red_900</item>
+        <item name="cardBackgroundColor">@color/md_red_A700</item>
+
+
 
     </style>
 
