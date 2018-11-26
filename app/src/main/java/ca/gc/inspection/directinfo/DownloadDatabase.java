@@ -151,7 +151,15 @@ public class DownloadDatabase extends Activity {
         CsvParser parser = new CsvParser(settings);
 
         String[] row;
-        parser.beginParsing(gedsOpenData);
+
+        /*
+        The downloaded CSV file is encoded in ANSI which did not process properly with the parser used.
+        As there are names and addresses with accents in the CSV file which do not show up properly under the default
+        encoding, The encoding was changed to Cp1252 as per the information found on the java documentation from the
+        Oracle website @ https://docs.oracle.com/javase/8/docs/technotes/guides/intl/encoding.doc.html
+        This encoding now shows the names and addresses with the proper format.
+        */
+        parser.beginParsing(gedsOpenData, "Cp1252");
 
         while ((row = parser.parseNext()) != null) {
 
