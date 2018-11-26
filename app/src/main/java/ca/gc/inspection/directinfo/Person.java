@@ -1,5 +1,8 @@
 package ca.gc.inspection.directinfo;
 
+import android.content.Intent;
+import android.provider.ContactsContract;
+
 import java.io.Serializable;
 
 public class Person implements Serializable {
@@ -101,7 +104,7 @@ public class Person implements Serializable {
         if (buildingName != null && !buildingName.isEmpty())
             physicalAddress.append(buildingName).append("\n");
         if (floor != null && !floor.isEmpty())
-            physicalAddress.append(floor).append(", ");
+            physicalAddress.append("Floor ").append(floor).append(", ");
         if (roomNumber != null && !roomNumber.isEmpty())
             physicalAddress.append("Room ").append(roomNumber).append("\n");
         if (physicalStreetNumber != null && !physicalStreetNumber.isEmpty())
@@ -124,7 +127,7 @@ public class Person implements Serializable {
         if (buildingName != null && !buildingName.isEmpty())
             postalAddress.append(buildingName).append("\n");
         if (floor != null && !floor.isEmpty())
-            postalAddress.append(floor).append(", ");
+            postalAddress.append("Floor ").append(floor).append(", ");
         if (roomNumber != null && !roomNumber.isEmpty())
             postalAddress.append("Room ").append(roomNumber).append("\n");
         if (postalStreetNumber != null && !postalStreetNumber.isEmpty())
@@ -140,5 +143,22 @@ public class Person implements Serializable {
         postalAddress.append(country);
 
         return postalAddress.toString();
+    }
+
+    public Intent addToContacts(){
+        Intent intent = new Intent(ContactsContract.Intents.Insert.ACTION);
+        intent.setType(ContactsContract.RawContacts.CONTENT_TYPE);
+
+        intent.putExtra(ContactsContract.Intents.Insert.NAME, this.name);
+        intent.putExtra(ContactsContract.Intents.Insert.EMAIL, this.email)
+                .putExtra(ContactsContract.Intents.Insert.EMAIL_TYPE, ContactsContract.CommonDataKinds.Email.TYPE_WORK);
+        intent.putExtra(ContactsContract.Intents.Insert.PHONE, this.phone)
+                .putExtra(ContactsContract.Intents.Insert.PHONE_TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_WORK);
+        intent.putExtra(ContactsContract.Intents.Insert.SECONDARY_PHONE, this.mobile)
+                .putExtra(ContactsContract.Intents.Insert.SECONDARY_PHONE_TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE);
+        intent.putExtra(ContactsContract.Intents.Insert.COMPANY, "CFIA");
+        intent.putExtra(ContactsContract.Intents.Insert.JOB_TITLE, this.title);
+
+        return intent;
     }
 }
