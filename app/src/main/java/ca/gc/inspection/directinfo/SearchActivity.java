@@ -73,11 +73,30 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
     public void searchDatabase(String textToSearch) {
 
         final String[] projection = {
-                DirectInfo._ID,                             // 0
+                DirectInfo._ID,                                     // 0
                 DirectInfo.COLUMN_NAME_FIRST_NAME + " || ' ' || " + DirectInfo.COLUMN_NAME_LAST_NAME + " AS 'name'",          // 1
-                DirectInfo.COLUMN_NAME_EMAIL,               // 2
-                DirectInfo.COLUMN_NAME_TELEPHONE_NUMBER,    // 3
-                DirectInfo.COLUMN_NAME_TITLE_EN,            // 4
+                DirectInfo.COLUMN_NAME_EMAIL,                       // 2
+                DirectInfo.COLUMN_NAME_TELEPHONE_NUMBER,            // 3
+                DirectInfo.COLUMN_NAME_TITLE_EN,                    // 4
+                DirectInfo.COLUMN_NAME_MOBILE_NUMBER,               // 5
+                DirectInfo.COLUMN_NAME_POSTAL_STREET_NUMBER,        // 6
+                DirectInfo.COLUMN_NAME_POSTAL_STREET_NAME,          // 7
+                DirectInfo.COLUMN_NAME_POSTAL_BUILDING_UNIT_TYPE,   // 8
+                DirectInfo.COLUMN_NAME_POSTAL_BUILDING_UNIT_ID,     // 9
+                DirectInfo.COLUMN_NAME_PO_BOX_EN,                   // 10
+                DirectInfo.COLUMN_NAME_POSTAL_CITY_EN,              // 11
+                DirectInfo.COLUMN_NAME_POSTAL_PROVINCE_EN,          // 12
+                DirectInfo.COLUMN_NAME_POSTAL_CODE,                 // 13
+                DirectInfo.COLUMN_NAME_BUILDING_NAME_EN,            // 14
+                DirectInfo.COLUMN_NAME_FLOOR,                       // 15
+                DirectInfo.COLUMN_NAME_ROOM,                        // 16
+                DirectInfo.COLUMN_NAME_PHYSICAL_STREET_NUMBER,      // 17
+                DirectInfo.COLUMN_NAME_PHYSICAL_STREET_NAME,        // 18
+                DirectInfo.COLUMN_NAME_PHYSICAL_BUILDING_UNIT_TYPE, // 19
+                DirectInfo.COLUMN_NAME_PHYSICAL_BUILDING_UNIT_ID,   // 20
+                DirectInfo.COLUMN_NAME_PHYSICAL_CITY_EN,            // 21
+                DirectInfo.COLUMN_NAME_PHYSICAL_PROVINCE_EN,        // 22
+
 
         };
 
@@ -97,7 +116,6 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
         final String sortOrder =
                 DirectInfo.COLUMN_NAME_FIRST_NAME + " ASC LIMIT 500";
 
-
         Cursor cursor = db.query(
                 DirectInfo.TABLE_NAME,   // The table to query
                 projection,             // The array of columns to return (pass null to get all)
@@ -115,11 +133,28 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
         while (!cursor.isAfterLast()) {
 
             Person person = new Person(
-                    cursor.getString(1),
-                    cursor.getString(2),
-                    cursor.getString(3),
-                    cursor.getString(4),
-                    "COMING SOON"
+                    cursor.getString(1),    // name
+                    cursor.getString(2),    // email
+                    cursor.getString(3),    // phone
+                    cursor.getString(4),    // title
+                    cursor.getString(5),    // mobile
+                    cursor.getString(6),    // postal street number
+                    cursor.getString(7),    // postal street name
+                    cursor.getString(8),    // postal building unit type
+                    cursor.getString(9),    // postal building unit id
+                    cursor.getString(10),   // po box
+                    cursor.getString(11),   // postal city
+                    cursor.getString(12),   // postal province
+                    cursor.getString(13),   // postal code
+                    cursor.getString(14),   // building name
+                    cursor.getString(15),   // floor
+                    cursor.getString(16),   // room
+                    cursor.getString(17),   // physical street number
+                    cursor.getString(18),   // physical street name
+                    cursor.getString(19),   // physical building unit type
+                    cursor.getString(20),   // physical building unit id
+                    cursor.getString(21),   // physical city
+                    cursor.getString(22)    // physical province
             );
             people.add(person);
             cursor.moveToNext();
@@ -170,8 +205,6 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
                 result_query = newText;
                 searchDatabase(result_query);
 
-
-
                 return true;
             }
         });
@@ -181,8 +214,6 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
     public void initToolbar() {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
     }
 
     @Override
@@ -190,7 +221,6 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
 
         outState.putString("userInput", result_query);
         super.onSaveInstanceState(outState);
-
     }
 
 
