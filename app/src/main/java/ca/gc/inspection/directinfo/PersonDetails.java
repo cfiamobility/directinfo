@@ -25,14 +25,14 @@ public class PersonDetails extends Activity {
         personPhone = findViewById(R.id.personDetailsPhoneTV);
         personEmail = findViewById(R.id.personDetailsEmailTV);
         personPosition = findViewById(R.id.personDetailsPositionTV);
-//        personAddress = findViewById(R.id.personDetailsAddressTV);
+        personAddress = findViewById(R.id.textView5);
 
         if (person != null) {
             personName.setText(person.getName());
             personPhone.setText(person.getPhone());
             personEmail.setText(person.getEmail());
             personPosition.setText(person.getTitle());
-//            personAddress.setText(person.getAddress());
+            personAddress.setText(person.getPostalAddress());
         }
     }
 }
