@@ -2,4 +2,5 @@
     <string name="app_name">Direct Info</string>
     <string name="about">About</string>
     <string name="aboutContent">DirectInfo is the nation-wide directory of employees, contractors and students of Agriculture and Agri-Food Canada (AAFC), Canadian Food Inspection Agency (CFIA), the Canadian Dairy Commission (CDC), Canadian Agriculture Review Tribunal (CART), Canadian Grain Commission (CGC), and the Farm Products Council of Canada (FPCC). The one-stop site contains contact information for every employee: names, phone numbers, electronic mail addresses, location information, title, and also occupational and subject expertise information. DirectInfo also functions as a "yellow page". It catalogues all working units in the department and agencies, delineates their functions and where they fit in the organization, and lists key contacts.</string>
+    <string name="searchHint">Search contacts,places,email and more</string>
 </resources>

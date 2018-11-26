@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 
-public class DirectInfoAbout  extends AppCompatActivity{
+public class DirectInfoAbout extends AppCompatActivity {
     Toolbar toolbar;
 
 
@@ -17,8 +17,7 @@ public class DirectInfoAbout  extends AppCompatActivity{
         setContentView(R.layout.activity_about);
         toolbar = findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar);
-      getSupportActionBar().setTitle("About DirectInfo");
-
+        getSupportActionBar().setTitle("About DirectInfo");
 
 
     }
