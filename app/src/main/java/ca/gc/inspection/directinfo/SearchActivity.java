@@ -1,10 +1,12 @@
 package ca.gc.inspection.directinfo;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -15,7 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.support.v7.app.AppCompatActivity;
 
 
@@ -60,7 +61,6 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
             result_query = savedInstanceState.getString("userInput");
             searchDatabase(result_query);
         }
-
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -168,7 +168,6 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
     @Override
     public void onItemClick(View view, int position) {
         Log.d(TAG, "onItemClick: starts");
-        Toast.makeText(SearchActivity.this, "Name: " + adapter.getPerson(position).getName(), Toast.LENGTH_LONG).show();
 
         Intent intent = new Intent(this, PersonDetails.class);
         intent.putExtra("PERSON", adapter.getPerson(position));
@@ -176,9 +175,26 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
     }
 
     @Override
-    public void onItemLongClick(View view, int position) {
+    public void onItemLongClick(View view, final int position) {
         Log.d(TAG, "onItemLongClick: starts");
-        onItemClick(view, position);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Add to Contacts?")
+                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(adapter.getPerson(position).addToContacts());
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+        AlertDialog addToContactsDialog = builder.create();
+        addToContactsDialog.show();
 
     }
 

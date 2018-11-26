@@ -11,7 +11,7 @@ public class PersonDetails extends Activity {
     TextView personPhone;
     TextView personEmail;
     TextView personPosition;
-    TextView personAddress;
+    TextView personAddressPhysical;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,14 +25,14 @@ public class PersonDetails extends Activity {
         personPhone = findViewById(R.id.personDetailsPhoneTV);
         personEmail = findViewById(R.id.personDetailsEmailTV);
         personPosition = findViewById(R.id.personDetailsPositionTV);
-        personAddress = findViewById(R.id.textView5);
+        personAddressPhysical = findViewById(R.id.physicalAddresstextview);
 
         if (person != null) {
             personName.setText(person.getName());
             personPhone.setText(person.getPhone());
             personEmail.setText(person.getEmail());
             personPosition.setText(person.getTitle());
-            personAddress.setText(person.getPostalAddress());
+            personAddressPhysical.setText(person.getPhysicalAddress());
         }
     }
 }
