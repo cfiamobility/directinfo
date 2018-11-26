@@ -11,5 +11,11 @@
         app:showAsAction="ifRoom|collapseActionView"
         >
     </item>
+    <item
+        android:id="@+id/abouticon"
+        android:title="@string/about"
+        app:showAsAction="never"
+        >
+    </item>
 
 </menu>

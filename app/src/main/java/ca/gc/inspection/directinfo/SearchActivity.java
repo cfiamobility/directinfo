@@ -178,6 +178,18 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.abouticon:
+                Intent intent = new Intent(this,DirectInfoAbout.class);
+                startActivity(intent);
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     public void initToolbar() {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
