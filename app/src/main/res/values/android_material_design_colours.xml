@@ -86,7 +86,7 @@ http://www.google.com/design/spec/style/color.html#color-ui-color-palette -->
 
     <!--blue-->
     <color name="md_blue_50">#E3F2FD</color>
-    <color name="md_blue_100">#BBDEFB</color>
+    <color name="md_blue_100">#bbdefb</color>
     <color name="md_blue_200">#90CAF9</color>
     <color name="md_blue_300">#64B5F6</color>
     <color name="md_blue_400">#42A5F5</color>
@@ -247,7 +247,7 @@ http://www.google.com/design/spec/style/color.html#color-ui-color-palette -->
     <!--deep orange-->
     <color name="md_deep_orange_50">#FBE9A7</color>
     <color name="md_deep_orange_100">#FFCCBC</color>
-    <color name="md_deep_orange_200">#FFAB91</color>
+    <color name="md_deep_orange_200">#ffab91</color>
     <color name="md_deep_orange_300">#FF8A65</color>
     <color name="md_deep_orange_400">#FF7043</color>
     <color name="md_deep_orange_500">#FF5722</color>
