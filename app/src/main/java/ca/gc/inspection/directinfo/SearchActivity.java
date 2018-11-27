@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,14 +29,14 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
 
     private static final String TAG = "SearchActivity";
 
-    TextView resultCount;
+    static TextView resultCount;
 
     DirectInfoDbHelper dbHelper;
-    SQLiteDatabase db;
+    static SQLiteDatabase db;
 
     RecyclerView recyclerView;
-    DirectInfoAdapter adapter;
-    ArrayList<Person> people;
+    static DirectInfoAdapter adapter;
+    static ArrayList<Person> people;
     SearchView searchView;
     Toolbar toolbar;
     String result_query;
@@ -70,7 +71,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
     }
 
     @SuppressLint("SetTextI18n")
-    public void searchDatabase(String textToSearch) {
+    public static void searchDatabase(String textToSearch) {
 
         final String[] projection = {
                 DirectInfo._ID,                                     // 0
@@ -228,6 +229,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
         return true;
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
@@ -235,14 +237,16 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
                 Intent intent = new Intent(this,DirectInfoAbout.class);
                 startActivity(intent);
 
-                // go to Gcdirectory website
-            case R.id.gcDirectory:
-                Intent intent2 = new Intent(this,GcdirectoryWebView.class);
-                startActivity(intent2);
+//                 go to Gcdirectory website
+            case R.id.gcdirectory:
+                String url = "http://gcdirectory-gcannuaire.ssc-spc.gc.ca/en/GCD/?pgid=009";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
 
                 // exit application
             case R.id.exit:
-                System.exit(1);
+                finish();
 
                 default:
                 return true;
@@ -254,8 +258,6 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
         setSupportActionBar(toolbar);
         //disable toolbar name
         getSupportActionBar().setTitle("");
-
-
     }
 
     @Override
