@@ -234,10 +234,19 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
             case R.id.abouticon:
                 Intent intent = new Intent(this,DirectInfoAbout.class);
                 startActivity(intent);
+
+                // go to Gcdirectory website
+            case R.id.gcDirectory:
+                Intent intent2 = new Intent(this,GcdirectoryWebView.class);
+                startActivity(intent2);
+
+                // exit application
+            case R.id.exit:
+                System.exit(1);
+
+                default:
                 return true;
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
     public void initToolbar() {

@@ -12,10 +12,25 @@
         >
     </item>
     <item
+        android:id="@+id/gcDirectory"
+        android:title="GCdirectory"
+        app:showAsAction="never"
+        >
+    </item>
+
+    <item
         android:id="@+id/abouticon"
         android:title="@string/about"
         app:showAsAction="never"
         >
     </item>
+
+    <item
+        android:id="@+id/exit"
+        android:title="Exit"
+        app:showAsAction="never"
+        >
+    </item>
+
 
 </menu>
