@@ -15,10 +15,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.SearchView;
+
 import android.widget.TextView;
 import android.support.v7.app.AppCompatActivity;
 
+
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.ArrayList;
 
@@ -36,7 +38,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
     RecyclerView recyclerView;
     DirectInfoAdapter adapter;
     ArrayList<Person> people;
-    SearchView searchView;
+    MaterialSearchView searchView;
     Toolbar toolbar;
     String result_query;
 
@@ -44,6 +46,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
         initToolbar();
 
 
@@ -200,27 +203,34 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu_search, menu);
 
         MenuItem menuItem = menu.findItem(R.id.searchView);
-        searchView = (SearchView) menuItem.getActionView();
-        searchView.setQueryHint(getString(R.string.searchHint));
-        searchView.onActionViewExpanded();
+        searchView = (MaterialSearchView) findViewById(R.id.search_view);
+        searchView.setMenuItem(menuItem);
+
+        searchView.setHint(getString(R.string.searchHint));
+
         if (result_query != null) {
             searchView.setQuery(result_query, false);
         }
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(String s) {
+            public boolean onQueryTextSubmit(String newText) {
+
+                result_query = newText;
+                searchDatabase(result_query);
+                recyclerView.setAdapter(adapter);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-
                 result_query = newText;
                 searchDatabase(result_query);
+                recyclerView.setAdapter(adapter);
 
                 return true;
             }
@@ -230,9 +240,9 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.abouticon:
-                Intent intent = new Intent(this,DirectInfoAbout.class);
+                Intent intent = new Intent(this, DirectInfoAbout.class);
                 startActivity(intent);
                 return true;
         }
@@ -244,7 +254,6 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //disable toolbar name
-        getSupportActionBar().setTitle("");
 
 
     }
@@ -255,6 +264,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
         outState.putString("userInput", result_query);
         super.onSaveInstanceState(outState);
     }
+
 
 
 } // end of class

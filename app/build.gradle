@@ -34,4 +34,8 @@ dependencies {
 
     //setting up searchView
     implementation 'com.android.support:appcompat-v7:27.1.1'
+
+    implementation 'com.miguelcatalan:materialsearchview:1.0.0'
+
+
 }
