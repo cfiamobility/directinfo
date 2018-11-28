@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,7 +16,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.support.v7.app.AppCompatActivity;
 
@@ -46,7 +47,6 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-
         initToolbar();
 
 
@@ -244,10 +244,23 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
             case R.id.abouticon:
                 Intent intent = new Intent(this, DirectInfoAbout.class);
                 startActivity(intent);
+                break;
+
+            case R.id.gcdirectory:
+                String url = "http://gcdirectory-gcannuaire.ssc-spc.gc.ca/en/GCD/?pgid=009";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+                break;
+
+            case R.id.exit:
+                finish();
+                break;
+
+                default:
                 return true;
         }
-
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
     public void initToolbar() {
@@ -256,6 +269,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
         //disable toolbar name
 
 
+        getSupportActionBar().setTitle("");
     }
 
     @Override
@@ -264,7 +278,5 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
         outState.putString("userInput", result_query);
         super.onSaveInstanceState(outState);
     }
-
-
 
 } // end of class

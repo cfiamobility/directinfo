@@ -19,8 +19,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:text="@string/aboutContent"
-            android:textStyle="bold"
-            >
+            android:textAlignment="viewStart"
+            android:textSize="14sp"
+            android:textStyle="bold">
 
         </TextView>
 
