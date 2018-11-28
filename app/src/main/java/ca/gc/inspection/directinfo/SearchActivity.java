@@ -244,21 +244,23 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
             case R.id.abouticon:
                 Intent intent = new Intent(this, DirectInfoAbout.class);
                 startActivity(intent);
+                break;
 
-//                 go to Gcdirectory website
             case R.id.gcdirectory:
                 String url = "http://gcdirectory-gcannuaire.ssc-spc.gc.ca/en/GCD/?pgid=009";
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);
+                break;
 
-                // exit application
             case R.id.exit:
                 finish();
+                break;
 
                 default:
                 return true;
         }
+        return true;
     }
 
     public void initToolbar() {
@@ -276,7 +278,5 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
         outState.putString("userInput", result_query);
         super.onSaveInstanceState(outState);
     }
-
-
 
 } // end of class

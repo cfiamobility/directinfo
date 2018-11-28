@@ -60,33 +60,15 @@ public class PersonDetails extends AppCompatActivity {
         postalAddress = findViewById(R.id.postalAddresstextview2);
 
 
-
-        // click on gcDirectory textView to go to GCdirectory website
         gcDirectory = findViewById(R.id.gcDirectoryTextview);
-//        gcDirectory.setText("http://gcdirectory-gcannuaire.ssc-spc.gc.ca/en/GCD/?pgid=009");
 
         gcDirectory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-                    NetworkInfo[] netInfo = cm.getAllNetworkInfo();
-                    for (NetworkInfo ni : netInfo) {
-                            if (ni.isConnected()){
                         String url = "http://gcdirectory-gcannuaire.ssc-spc.gc.ca/en/GCD/?pgid=009";
                         Intent i = new Intent(Intent.ACTION_VIEW);
                         i.setData(Uri.parse(url));
                         startActivity(i);
-                            }
-                        else if (!ni.isConnected()){
-                            Toast.makeText(getApplicationContext()," NO INTERNET SERVICE CANNOT PROCEED",Toast.LENGTH_LONG).show();
-                        }
-
-                        }
-//                    return haveConnectedWifi || haveConnectedMobile;
-//                String url = "http://gcdirectory-gcannuaire.ssc-spc.gc.ca/en/GCD/?pgid=009";
-//                Intent i = new Intent(Intent.ACTION_VIEW);
-//                i.setData(Uri.parse(url));
-//                startActivity(i);
             }
         });
 
@@ -125,7 +107,8 @@ public class PersonDetails extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu_details, menu);
+        menuInflater.inflate(R.menu.menu_search, menu);
+        menu.findItem(R.id.searchView).setVisible(false);
         return true;
     }
 
@@ -136,6 +119,7 @@ public class PersonDetails extends AppCompatActivity {
             case R.id.abouticon:
                 Intent intent = new Intent(this,DirectInfoAbout.class);
                 startActivity(intent);
+                break;
 
 //                 go to Gcdirectory website
             case R.id.gcdirectory:
@@ -143,13 +127,16 @@ public class PersonDetails extends AppCompatActivity {
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);
+                break;
 
                 // exit application
             case R.id.exit:
                   finish();
+                  break;
             default:
                 return true;
         }
+        return true;
     }
 
 }
