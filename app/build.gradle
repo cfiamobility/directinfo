@@ -28,10 +28,13 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation 'com.android.support:cardview-v7:27.1.1'
 
-
     //univocity parser is used for parsing the CSV file in this project
     implementation group: 'com.univocity', name: 'univocity-parsers', version: '2.7.6'
 
     //setting up searchView
     implementation 'com.android.support:appcompat-v7:27.1.1'
+
+    implementation 'com.miguelcatalan:materialsearchview:1.0.0'
+
+
 }

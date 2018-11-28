@@ -67,6 +67,7 @@ public class DownloadDatabase extends Activity {
 
         gedsOpenData = new File(getApplicationContext().getFilesDir() + "/searchResults-2fjctouo2svup1rjsb3ijl38f5.csv" );
         filePath = gedsOpenData.getPath() + "/";
+        hanldeDirectory(filePath);
         destination = getApplicationContext().getFilesDir().getPath() + "/";
 
 
@@ -126,7 +127,6 @@ public class DownloadDatabase extends Activity {
         @Override
         protected void onPostExecute(Void aVoid) {
             progressBar.setProgress(65);
-            hanldeDirectory(filePath);
             populateDatabase();
             progressBar.setProgress(100);
             downloadingTv.setText("DATABASE CREATED.");
