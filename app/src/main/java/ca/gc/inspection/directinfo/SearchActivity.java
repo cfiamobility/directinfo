@@ -5,11 +5,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,6 +20,7 @@ import android.view.View;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 
 import java.util.ArrayList;
@@ -40,6 +43,9 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
     Toolbar toolbar;
     String result_query;
 
+    ItemTouchHelper itemTouchHelper;
+    SwipeGestureController swipeGestureController;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +59,9 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
         db = dbHelper.getReadableDatabase();
 
         recyclerView = findViewById(R.id.searchResultsRecyclerView);
+        swipeGestureController = new SwipeGestureController();
+        itemTouchHelper = new ItemTouchHelper(swipeGestureController);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
 
         people = new ArrayList<>();
 
@@ -64,7 +73,6 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, recyclerView, this));
 
     }
@@ -197,6 +205,16 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
         addToContactsDialog.show();
 
     }
+
+/*    @Override
+    public void onSwipeRight(View view, int position) {
+        Toast.makeText(SearchActivity.this, "right: " + adapter.getPerson(position).getPhone(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onSwipeLeft(View view, int position) {
+        Toast.makeText(SearchActivity.this, "left: " + adapter.getPerson(position).getEmail(), Toast.LENGTH_SHORT).show();
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -10,10 +10,15 @@ import android.view.View;
 
 class RecyclerItemClickListener extends RecyclerView.SimpleOnItemTouchListener {
     private static final String TAG = "RecyclerItemClickListen";
+    private static final int SWIPE_DISTANCE_THRESHOLD = 100;
+    private static final int SWIPE_VELOCITY_THRESHOLD = 100;
+
 
     interface OnRecyclerClickListener {
         void onItemClick(View view, int position);
         void onItemLongClick(View view, int position);
+//        void  onSwipeRight(View view, int position);
+//        void onSwipeLeft(View view, int position);
     }
 
     private final OnRecyclerClickListener listener;
@@ -42,6 +47,25 @@ class RecyclerItemClickListener extends RecyclerView.SimpleOnItemTouchListener {
                     listener.onItemLongClick(childView, recyclerView.getChildAdapterPosition(childView));
                 }
             }
+/*
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+//                return super.onFling(e1, e2, velocityX, velocityY);
+                View childView = recyclerView.findChildViewUnder(e1.getX(), e1.getY());
+                float distanceX = e2.getX() - e1.getX();
+                float distanceY = e2.getY() - e1.getY();
+                if (Math.abs(distanceX) > Math.abs(distanceY) && Math.abs(distanceX) > SWIPE_DISTANCE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+                    if (distanceX > 0) {
+//                        onSwipeRight();
+                        listener.onSwipeRight(childView, recyclerView.getChildAdapterPosition(childView));
+                    }else {
+//                        onSwipeLeft();
+                        listener.onSwipeLeft(childView, recyclerView.getChildAdapterPosition(childView));
+                        return true;
+                    }
+                }
+                return false;
+            }*/
         });
 
     }
