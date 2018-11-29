@@ -1,22 +1,20 @@
 package ca.gc.inspection.directinfo;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.SearchView;
 import android.widget.TextView;
 import android.support.v7.app.AppCompatActivity;
 
@@ -43,6 +41,9 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
     Toolbar toolbar;
     String result_query;
 
+    ItemTouchHelper itemTouchHelper;
+    SwipeGestureController swipeGestureController;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +57,9 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
         db = dbHelper.getReadableDatabase();
 
         recyclerView = findViewById(R.id.searchResultsRecyclerView);
+        swipeGestureController = new SwipeGestureController();
+        itemTouchHelper = new ItemTouchHelper(swipeGestureController);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
 
         people = new ArrayList<>();
 
@@ -175,30 +179,6 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
         Intent intent = new Intent(this, PersonDetails.class);
         intent.putExtra("PERSON", adapter.getPerson(position));
         startActivity(intent);
-    }
-
-    @Override
-    public void onItemLongClick(View view, final int position) {
-        Log.d(TAG, "onItemLongClick: starts");
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Add to Contacts?")
-                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        startActivity(adapter.getPerson(position).addToContacts());
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-
-        AlertDialog addToContactsDialog = builder.create();
-        addToContactsDialog.show();
-
     }
 
     @Override
