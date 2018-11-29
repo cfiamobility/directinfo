@@ -1,14 +1,11 @@
 package ca.gc.inspection.directinfo;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -18,10 +15,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.SearchView;
 import android.widget.TextView;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
 
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
@@ -185,40 +180,6 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
         intent.putExtra("PERSON", adapter.getPerson(position));
         startActivity(intent);
     }
-
-    @Override
-    public void onItemLongClick(View view, final int position) {
-        Log.d(TAG, "onItemLongClick: starts");
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Add to Contacts?")
-                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        startActivity(adapter.getPerson(position).addToContacts());
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-
-        AlertDialog addToContactsDialog = builder.create();
-        addToContactsDialog.show();
-
-    }
-
-/*    @Override
-    public void onSwipeRight(View view, int position) {
-        Toast.makeText(SearchActivity.this, "right: " + adapter.getPerson(position).getPhone(), Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onSwipeLeft(View view, int position) {
-        Toast.makeText(SearchActivity.this, "left: " + adapter.getPerson(position).getEmail(), Toast.LENGTH_SHORT).show();
-    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
