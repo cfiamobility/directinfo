@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ca.gc.inspection.directinfo">
 
+    <uses-permission android:name="android.permission.SET_ALARM" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -17,16 +18,13 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
+                <action android:name="android.intent.action.MAIN"></action>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".DownloadDatabase" />
         <activity android:name=".SearchActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH"></action>
-            </intent-filter>
+
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
@@ -36,6 +34,15 @@
         <activity android:name=".PersonDetails"></activity>
 
         <activity android:name=".DirectInfoAbout"></activity>
+
+        <activity android:name=".SchedualDownloading">
+
+
+
+
+        </activity>
+
+
     </application>
 
 
