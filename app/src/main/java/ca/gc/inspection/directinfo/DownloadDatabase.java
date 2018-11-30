@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -46,6 +47,8 @@ public class DownloadDatabase extends Activity {
 
     ProgressBar progressBar;
     Button search;
+    //sharedpreference
+
 
     public static final String DI_CSV_FILE_URL = "http://directinfo.agr.gc.ca/directInfo/extracts/searchResults-2fjctouo2svup1rjsb3ijl38f5.csv";
 
@@ -53,6 +56,7 @@ public class DownloadDatabase extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_download_database);
+
 
         context = getApplicationContext();
         dbHelper = new DirectInfoDbHelper(context);
@@ -130,6 +134,7 @@ public class DownloadDatabase extends Activity {
             populateDatabase();
             progressBar.setProgress(100);
             downloadingTv.setText("DATABASE CREATED.");
+
         }
     }
 
