@@ -2,7 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ca.gc.inspection.directinfo">
 
+<<<<<<< HEAD
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+=======
+    <uses-permission android:name="android.permission.SET_ALARM" />
+>>>>>>> f6c2ecd628cbc980b8a001079c5a81a850affce8
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -20,23 +24,40 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
+                <action android:name="android.intent.action.MAIN"></action>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".DownloadDatabase" />
         <activity android:name=".SearchActivity">
+<<<<<<< HEAD
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
+=======
+>>>>>>> f6c2ecd628cbc980b8a001079c5a81a850affce8
 
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
+<<<<<<< HEAD
         <activity android:name=".PersonDetails" />
         <activity android:name=".DirectInfoAbout" />
+=======
+        <activity android:name=".PersonDetails"></activity>
+
+        <activity android:name=".DirectInfoAbout"></activity>
+
+        <activity android:name=".SchedualDownloading">
+
+
+
+
+        </activity>
+
+
+>>>>>>> f6c2ecd628cbc980b8a001079c5a81a850affce8
     </application>
 
 </manifest>
