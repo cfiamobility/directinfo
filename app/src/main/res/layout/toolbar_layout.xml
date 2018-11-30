@@ -7,8 +7,6 @@
     android:background="?attr/colorPrimary"
     android:id="@+id/toolbar1"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
-
-
     >
 
 

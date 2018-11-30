@@ -16,5 +16,17 @@
 
 
     </style>
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+
+<!--overflow button color-->
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:actionOverflowButtonStyle">@style/MyOverflowButtonStyle</item>
+
+      </style>
+
+    <style name="MyOverflowButtonStyle" parent="Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:tint">@color/md_black_1000 </item>
+    </style>
+
 </resources>
