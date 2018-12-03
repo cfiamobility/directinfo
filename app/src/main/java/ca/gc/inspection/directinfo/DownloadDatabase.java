@@ -8,12 +8,16 @@ import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.github.ybq.android.spinkit.style.FoldingCube;
+import com.github.ybq.android.spinkit.style.ThreeBounce;
+import com.github.ybq.android.spinkit.style.Wave;
 import com.univocity.parsers.csv.CsvParser;
 import com.univocity.parsers.csv.CsvParserSettings;
 
@@ -27,6 +31,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.security.spec.PSSParameterSpec;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -47,7 +52,11 @@ public class DownloadDatabase extends Activity {
 
     ProgressBar progressBar;
     Button search;
-    //sharedpreference
+
+
+
+
+
 
 
     public static final String DI_CSV_FILE_URL = "http://directinfo.agr.gc.ca/directInfo/extracts/searchResults-2fjctouo2svup1rjsb3ijl38f5.csv";
@@ -56,8 +65,9 @@ public class DownloadDatabase extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_download_database);
-
-
+        ThreeBounce wave= new ThreeBounce();
+        progressBar=findViewById(R.id.SpinKit);
+        progressBar.setIndeterminateDrawable(wave);
         context = getApplicationContext();
         dbHelper = new DirectInfoDbHelper(context);
         db = dbHelper.getWritableDatabase();
@@ -65,11 +75,11 @@ public class DownloadDatabase extends Activity {
         db.execSQL(DirectInfo.SQL_CREATE_ENTRIES);
 
         downloadingTv = findViewById(R.id.downloadingTv);
-        progressBar = findViewById(R.id.progressBar);
 
-        search = findViewById(R.id.searchBtn2);
 
-        gedsOpenData = new File(getApplicationContext().getFilesDir() + "/searchResults-2fjctouo2svup1rjsb3ijl38f5.csv" );
+//        search = findViewById(R.id.searchBtn2);
+
+        gedsOpenData = new File(getApplicationContext().getFilesDir() + "/searchResults-2fjctouo2svup1rjsb3ijl38f5.csv");
         filePath = gedsOpenData.getPath() + "/";
         hanldeDirectory(filePath);
         destination = getApplicationContext().getFilesDir().getPath() + "/";
@@ -81,40 +91,46 @@ public class DownloadDatabase extends Activity {
         downloadGEDSZipFile.execute(DI_CSV_FILE_URL);
 
 
-        search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(context, SearchActivity.class));
-            }
-        });
+
+
+//        search.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(context, SearchActivity.class));
+//            }
+//        });
 
     }
 
-    public class DownloadGEDSZipFile extends AsyncTask<String , Integer, Void>{
+    public class DownloadGEDSZipFile extends AsyncTask<String, Integer, Void> {
 
-        public Void doInBackground(String...urls) {
+        public Void doInBackground(String... urls) {
 
             try {
                 URL u = new URL(urls[0]);
                 URLConnection conn = u.openConnection();
-                progressBar.setProgress(10);
+
+
                 int contentLength = conn.getContentLength();
 
                 DataInputStream stream = new DataInputStream(u.openStream());
-                progressBar.setProgress(25);
+
+
 
                 byte[] buffer = new byte[contentLength];
                 stream.readFully(buffer);
                 stream.close();
-                progressBar.setProgress(40);
+
+
 
                 DataOutputStream fos = new DataOutputStream(new FileOutputStream(gedsOpenData));
                 fos.write(buffer);
                 fos.flush();
                 fos.close();
-                progressBar.setProgress(50);
 
-            } catch(FileNotFoundException e) {
+
+
+            } catch (FileNotFoundException e) {
 
             } catch (IOException e) {
 
@@ -130,10 +146,18 @@ public class DownloadDatabase extends Activity {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            progressBar.setProgress(65);
+
+
+
             populateDatabase();
-            progressBar.setProgress(100);
+
             downloadingTv.setText("DATABASE CREATED.");
+            startActivity(new Intent(getApplicationContext(),SearchActivity.class));
+            finish();
+
+
+
+
 
         }
     }
@@ -145,7 +169,7 @@ public class DownloadDatabase extends Activity {
         }
     }
 
-    public void populateDatabase(){
+    public void populateDatabase() {
 
         db.beginTransaction();
 
@@ -196,6 +220,7 @@ public class DownloadDatabase extends Activity {
             values.put(DirectInfo.COLUMN_NAME_PHYSICAL_PROVINCE_EN, row[24]);
             db.insert(DirectInfo.TABLE_NAME, null, values);
         }
+
 
         db.setTransactionSuccessful();
         db.endTransaction();
