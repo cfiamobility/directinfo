@@ -40,7 +40,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
     ArrayList<Person> people;
     MaterialSearchView searchView;
     Toolbar toolbar;
-    String result_query;
+    String result_query="";
 
     ItemTouchHelper itemTouchHelper;
     SwipeGestureController swipeGestureController;

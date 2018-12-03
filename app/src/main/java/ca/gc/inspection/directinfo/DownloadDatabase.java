@@ -51,7 +51,7 @@ public class DownloadDatabase extends Activity {
     public TextView downloadingTv;
 
     ProgressBar progressBar;
-    Button search;
+
 
 
 
