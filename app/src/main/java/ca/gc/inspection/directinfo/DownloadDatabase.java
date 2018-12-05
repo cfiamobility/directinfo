@@ -85,7 +85,7 @@ public class DownloadDatabase extends Activity {
         destination = getApplicationContext().getFilesDir().getPath() + "/";
 
 
-        downloadingTv.setText("DOWNLOADING....");
+        downloadingTv.setText(R.string.downloading);
 
         DownloadGEDSZipFile downloadGEDSZipFile = new DownloadGEDSZipFile();
         downloadGEDSZipFile.execute(DI_CSV_FILE_URL);
@@ -151,7 +151,7 @@ public class DownloadDatabase extends Activity {
 
             populateDatabase();
 
-            downloadingTv.setText("DATABASE CREATED.");
+            downloadingTv.setText(R.string.databaseCreated);
             startActivity(new Intent(getApplicationContext(),SearchActivity.class));
             finish();
 
