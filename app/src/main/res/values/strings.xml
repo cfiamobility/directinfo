@@ -6,4 +6,5 @@
     <string name="aboutTitle">About DirectInfo</string>
     <string name="downloading">DOWNLOADING....</string>
     <string name="databaseCreated">DATABASE CREATED.</string>
+    <string name="searchToolbar">Search Contacts</string>
 </resources>

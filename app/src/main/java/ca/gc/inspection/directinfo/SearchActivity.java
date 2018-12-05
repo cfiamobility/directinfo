@@ -254,7 +254,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
         //disable toolbar name
 
 
-        getSupportActionBar().setTitle("");
+        getSupportActionBar().setTitle(R.string.searchToolbar);
     }
 
     @Override
