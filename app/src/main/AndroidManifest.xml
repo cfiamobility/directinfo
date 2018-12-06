@@ -35,6 +35,7 @@
         </activity>
 
         <activity android:name=".PersonDetails" />
+        <activity android:name=".DetailedInfo" />
         <activity android:name=".DirectInfoAbout" />
         <activity android:name=".SchedualDownloading">
 
