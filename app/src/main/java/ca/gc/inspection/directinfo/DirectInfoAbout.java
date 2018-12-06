@@ -17,7 +17,7 @@ public class DirectInfoAbout extends AppCompatActivity {
         setContentView(R.layout.activity_about);
         toolbar = findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("About DirectInfo");
+        getSupportActionBar().setTitle(R.string.aboutTitle);
 
 
     }
