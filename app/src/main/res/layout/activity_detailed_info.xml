@@ -77,25 +77,22 @@
                         android:id="@+id/ivPersonPhoto"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
                         android:layout_marginStart="16dp"
-                        app:layout_constraintEnd_toStartOf="@+id/tvTitle"
+                        android:layout_marginTop="8dp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/tvTitle"
+                        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
                         app:srcCompat="@drawable/ic_account_circle_white_120dp" />
 
                     <android.support.design.widget.FloatingActionButton
                         android:id="@+id/addToContactsFAB"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginStart="32dp"
+                        android:layout_marginEnd="16dp"
                         android:clickable="true"
                         android:focusable="true"
                         app:elevation="0dp"
                         app:layout_constraintBottom_toBottomOf="@+id/ivPersonPhoto"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/tvTitle"
                         app:srcCompat="@drawable/ic_person_add_white_48dp" />
 
                     <ImageButton

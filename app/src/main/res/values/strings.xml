@@ -9,4 +9,8 @@
     <string name="postalAddress">Postal Address: </string>
     <string name="physicalAddress">Physical Address: </string>
     <string name="directInfo">Direct Info</string>
+    <string name="aboutTitle">About DirectInfo</string>
+    <string name="downloading">DOWNLOADING....</string>
+    <string name="databaseCreated">DATABASE CREATED.</string>
+    <string name="searchToolbar">Search Contacts</string>
 </resources>

@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
@@ -39,7 +40,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
     ArrayList<Person> people;
     MaterialSearchView searchView;
     Toolbar toolbar;
-    String result_query;
+    String result_query="";
 
     ItemTouchHelper itemTouchHelper;
     SwipeGestureController swipeGestureController;
@@ -67,6 +68,9 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
         if (savedInstanceState != null) {
             result_query = savedInstanceState.getString("userInput");
             searchDatabase(result_query);
+        }else{
+            searchDatabase("");
+            resultCount.setText("");
         }
 
         recyclerView.setAdapter(adapter);
@@ -193,6 +197,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
 
         searchView.setHint(getString(R.string.searchHint));
 
+
         if (result_query != null) {
             searchView.setQuery(result_query, false);
         }
@@ -253,7 +258,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
         //disable toolbar name
 
 
-        getSupportActionBar().setTitle("");
+        getSupportActionBar().setTitle(R.string.searchToolbar);
     }
 
     @Override
