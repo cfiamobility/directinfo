@@ -124,7 +124,7 @@ public class DetailedInfo extends AppCompatActivity {
         btnMapPostalAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startMaps(person.getPostalAddress());
+                startMaps(person.getPostalMapInfo());
             }
         });
 
@@ -154,7 +154,7 @@ public class DetailedInfo extends AppCompatActivity {
 
         Uri uri =Uri.parse("https://www.google.com/maps/search/?api=1&query="+address) ;
         Intent intent = new Intent(Intent.ACTION_VIEW,uri);
-    //    intent.setPackage("com.google.android.apps.maps");
+        intent.setPackage("com.google.android.apps.maps");
         startActivity(intent);
         Log.d(TAG, "startMaps: ");
 
