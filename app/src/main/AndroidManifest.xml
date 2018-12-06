@@ -36,6 +36,7 @@
 
         <activity android:name=".DetailedInfo" />
         <activity android:name=".DirectInfoAbout" />
+
     </application>
 
 </manifest>

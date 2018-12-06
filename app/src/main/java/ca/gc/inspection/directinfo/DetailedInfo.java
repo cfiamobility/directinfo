@@ -2,11 +2,11 @@ package ca.gc.inspection.directinfo;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -36,6 +36,7 @@ public class DetailedInfo extends AppCompatActivity {
 
     Toolbar toolbar;
 
+    private static final String TAG = "DetailedInfo";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +64,7 @@ public class DetailedInfo extends AppCompatActivity {
 
         tvEmail = findViewById(R.id.tvEmail);
         tvEmail.setText(person.getEmail());
+
 
         tvPhysicalAddress = findViewById(R.id.tvPhysicalAddress);
         tvPhysicalAddress.setText(person.getPhysicalAddress());
@@ -114,7 +116,7 @@ public class DetailedInfo extends AppCompatActivity {
         btnMapPhysicalAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startMaps(person.getPhysicalAddress());
+                startMaps(person.getPhysicalMapInfo());
             }
         });
 
@@ -127,7 +129,6 @@ public class DetailedInfo extends AppCompatActivity {
         });
 
 
-
     }
 
     public void startDial(String phoneNumber) {
@@ -136,7 +137,7 @@ public class DetailedInfo extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void startText(String phoneNumber){
+    public void startText(String phoneNumber) {
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("smsto:" + phoneNumber));
         startActivity(intent);
@@ -150,9 +151,12 @@ public class DetailedInfo extends AppCompatActivity {
     }
 
     public void startMaps(String address) {
-        //TODO
 
-        Intent intent;
+        Uri uri =Uri.parse("https://www.google.com/maps/search/?api=1&query="+address) ;
+        Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+    //    intent.setPackage("com.google.android.apps.maps");
+        startActivity(intent);
+        Log.d(TAG, "startMaps: ");
 
     }
 
@@ -167,9 +171,9 @@ public class DetailedInfo extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.abouticon:
-                Intent intent = new Intent(this,DirectInfoAbout.class);
+                Intent intent = new Intent(this, DirectInfoAbout.class);
                 startActivity(intent);
                 break;
 
