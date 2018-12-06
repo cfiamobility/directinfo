@@ -48,7 +48,6 @@ public class DownloadDatabase extends Activity {
     File gedsOpenData;
     String destination;
     String filePath;
-    public TextView downloadingTv;
 
     ProgressBar progressBar;
 
@@ -74,8 +73,6 @@ public class DownloadDatabase extends Activity {
         db.execSQL(DirectInfo.SQL_DELETE_ENTRIES);
         db.execSQL(DirectInfo.SQL_CREATE_ENTRIES);
 
-        downloadingTv = findViewById(R.id.downloadingTv);
-
 
 //        search = findViewById(R.id.searchBtn2);
 
@@ -84,8 +81,6 @@ public class DownloadDatabase extends Activity {
         hanldeDirectory(filePath);
         destination = getApplicationContext().getFilesDir().getPath() + "/";
 
-
-        downloadingTv.setText(R.string.downloading);
 
         DownloadGEDSZipFile downloadGEDSZipFile = new DownloadGEDSZipFile();
         downloadGEDSZipFile.execute(DI_CSV_FILE_URL);
@@ -151,7 +146,6 @@ public class DownloadDatabase extends Activity {
 
             populateDatabase();
 
-            downloadingTv.setText(R.string.databaseCreated);
             startActivity(new Intent(getApplicationContext(),SearchActivity.class));
             finish();
 

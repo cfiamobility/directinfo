@@ -180,7 +180,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
     public void onItemClick(View view, int position) {
         Log.d(TAG, "onItemClick: starts");
 
-        Intent intent = new Intent(this, PersonDetails.class);
+        Intent intent = new Intent(this, DetailedInfo.class);
         intent.putExtra("PERSON", adapter.getPerson(position));
         startActivity(intent);
     }
@@ -220,8 +220,12 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
                 return true;
             }
         });
+
+
         return true;
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
