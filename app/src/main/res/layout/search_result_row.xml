@@ -33,14 +33,6 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/personBranchTV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="Branch"
-            android:text="Mobility"
-            android:textSize="16sp" />
-
-        <TextView
             android:id="@+id/personDepartmentTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -54,8 +46,6 @@
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
         android:background="#607d8b"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"

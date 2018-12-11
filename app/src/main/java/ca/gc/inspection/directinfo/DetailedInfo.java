@@ -24,7 +24,8 @@ public class DetailedInfo extends AppCompatActivity {
     TextView tvPhysicalAddress;
     TextView tvPostalAddress;
 
-    FloatingActionButton fabAddToContacts;
+//    FloatingActionButton fabAddToContacts;
+    ImageButton fabAddToContacts;
     ImageButton btnCallPrimary;
     ImageButton btnCallMobile;
     ImageButton btnTextMobile;
@@ -42,9 +43,9 @@ public class DetailedInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed_info);
 
-        toolbar = findViewById(R.id.detailsToolbar);
+        toolbar = findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar);
-        toolbar.setTitle("");
+//        toolbar.setTitle("");
 
         Intent intent = getIntent();
         person = (Person) intent.getSerializableExtra("PERSON");
