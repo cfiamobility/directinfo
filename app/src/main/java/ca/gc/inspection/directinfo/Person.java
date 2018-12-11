@@ -161,4 +161,12 @@ public class Person implements Serializable {
 
         return intent;
     }
+    //for google map searching
+    public String getPhysicalMapInfo(){
+        return this.physicalStreetNumber+this.physicalStreetName+this.physicalCity+physicalProvince;
+    }
+
+    public String getPostalMapInfo(){
+        return this.postalStreetNumber+this.postalStreetName+postalCity+postalProvince;
+    }
 }

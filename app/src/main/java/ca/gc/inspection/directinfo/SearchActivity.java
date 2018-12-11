@@ -1,6 +1,8 @@
 package ca.gc.inspection.directinfo;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -244,6 +246,25 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
 
             case R.id.exit:
                 finish();
+                break;
+            case R.id.restBtn:
+                AlertDialog.Builder builder = new AlertDialog.Builder(SearchActivity.this);
+                builder.setTitle(R.string.DialogTitle);
+
+                builder.setNegativeButton(R.string.DialogNegativeBtn, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                builder.setPositiveButton(R.string.DialogPositiveBtn, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        startActivity(new Intent(SearchActivity.this, DownloadDatabase.class));
+                        finish();
+                    }
+                });
+                builder.show();
                 break;
 
                 default:
