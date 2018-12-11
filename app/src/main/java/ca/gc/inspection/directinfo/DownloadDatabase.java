@@ -4,37 +4,31 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
-import com.github.ybq.android.spinkit.style.FoldingCube;
 import com.github.ybq.android.spinkit.style.ThreeBounce;
-import com.github.ybq.android.spinkit.style.Wave;
 import com.univocity.parsers.csv.CsvParser;
 import com.univocity.parsers.csv.CsvParserSettings;
 
-import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.security.spec.PSSParameterSpec;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 
-import static ca.gc.inspection.directinfo.DirectInfoDbContract.*;
+import static ca.gc.inspection.directinfo.DirectInfoDbContract.DirectInfo;
 
 public class DownloadDatabase extends Activity {
 
@@ -50,12 +44,11 @@ public class DownloadDatabase extends Activity {
 
     ProgressBar progressBar;
 
+    private ImageView logo;
+    Animation animation;
 
-    // new link:  http://directinfo.agr.gc.ca/directInfo/extracts/searchResults-80a9p09u60ajoql7d0jg6iluu6.csv
 
-
-    // public static final String DI_CSV_FILE_URL = "http://directinfo.agr.gc.ca/directInfo/extracts/searchResults-2fjctouo2svup1rjsb3ijl38f5.csv";
-    public static final String DI_CSV_FILE_URL = " http://directinfo.agr.gc.ca/directInfo/extracts/searchResults-80a9p09u60ajoql7d0jg6iluu6.csv";
+    public static final String DI_CSV_FILE_URL = "http://directinfo.agr.gc.ca/directInfo/extracts/searchResults-2fjctouo2svup1rjsb3ijl38f5.csv";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,17 +63,25 @@ public class DownloadDatabase extends Activity {
         db.execSQL(DirectInfo.SQL_DELETE_ENTRIES);
         db.execSQL(DirectInfo.SQL_CREATE_ENTRIES);
 
+        // animation
+        logo = findViewById(R.id.logo);
+
+        animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.push_down);
+        logo.setAnimation(animation);
+
 
 //        search = findViewById(R.id.searchBtn2);
 
-//        gedsOpenData = new File(getApplicationContext().getFilesDir() + "/directinfo.csv");
-//        filePath = gedsOpenData.getPath() + "/";
-//        hanldeDirectory(filePath);
-//        destination = getApplicationContext().getFilesDir().getPath() + "/";
-//
-//
+        gedsOpenData = new File(getApplicationContext().getFilesDir() + "/searchResults-2fjctouo2svup1rjsb3ijl38f5.csv");
+        filePath = gedsOpenData.getPath() + "/";
+        hanldeDirectory(filePath);
+        destination = getApplicationContext().getFilesDir().getPath() + "/";
+
+
         DownloadGEDSZipFile downloadGEDSZipFile = new DownloadGEDSZipFile();
         downloadGEDSZipFile.execute(DI_CSV_FILE_URL);
+
+
 
 
 //        search.setOnClickListener(new View.OnClickListener() {
@@ -123,7 +124,7 @@ public class DownloadDatabase extends Activity {
                 fos.flush();
                 fos.close();
 
-                Log.d(TAG, "doInBackground: finish doInBackGround");
+
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -156,10 +157,10 @@ public class DownloadDatabase extends Activity {
         protected void onPostExecute(Void aVoid) {
 
 
-            Log.d(TAG, "onPostExecute: now come into onPostExecute");
+
             populateDatabase();
-            Log.d(TAG, "onPostExecute: finish onPost");
-            startActivity(new Intent(getApplicationContext(), SearchActivity.class));
+
+            startActivity(new Intent(getApplicationContext(),SearchActivity.class));
             finish();
 
 

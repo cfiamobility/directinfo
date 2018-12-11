@@ -69,7 +69,8 @@ public class SwipeGestureController extends Callback {
     private void drawButtons(Canvas c, RecyclerView.ViewHolder viewHolder, int actionState, float dX, float dY) {
 
         View itemView = viewHolder.itemView;
-        Rect rectangle= new Rect(itemView.getLeft(), itemView.getTop() + 100,itemView.getRight(), itemView.getBottom() - 80);
+       // Rect rectangle= new Rect(itemView.getLeft(), itemView.getTop() + 100,itemView.getRight(), itemView.getBottom() - 80);
+        Rect rectangle= new Rect(itemView.getLeft(), itemView.getTop() ,itemView.getRight(), itemView.getBottom() );
 
         if (actionState == ACTION_STATE_SWIPE && dX > 0) {
             Drawable icon = ContextCompat.getDrawable(itemView.getContext(), R.drawable.swipe_call_image);
