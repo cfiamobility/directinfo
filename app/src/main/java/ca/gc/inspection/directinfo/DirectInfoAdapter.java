@@ -20,8 +20,8 @@ public class DirectInfoAdapter extends RecyclerView.Adapter<DirectInfoAdapter.Vi
     class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView personNameTV;
-        TextView personEmailTV;
-        TextView personPhoneTV;
+//        TextView personEmailTV;
+//        TextView personPhoneTV;
         TextView personPositionTV;
 //        ImageView imageView;
 //        TextView personAddressTV;
@@ -31,8 +31,8 @@ public class DirectInfoAdapter extends RecyclerView.Adapter<DirectInfoAdapter.Vi
             super(itemView);
 
             personNameTV = itemView.findViewById(R.id.personNameTV);
-            personEmailTV = itemView.findViewById(R.id.personEmailTV);
-            personPhoneTV = itemView.findViewById(R.id.personPhoneTV);
+//            personEmailTV = itemView.findViewById(R.id.personEmailTV);
+//            personPhoneTV = itemView.findViewById(R.id.personPhoneTV);
             personPositionTV = itemView.findViewById(R.id.personPositionTV);
 //            personAddressTV = itemView.findViewById(R.id.personAddressTV);
 //            imageView = itemView.findViewById(R.id.imageView);
@@ -60,8 +60,8 @@ public class DirectInfoAdapter extends RecyclerView.Adapter<DirectInfoAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         viewHolder.personNameTV.setText(people.get(i).getName());
-        viewHolder.personEmailTV.setText(people.get(i).getEmail());
-        viewHolder.personPhoneTV.setText(people.get(i).getPhone());
+//        viewHolder.personEmailTV.setText(people.get(i).getEmail());
+//        viewHolder.personPhoneTV.setText(people.get(i).getPhone());
         viewHolder.personPositionTV.setText(people.get(i).getTitle());
 //        viewHolder.personAddressTV.setText(people.get(i).getAddress());
 

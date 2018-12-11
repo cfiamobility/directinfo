@@ -7,7 +7,6 @@ import android.support.v7.widget.Toolbar;
 
 
 public class DirectInfoAbout extends AppCompatActivity {
-    Toolbar toolbar;
 
 
     @Override
@@ -15,9 +14,6 @@ public class DirectInfoAbout extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_about);
-        toolbar = findViewById(R.id.toolbar1);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(R.string.aboutTitle);
 
 
     }
