@@ -24,6 +24,8 @@ public class DetailedInfo extends AppCompatActivity {
     TextView tvPhysicalAddress;
     TextView tvPostalAddress;
 
+    TextView tvDisplayMobile;
+
 //    FloatingActionButton fabAddToContacts;
     ImageButton fabAddToContacts;
     ImageButton btnCallPrimary;
@@ -85,7 +87,8 @@ public class DetailedInfo extends AppCompatActivity {
         btnCallPrimary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startDial(person.getPhone());
+                String primary = person.getPhone().subSequence(0, 14).toString();
+                startDial(primary);
             }
         });
 
@@ -129,6 +132,13 @@ public class DetailedInfo extends AppCompatActivity {
             }
         });
 
+        if (person.getMobile() == null) {
+            tvMobile.setVisibility(View.INVISIBLE);
+            tvDisplayMobile = findViewById(R.id.tvMobilePhoneDisplay);
+            tvDisplayMobile.setVisibility(View.INVISIBLE);
+            btnTextMobile.setVisibility(View.INVISIBLE);
+            btnCallMobile.setVisibility(View.INVISIBLE);
+        }
 
     }
 
