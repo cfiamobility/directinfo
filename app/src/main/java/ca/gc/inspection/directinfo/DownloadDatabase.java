@@ -48,7 +48,7 @@ public class DownloadDatabase extends Activity {
     Animation animation;
 
 
-    public static final String DI_CSV_FILE_URL = "http://directinfo.agr.gc.ca/directInfo/extracts/searchResults-2fjctouo2svup1rjsb3ijl38f5.csv";
+    public static final String DI_CSV_FILE_URL = "http://directinfo.agr.gc.ca/directInfo/extracts/searchResults-80a9p09u60ajoql7d0jg6iluu6.csv";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,10 +72,10 @@ public class DownloadDatabase extends Activity {
 
 //        search = findViewById(R.id.searchBtn2);
 
-        gedsOpenData = new File(getApplicationContext().getFilesDir() + "/searchResults-2fjctouo2svup1rjsb3ijl38f5.csv");
-        filePath = gedsOpenData.getPath() + "/";
-        hanldeDirectory(filePath);
-        destination = getApplicationContext().getFilesDir().getPath() + "/";
+//        gedsOpenData = new File(getApplicationContext().getFilesDir() + "/searchResults-2fjctouo2svup1rjsb3ijl38f5.csv");
+//        filePath = gedsOpenData.getPath() + "/";
+//        hanldeDirectory(filePath);
+//        destination = getApplicationContext().getFilesDir().getPath() + "/";
 
 
         DownloadGEDSZipFile downloadGEDSZipFile = new DownloadGEDSZipFile();
@@ -101,8 +101,9 @@ public class DownloadDatabase extends Activity {
             try {
 
                 gedsOpenData = new File(getApplicationContext().getFilesDir() + "/directinfo.csv");
+                gedsOpenData.createNewFile();
 
-              //  gedsOpenData.createNewFile();
+                //  gedsOpenData.createNewFile();
 
 //                filePath = gedsOpenData.getPath() + "/";
 //
