@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -52,20 +51,18 @@ public class DownloadDatabase extends Activity {
     ProgressBar progressBar;
 
 
+    // new link:  http://directinfo.agr.gc.ca/directInfo/extracts/searchResults-80a9p09u60ajoql7d0jg6iluu6.csv
 
 
-
-
-
-
-    public static final String DI_CSV_FILE_URL = "http://directinfo.agr.gc.ca/directInfo/extracts/searchResults-2fjctouo2svup1rjsb3ijl38f5.csv";
+    // public static final String DI_CSV_FILE_URL = "http://directinfo.agr.gc.ca/directInfo/extracts/searchResults-2fjctouo2svup1rjsb3ijl38f5.csv";
+    public static final String DI_CSV_FILE_URL = " http://directinfo.agr.gc.ca/directInfo/extracts/searchResults-80a9p09u60ajoql7d0jg6iluu6.csv";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_download_database);
-        ThreeBounce wave= new ThreeBounce();
-        progressBar=findViewById(R.id.SpinKit);
+        ThreeBounce wave = new ThreeBounce();
+        progressBar = findViewById(R.id.SpinKit);
         progressBar.setIndeterminateDrawable(wave);
         context = getApplicationContext();
         dbHelper = new DirectInfoDbHelper(context);
@@ -76,16 +73,14 @@ public class DownloadDatabase extends Activity {
 
 //        search = findViewById(R.id.searchBtn2);
 
-        gedsOpenData = new File(getApplicationContext().getFilesDir() + "/searchResults-2fjctouo2svup1rjsb3ijl38f5.csv");
-        filePath = gedsOpenData.getPath() + "/";
-        hanldeDirectory(filePath);
-        destination = getApplicationContext().getFilesDir().getPath() + "/";
-
-
+//        gedsOpenData = new File(getApplicationContext().getFilesDir() + "/directinfo.csv");
+//        filePath = gedsOpenData.getPath() + "/";
+//        hanldeDirectory(filePath);
+//        destination = getApplicationContext().getFilesDir().getPath() + "/";
+//
+//
         DownloadGEDSZipFile downloadGEDSZipFile = new DownloadGEDSZipFile();
         downloadGEDSZipFile.execute(DI_CSV_FILE_URL);
-
-
 
 
 //        search.setOnClickListener(new View.OnClickListener() {
@@ -97,38 +92,44 @@ public class DownloadDatabase extends Activity {
 
     }
 
+
     public class DownloadGEDSZipFile extends AsyncTask<String, Integer, Void> {
 
         public Void doInBackground(String... urls) {
-
+            Log.d(TAG, "doInBackground: come into doInBackGround");
             try {
+
+                gedsOpenData = new File(getApplicationContext().getFilesDir() + "/directinfo.csv");
+
+              //  gedsOpenData.createNewFile();
+
+//                filePath = gedsOpenData.getPath() + "/";
+//
+//                destination = getApplicationContext().getFilesDir().getPath() + "/";
+//                hanldeDirectory(filePath);
                 URL u = new URL(urls[0]);
                 URLConnection conn = u.openConnection();
 
-
                 int contentLength = conn.getContentLength();
-
                 DataInputStream stream = new DataInputStream(u.openStream());
-
 
 
                 byte[] buffer = new byte[contentLength];
                 stream.readFully(buffer);
                 stream.close();
 
-
-
                 DataOutputStream fos = new DataOutputStream(new FileOutputStream(gedsOpenData));
                 fos.write(buffer);
                 fos.flush();
                 fos.close();
 
-
+                Log.d(TAG, "doInBackground: finish doInBackGround");
 
             } catch (FileNotFoundException e) {
-
+                e.printStackTrace();
+                e.getMessage();
             } catch (IOException e) {
-
+                e.getMessage();
             }
 
             return null;
@@ -138,19 +139,28 @@ public class DownloadDatabase extends Activity {
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
         }
+//
+//        @Override
+//        protected void onPreExecute() {
+//            gedsOpenData = new File(getApplicationContext().getFilesDir() + "/directinfo.csv");
+//            filePath = gedsOpenData.getPath() + "/";
+//
+//            destination = getApplicationContext().getFilesDir().getPath() + "/";
+//            hanldeDirectory(filePath);
+//            Log.d(TAG, "onPreExecute: finish onPreExe");
+//
+//
+//        }
 
         @Override
         protected void onPostExecute(Void aVoid) {
 
 
-
+            Log.d(TAG, "onPostExecute: now come into onPostExecute");
             populateDatabase();
-
-            startActivity(new Intent(getApplicationContext(),SearchActivity.class));
+            Log.d(TAG, "onPostExecute: finish onPost");
+            startActivity(new Intent(getApplicationContext(), SearchActivity.class));
             finish();
-
-
-
 
 
         }
@@ -173,7 +183,7 @@ public class DownloadDatabase extends Activity {
 
         CsvParser parser = new CsvParser(settings);
 
-        String[] row;
+
 
         /*
         The downloaded CSV file is encoded in ANSI which did not process properly with the parser used.
@@ -182,39 +192,45 @@ public class DownloadDatabase extends Activity {
         Oracle website @ https://docs.oracle.com/javase/8/docs/technotes/guides/intl/encoding.doc.html
         This encoding now shows the names and addresses with the proper format.
         */
-        parser.beginParsing(gedsOpenData, "Cp1252");
+        try {
+            parser.beginParsing(gedsOpenData, "Cp1252");
+            String[] row;
+            while ((row = parser.parseNext()) != null) {
 
-        while ((row = parser.parseNext()) != null) {
+                ContentValues values = new ContentValues();
+                values.put(DirectInfo.COLUMN_NAME_FIRST_NAME, row[0]);
+                values.put(DirectInfo.COLUMN_NAME_LAST_NAME, row[1]);
+                values.put(DirectInfo.COLUMN_NAME_PREFIX_EN, row[2]);
+                values.put(DirectInfo.COLUMN_NAME_TITLE_EN, row[3]);
+                values.put(DirectInfo.COLUMN_NAME_TELEPHONE_NUMBER, row[4]);
+                values.put(DirectInfo.COLUMN_NAME_MOBILE_NUMBER, row[5]);
+                values.put(DirectInfo.COLUMN_NAME_EMAIL, row[6]);
+                values.put(DirectInfo.COLUMN_NAME_POSTAL_STREET_NUMBER, row[7]);
+                values.put(DirectInfo.COLUMN_NAME_POSTAL_STREET_NAME, row[8]);
+                values.put(DirectInfo.COLUMN_NAME_POSTAL_BUILDING_UNIT_TYPE, row[9]);
+                values.put(DirectInfo.COLUMN_NAME_POSTAL_BUILDING_UNIT_ID, row[10]);
+                values.put(DirectInfo.COLUMN_NAME_PO_BOX_EN, row[11]);
+                values.put(DirectInfo.COLUMN_NAME_POSTAL_CITY_EN, row[12]);
+                values.put(DirectInfo.COLUMN_NAME_POSTAL_PROVINCE_EN, row[13]);
+                values.put(DirectInfo.COLUMN_NAME_C, row[14]);
+                values.put(DirectInfo.COLUMN_NAME_POSTAL_CODE, row[15]);
+                values.put(DirectInfo.COLUMN_NAME_BUILDING_NAME_EN, row[16]);
+                values.put(DirectInfo.COLUMN_NAME_FLOOR, row[17]);
+                values.put(DirectInfo.COLUMN_NAME_ROOM, row[18]);
+                values.put(DirectInfo.COLUMN_NAME_PHYSICAL_STREET_NUMBER, row[19]);
+                values.put(DirectInfo.COLUMN_NAME_PHYSICAL_STREET_NAME, row[20]);
+                values.put(DirectInfo.COLUMN_NAME_PHYSICAL_BUILDING_UNIT_TYPE, row[21]);
+                values.put(DirectInfo.COLUMN_NAME_PHYSICAL_BUILDING_UNIT_ID, row[22]);
+                values.put(DirectInfo.COLUMN_NAME_PHYSICAL_CITY_EN, row[23]);
+                values.put(DirectInfo.COLUMN_NAME_PHYSICAL_PROVINCE_EN, row[24]);
+                db.insert(DirectInfo.TABLE_NAME, null, values);
+            }
 
-            ContentValues values = new ContentValues();
-            values.put(DirectInfo.COLUMN_NAME_FIRST_NAME, row[0]);
-            values.put(DirectInfo.COLUMN_NAME_LAST_NAME, row[1]);
-            values.put(DirectInfo.COLUMN_NAME_PREFIX_EN, row[2]);
-            values.put(DirectInfo.COLUMN_NAME_TITLE_EN, row[3]);
-            values.put(DirectInfo.COLUMN_NAME_TELEPHONE_NUMBER, row[4]);
-            values.put(DirectInfo.COLUMN_NAME_MOBILE_NUMBER, row[5]);
-            values.put(DirectInfo.COLUMN_NAME_EMAIL, row[6]);
-            values.put(DirectInfo.COLUMN_NAME_POSTAL_STREET_NUMBER, row[7]);
-            values.put(DirectInfo.COLUMN_NAME_POSTAL_STREET_NAME, row[8]);
-            values.put(DirectInfo.COLUMN_NAME_POSTAL_BUILDING_UNIT_TYPE, row[9]);
-            values.put(DirectInfo.COLUMN_NAME_POSTAL_BUILDING_UNIT_ID, row[10]);
-            values.put(DirectInfo.COLUMN_NAME_PO_BOX_EN, row[11]);
-            values.put(DirectInfo.COLUMN_NAME_POSTAL_CITY_EN, row[12]);
-            values.put(DirectInfo.COLUMN_NAME_POSTAL_PROVINCE_EN, row[13]);
-            values.put(DirectInfo.COLUMN_NAME_C, row[14]);
-            values.put(DirectInfo.COLUMN_NAME_POSTAL_CODE, row[15]);
-            values.put(DirectInfo.COLUMN_NAME_BUILDING_NAME_EN, row[16]);
-            values.put(DirectInfo.COLUMN_NAME_FLOOR, row[17]);
-            values.put(DirectInfo.COLUMN_NAME_ROOM, row[18]);
-            values.put(DirectInfo.COLUMN_NAME_PHYSICAL_STREET_NUMBER, row[19]);
-            values.put(DirectInfo.COLUMN_NAME_PHYSICAL_STREET_NAME, row[20]);
-            values.put(DirectInfo.COLUMN_NAME_PHYSICAL_BUILDING_UNIT_TYPE, row[21]);
-            values.put(DirectInfo.COLUMN_NAME_PHYSICAL_BUILDING_UNIT_ID, row[22]);
-            values.put(DirectInfo.COLUMN_NAME_PHYSICAL_CITY_EN, row[23]);
-            values.put(DirectInfo.COLUMN_NAME_PHYSICAL_PROVINCE_EN, row[24]);
-            db.insert(DirectInfo.TABLE_NAME, null, values);
+        } catch (IllegalArgumentException e) {
+            e.getMessage();
+        } finally {
+            parser.stopParsing();
         }
-
 
         db.setTransactionSuccessful();
         db.endTransaction();

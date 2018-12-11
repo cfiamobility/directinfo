@@ -2,12 +2,18 @@ package ca.gc.inspection.directinfo;
 
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 //import android.database.sqlite.SQLiteDatabase;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -20,21 +26,24 @@ public class MainActivity extends Activity {
     private static final String TAG = "MainActivity";
     Context context;
 
-    Button downloadBtn;
-//    Button searchBtn;
+
     SharedPreferences sharedPreferences;
     boolean check;
     long previous;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         context = getApplicationContext();
 
-        downloadBtn = findViewById(R.id.downloadBtn);
-//        searchBtn = findViewById(R.id.searchBtn);
+
+
+
+
+
+
         sharedPreferences = getApplication().getSharedPreferences("check", MODE_PRIVATE);
 
 
@@ -43,7 +52,6 @@ public class MainActivity extends Activity {
         check = sharedPreferences.getBoolean("checkboolean", true);
         long currentTime = System.currentTimeMillis();
         Log.d("TIME", "onCreate: " + currentTime);
-
 
 
         if (check) {
@@ -69,6 +77,6 @@ public class MainActivity extends Activity {
         }
 
 
-
     }
+
 }
