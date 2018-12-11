@@ -117,7 +117,7 @@ http://www.google.com/design/spec/style/color.html#color-ui-color-palette -->
     <color name="md_light_blue_A700">#0091EA</color>
 
     <!-- cyan -->
-    <color name="md_cyan_50">#E0F7FA</color>
+    <color name="md_cyan_50">#e0f7fa</color>
     <color name="md_cyan_100">#B2EBF2</color>
     <color name="md_cyan_200">#80DEEA</color>
     <color name="md_cyan_300">#4DD0E1</color>

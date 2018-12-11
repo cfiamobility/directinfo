@@ -26,21 +26,18 @@
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
             android:paddingLeft="16dp"
-            android:paddingTop="80dp"
+            android:paddingTop="60dp"
             android:text="Lingwan Zhou"
             android:textColor="@android:color/white"
             android:textSize="35dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="@id/contact_banner"
+            app:layout_constraintTop_toTopOf="@id/contact_banner" />
 
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:paddingLeft="16dp"
             android:text="Mobile Developer"
             android:textColor="@android:color/white"
@@ -52,25 +49,24 @@
             android:id="@+id/btnTextMobile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
             android:background="@android:color/transparent"
-            android:src="@drawable/ic_message_white"
-            app:layout_constraintBottom_toBottomOf="@+id/contact_banner"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/addToContactsFAB" />
+            android:src="@drawable/ic_textsms_red_24dp"
+            app:layout_constraintEnd_toEndOf="@+id/addToContactsFAB"
+            app:layout_constraintTop_toTopOf="@+id/tvMobilePhone" />
 
         <ImageButton
             android:id="@+id/addToContactsFAB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="16dp"
             android:background="@android:color/transparent"
             android:clickable="true"
             android:focusable="true"
             app:layout_constraintBottom_toBottomOf="@+id/contact_banner"
-            app:layout_constraintEnd_toStartOf="@+id/btnTextMobile"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+            app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/ic_person_add_white" />
 
         <ImageButton
@@ -91,6 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:paddingTop="13dp"
+            android:textColor="@color/md_black_1000"
             app:layout_constraintStart_toEndOf="@+id/btnCallPrimary"
             app:layout_constraintTop_toTopOf="@+id/btnCallPrimary"
             tools:text="+1 (245) 675 4354" />
@@ -100,6 +97,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/work"
+            android:textColor="@color/md_black_1000"
             app:layout_constraintStart_toStartOf="@+id/tvPrimaryPhone"
             app:layout_constraintTop_toBottomOf="@+id/tvPrimaryPhone" />
 
@@ -110,6 +108,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:background="@android:color/transparent"
+            android:src="@drawable/ic_phone_red_24dp"
             app:layout_constraintStart_toStartOf="@+id/btnCallPrimary"
             app:layout_constraintTop_toBottomOf="@+id/tvPrimaryPhoneDisplay" />
 
@@ -118,6 +117,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="+1 (989) 787 6767"
+            android:textColor="@color/md_black_1000"
             app:layout_constraintStart_toStartOf="@+id/tvPrimaryPhoneDisplay"
             app:layout_constraintTop_toTopOf="@+id/btnCallMobile" />
 
@@ -126,6 +126,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/mobile"
+            android:textColor="@color/md_black_1000"
             app:layout_constraintStart_toStartOf="@+id/tvMobilePhone"
             app:layout_constraintTop_toBottomOf="@+id/tvMobilePhone" />
 
@@ -157,6 +158,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
+            android:textColor="@color/md_black_1000"
             app:layout_constraintStart_toStartOf="@+id/tvMobilePhoneDisplay"
             app:layout_constraintTop_toTopOf="@+id/btnSendEmail" />
 
@@ -165,6 +167,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/work"
+            android:textColor="@color/md_black_1000"
             app:layout_constraintStart_toStartOf="@+id/tvEmail"
             app:layout_constraintTop_toBottomOf="@+id/tvEmail" />
 
@@ -196,6 +199,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/physicalAddress"
+            android:textColor="@color/md_black_1000"
             app:layout_constraintStart_toStartOf="@+id/tvEmailDisplay"
             app:layout_constraintTop_toTopOf="@+id/btnMapPhysicalAddress" />
 
@@ -203,6 +207,7 @@
             android:id="@+id/tvPhysicalAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/md_black_1000"
             app:layout_constraintStart_toStartOf="@+id/tvPhysicalAddressTitle"
             app:layout_constraintTop_toBottomOf="@+id/tvPhysicalAddressTitle"
             tools:text="TextView" />
@@ -234,6 +239,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/postalAddress"
+            android:textColor="@color/md_black_1000"
             app:layout_constraintStart_toStartOf="@+id/tvPhysicalAddress"
             app:layout_constraintTop_toTopOf="@+id/btnMapPostalAddress" />
 
@@ -242,6 +248,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
+            android:textColor="@color/md_black_1000"
             app:layout_constraintStart_toStartOf="@+id/tvPostalAddressTitle"
             app:layout_constraintTop_toBottomOf="@+id/tvPostalAddressTitle" />
 

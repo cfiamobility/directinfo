@@ -10,6 +10,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 //import android.database.sqlite.SQLiteDatabase;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -38,45 +41,74 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         context = getApplicationContext();
 
-
-
-
-
-
-
-        sharedPreferences = getApplication().getSharedPreferences("check", MODE_PRIVATE);
-
+        sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
 
         previous = sharedPreferences.getLong("time", System.currentTimeMillis());
-
         check = sharedPreferences.getBoolean("checkboolean", true);
         long currentTime = System.currentTimeMillis();
         Log.d("TIME", "onCreate: " + currentTime);
 
 
         if (check) {
-            startActivity(new Intent(context, DownloadDatabase.class));
-            Log.d(TAG, "onCreate: TIME FIRST RUN");
-            sharedPreferences.edit().putBoolean("checkboolean", false).putLong("time", System.currentTimeMillis()).commit();
-            finish();
+
+            if (hasInternetConnection(this)) {
+                editor.putBoolean("checkboolean", false).putLong("time", System.currentTimeMillis()).commit();
+                Log.d(TAG, "onCreate: TIME FIRST RUN");
+                startActivity(new Intent(context, DownloadDatabase.class));
+                finish();
+            } else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("Check Network Connection")
+                        .setMessage("Please make you sure you have a working internet connection and try again")
+                        .setPositiveButton(R.string.DialogPositiveBtn, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                finish();
+                            }
+                        }).show();
+            }
 
 
         } else {
             if (System.currentTimeMillis() - previous >= 60000) {
-                startActivity(new Intent(context, DownloadDatabase.class));
-                sharedPreferences.edit().putBoolean("checkboolean", false).putLong("time", System.currentTimeMillis()).commit();
-                Log.d(TAG, "onCreate: TIME > 1 MIN");
-                finish();
+
+                if (hasInternetConnection(this)) {
+                    editor.putBoolean("checkboolean", false).putLong("time", System.currentTimeMillis()).commit();
+                    Log.d(TAG, "onCreate: TIME > 1 MIN");
+                    startActivity(new Intent(context, DownloadDatabase.class));
+                    finish();
+                } else if (!hasInternetConnection(this) && !check) {
+                    startActivity(new Intent(context, SearchActivity.class));
+                    finish();
+                }else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setTitle("Check Network Connection")
+                            .setMessage("Please make you sure you have a working internet connection and try again")
+                            .setPositiveButton(R.string.DialogPositiveBtn, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    finish();
+                                }
+                            }).show();
+                }
+
             } else {
+                Log.d(TAG, "onCreate: TIME < 1 MIN");
                 startActivity(new Intent(context, SearchActivity.class));
                 finish();
-
-                Log.d(TAG, "onCreate: TIME < 1 MIN");
             }
 
         }
-
-
     }
 
-}
+
+    public static boolean hasInternetConnection(final Context context) {
+        final ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        final Network network = connectivityManager.getActiveNetwork();
+        final NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(network);
+
+        return capabilities != null && capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED);
+    }
+} // end of class
