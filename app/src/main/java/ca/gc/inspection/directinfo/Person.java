@@ -98,7 +98,7 @@ public class Person implements Serializable {
         return mobile;
     }
 
-    public String getPhysicalAddress () {
+    public String getPhysicalAddress() {
         StringBuilder physicalAddress = new StringBuilder();
 
         if (buildingName != null && !buildingName.isEmpty())
@@ -121,7 +121,7 @@ public class Person implements Serializable {
         return physicalAddress.toString();
     }
 
-    public String getPostalAddress(){
+    public String getPostalAddress() {
         StringBuilder postalAddress = new StringBuilder();
 
         if (buildingName != null && !buildingName.isEmpty())
@@ -145,7 +145,7 @@ public class Person implements Serializable {
         return postalAddress.toString();
     }
 
-    public Intent addToContacts(){
+    public Intent addToContacts() {
         Intent intent = new Intent(ContactsContract.Intents.Insert.ACTION);
         intent.setType(ContactsContract.RawContacts.CONTENT_TYPE);
 
@@ -161,12 +161,22 @@ public class Person implements Serializable {
 
         return intent;
     }
+
     //for google map searching
-    public String getPhysicalMapInfo(){
-        return this.physicalStreetNumber+this.physicalStreetName+this.physicalCity+physicalProvince;
+    public String getPhysicalMapInfo() {
+        this.physicalStreetNumber = (this.physicalStreetNumber != null) ? this.physicalStreetNumber : "";
+        this.physicalProvince = (this.physicalProvince != null) ? this.physicalProvince : "";
+        this.physicalCity = (this.physicalCity != null) ? this.physicalCity : "";
+        this.physicalStreetName = (this.physicalStreetName != null) ? this.physicalStreetName : "";
+
+        return this.physicalStreetNumber + this.physicalStreetName + this.physicalCity + physicalProvince;
     }
 
-    public String getPostalMapInfo(){
-        return this.postalStreetNumber+this.postalStreetName+postalCity+postalProvince;
+    public String getPostalMapInfo() {
+        this.postalStreetNumber = (this.postalStreetNumber != null) ? this.postalStreetNumber : "";
+        this.postalStreetName = (this.postalStreetName != null) ? this.postalStreetName : "";
+        this.postalCity = (this.postalCity != null) ? this.postalCity : "";
+        this.postalProvince = (this.postalProvince != null) ? this.postalProvince : "";
+        return this.postalStreetNumber + this.postalStreetName + postalCity + postalProvince+this.postalCity;
     }
 }

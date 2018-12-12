@@ -109,6 +109,18 @@ public class DownloadDatabase extends Activity {
                 e.getMessage();
             }
 
+
+
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
             db.beginTransaction();
 
             CsvParserSettings settings = new CsvParserSettings();
@@ -166,17 +178,6 @@ public class DownloadDatabase extends Activity {
 
             db.setTransactionSuccessful();
             db.endTransaction();
-
-            return null;
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            super.onProgressUpdate(values);
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
             startActivity(new Intent(getApplicationContext(), SearchActivity.class));
             finish();
         }
