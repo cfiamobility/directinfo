@@ -197,9 +197,7 @@ public class DetailedInfo extends AppCompatActivity {
                 break;
 
             // exit application
-            case R.id.exit:
-                finish();
-                break;
+
             default:
                 return true;
         }

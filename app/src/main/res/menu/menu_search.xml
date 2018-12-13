@@ -24,20 +24,15 @@
         app:showAsAction="never">
 
     </item>
-    <item
-        android:id="@+id/restBtn"
-        android:title="@string/resetMenuItem"
-        app:showAsAction="never"
-        >
+    <!--<item-->
+        <!--android:id="@+id/restBtn"-->
+        <!--android:title="@string/resetMenuItem"-->
+        <!--app:showAsAction="never"-->
+        <!--&gt;-->
 
-    </item>
+    <!--</item>-->
 
-    <item
-        android:id="@+id/exit"
-        android:title="Exit"
-        app:showAsAction="never">
 
-    </item>
 
 
 </menu>
