@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Direct Info</string>
+    <string name="about">À propos Direct Info</string>
+    <string name="aboutContent">DirectInfo est le répertoire national des employés de ACIA, entrepreneurs et étudiants de l\'Agriculture et Agroalimentaire Canada (AAC), Agence Canadienne d\'inspection (ACIA), Commission Canadienne du lait (CCL), Commission de révision agricole du Canada (CRAC), Commission canadienne des grains (CCG), et le Conseil des produits agricoles du Canada (CPAC). Le site contient les coordonnées de chaque employé: Noms, Téléphone, adresses de courrier électronique, Information de Lieu, Titre, ainsi que des informations sur les professions et les sujets. DirectInfo fonctionne également comme la "page jaune". Il répertorie toutes les unités de travail dans les ministères et les agences, definit leurs fonctions et leur place dans l'organisation, et répertorie les contacts clés.</string>
+    <string name="searchHint">Rechercher des contacts,des endroits, addresses électronique et plus</string>
+    <string name="mobile">Mobile</string>
+    <string name="work">Travail</string>
+    <string name="office">Bureau</string>
+    <string name="postalAddress">Addresse postale: </string>
+    <string name="physicalAddress">Addresse Physique: </string>
+    <string name="directInfo">Direct Info</string>
+    <string name="aboutTitle">À propos DirectInfo</string>
+    <string name="downloading">TÉLÉCHARGEMENT....</string>
+    <string name="databaseCreated">la base de données est créée.</string>
+    <string name="searchToolbar">Rechercher des contacts</string>
+    <string name="DialogNegativeBtn">Annuler</string>
+    <string name="DialogPositiveBtn">OK</string>
+    <string name="DialogTitle">Options d\'utilisateur</string>
+    <string name="resetMenuItem">Réinitialiser la base de données</string>
+    <string name="checknetworkconnection">Vérifier la connexion réseau</string>
+    <string name="internetisworking">Assurez-vous d\'avoir une connexion Internet fonctionnelle et réessayez après.</string>
+
+    // Added later on
+
+</resources>

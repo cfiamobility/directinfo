@@ -17,4 +17,8 @@
     <string name="DialogPositiveBtn">OK</string>
     <string name="DialogTitle">User Options</string>
     <string name="resetMenuItem">Reset Database</string>
+    <string name="checknetworkconnection">Check Network Connection</string>
+    <string name="internetisworking">Please make you sure you have a working internet connection and try again</string>
+
+    // Added later on
 </resources>

@@ -59,8 +59,8 @@ public class MainActivity extends Activity {
                 finish();
             } else {
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setTitle("Check Network Connection")
-                        .setMessage("Please make you sure you have a working internet connection and try again")
+                builder.setTitle(R.string.checknetworkconnection)
+                        .setMessage(R.string.internetisworking)
                         .setPositiveButton(R.string.DialogPositiveBtn, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -83,8 +83,8 @@ public class MainActivity extends Activity {
                     finish();
                 }else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                    builder.setTitle("Check Network Connection")
-                            .setMessage("Please make you sure you have a working internet connection and try again")
+                    builder.setTitle(R.string.checknetworkconnection)
+                            .setMessage(R.string.internetisworking)
                             .setPositiveButton(R.string.DialogPositiveBtn, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
