@@ -87,7 +87,7 @@ public class DetailedInfo extends AppCompatActivity {
         btnCallPrimary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String primary = person.getPhone().subSequence(0, 14).toString();
+                String primary = person.getPhone();
                 startDial(primary);
             }
         });
@@ -155,9 +155,9 @@ public class DetailedInfo extends AppCompatActivity {
     }
 
     public void startEmail(String email) {
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/html");
-        intent.putExtra(Intent.EXTRA_EMAIL, email);
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:"));
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{email});
         startActivity(intent);
     }
 

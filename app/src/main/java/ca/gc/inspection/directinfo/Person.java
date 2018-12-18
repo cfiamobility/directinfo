@@ -79,7 +79,7 @@ public class Person implements Serializable {
     }
 
     public String getPhone() {
-        return phone;
+        return phone.subSequence(0, 14).toString();
     }
 
     public void setPhone(String phone) {

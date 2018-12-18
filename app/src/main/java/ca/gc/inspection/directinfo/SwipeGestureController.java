@@ -100,9 +100,9 @@ private void setTouchListener(final Canvas c, final RecyclerView recyclerView, f
 
                 if (swipeBack) {
                     if (dX < -(viewHolder.itemView.getRight() - 150) ) {
-                        Intent intent = new Intent(Intent.ACTION_SEND);
-                        intent.setType("text/html");
-                        intent.putExtra(Intent.EXTRA_EMAIL, adapter.getPerson(viewHolder.getAdapterPosition()).getEmail());
+                        Intent intent = new Intent(Intent.ACTION_SENDTO);
+                        intent.setData(Uri.parse("mailto:"));
+                        intent.putExtra(Intent.EXTRA_EMAIL, new String[] {adapter.getPerson(viewHolder.getAdapterPosition()).getEmail()});
 //                                Log.d("EMAIL IN GESTURE DETECTOR", "onTouch: " + adapter.getPerson(viewHolder.getAdapterPosition()).getEmail());
                         startActivity(recyclerView.getContext(), intent, null);
                     } else if (dX > (viewHolder.itemView.getRight() - 150)) {
