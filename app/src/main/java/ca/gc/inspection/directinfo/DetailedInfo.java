@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -34,6 +35,12 @@ public class DetailedInfo extends AppCompatActivity {
     ImageButton btnSendEmail;
     ImageButton btnMapPhysicalAddress;
     ImageButton btnMapPostalAddress;
+
+    CardView cvPrimaryPhone;
+    CardView cvMobilePhone;
+    CardView cvEmail;
+    CardView cvPhysicalAddress;
+    CardView cvPostalAddress;
 
     Person person;
 
@@ -83,6 +90,55 @@ public class DetailedInfo extends AppCompatActivity {
             }
         });
 
+        cvPrimaryPhone = findViewById(R.id.cvPrimaryPhone);
+        cvPrimaryPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startDial(person.getPhone());
+            }
+        });
+
+        cvMobilePhone = findViewById(R.id.cvMobilePhone);
+        cvMobilePhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startDial(person.getMobile());
+            }
+        });
+
+        cvEmail = findViewById(R.id.cvEmail);
+        cvEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startEmail(person.getEmail());
+            }
+        });
+
+        cvPhysicalAddress = findViewById(R.id.cvPhysicalAddress);
+        cvPhysicalAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startMaps(person.getPhysicalMapInfo());
+            }
+        });
+
+        cvPostalAddress = findViewById(R.id.cvPostalAddress);
+        cvPostalAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startMaps(person.getPostalMapInfo());
+            }
+        });
+
+
+        btnTextMobile = findViewById(R.id.btnTextMobile);
+        btnTextMobile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startText(person.getMobile());
+            }
+        });
+
         btnCallPrimary = findViewById(R.id.btnCallPrimary);
         btnCallPrimary.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,14 +153,6 @@ public class DetailedInfo extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startDial(person.getMobile());
-            }
-        });
-
-        btnTextMobile = findViewById(R.id.btnTextMobile);
-        btnTextMobile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startText(person.getMobile());
             }
         });
 
@@ -133,11 +181,12 @@ public class DetailedInfo extends AppCompatActivity {
         });
 
         if (person.getMobile() == null) {
-            tvMobile.setVisibility(View.INVISIBLE);
-            tvDisplayMobile = findViewById(R.id.tvMobilePhoneDisplay);
-            tvDisplayMobile.setVisibility(View.INVISIBLE);
-            btnTextMobile.setVisibility(View.INVISIBLE);
-            btnCallMobile.setVisibility(View.INVISIBLE);
+//            tvMobile.setVisibility(View.INVISIBLE);
+//            tvDisplayMobile = findViewById(R.id.tvMobilePhoneDisplay);
+//            tvDisplayMobile.setVisibility(View.INVISIBLE);
+//            btnTextMobile.setVisibility(View.INVISIBLE);
+//            btnCallMobile.setVisibility(View.INVISIBLE);
+            cvMobilePhone.setVisibility(View.GONE);
         }
 
     }

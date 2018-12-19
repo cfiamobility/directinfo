@@ -127,7 +127,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
 
         // How you want the resultCount sorted in the resulting Cursor
         final String sortOrder =
-                DirectInfo.COLUMN_NAME_FIRST_NAME + " ASC LIMIT 500";
+                DirectInfo.COLUMN_NAME_FIRST_NAME + " ASC ";
 
         Cursor cursor = db.query(
                 DirectInfo.TABLE_NAME,   // The table to query

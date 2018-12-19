@@ -46,15 +46,6 @@
             app:layout_constraintTop_toBottomOf="@+id/tvName" />
 
         <ImageButton
-            android:id="@+id/btnTextMobile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_textsms_red_24dp"
-            app:layout_constraintEnd_toEndOf="@+id/addToContactsFAB"
-            app:layout_constraintTop_toTopOf="@+id/tvMobilePhone" />
-
-        <ImageButton
             android:id="@+id/addToContactsFAB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -69,66 +60,122 @@
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/ic_person_add_white" />
 
-        <ImageButton
-            android:id="@+id/btnCallPrimary"
-            android:layout_width="wrap_content"
+        <android.support.v7.widget.CardView
+            android:id="@+id/cvPrimaryPhone"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp"
-            android:background="@color/md_grey_100"
-            android:paddingTop="13dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/contact_banner"
-            app:srcCompat="@drawable/ic_phone_red_24dp" />
-
-        <TextView
-            android:id="@+id/tvPrimaryPhone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:paddingTop="13dp"
-            android:textColor="@color/md_black_1000"
-            app:layout_constraintStart_toEndOf="@+id/btnCallPrimary"
-            app:layout_constraintTop_toTopOf="@+id/btnCallPrimary"
-            tools:text="+1 (245) 675 4354" />
-
-        <TextView
-            android:id="@+id/tvPrimaryPhoneDisplay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/work"
-            android:textColor="@color/md_black_1000"
-            app:layout_constraintStart_toStartOf="@+id/tvPrimaryPhone"
-            app:layout_constraintTop_toBottomOf="@+id/tvPrimaryPhone" />
-
-
-        <ImageButton
-            android:id="@+id/btnCallMobile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_phone_red_24dp"
-            app:layout_constraintStart_toStartOf="@+id/btnCallPrimary"
-            app:layout_constraintTop_toBottomOf="@+id/tvPrimaryPhoneDisplay" />
+            app:cardBackgroundColor="@color/md_grey_100"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/contact_banner">
 
-        <TextView
-            android:id="@+id/tvMobilePhone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="+1 (989) 787 6767"
-            android:textColor="@color/md_black_1000"
-            app:layout_constraintStart_toStartOf="@+id/tvPrimaryPhoneDisplay"
-            app:layout_constraintTop_toTopOf="@+id/btnCallMobile" />
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tvMobilePhoneDisplay"
-            android:layout_width="wrap_content"
+                <ImageButton
+                    android:id="@+id/btnCallPrimary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/md_grey_100"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_phone_red_24dp" />
+
+                <TextView
+                    android:id="@+id/tvPrimaryPhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:textColor="@color/md_black_1000"
+                    app:layout_constraintStart_toEndOf="@+id/btnCallPrimary"
+                    app:layout_constraintTop_toTopOf="@+id/btnCallPrimary"
+                    tools:text="+1 (245) 675 4354" />
+
+                <TextView
+                    android:id="@+id/tvPrimaryPhoneDisplay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:text="@string/work"
+                    android:textColor="@color/md_black_1000"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tvPrimaryPhone"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPrimaryPhone" />
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cvMobilePhone"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/mobile"
-            android:textColor="@color/md_black_1000"
-            app:layout_constraintStart_toStartOf="@+id/tvMobilePhone"
-            app:layout_constraintTop_toBottomOf="@+id/tvMobilePhone" />
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:cardBackgroundColor="@color/md_grey_100"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cvPrimaryPhone">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/btnCallMobile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_phone_red_24dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/btnTextMobile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:background="@android:color/transparent"
+                    android:paddingBottom="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingStart="10dp"
+                    android:paddingTop="10dp"
+                    android:src="@drawable/ic_textsms_red_24dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvMobilePhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="+1 (989) 787 6767"
+                    android:textColor="@color/md_black_1000"
+                    app:layout_constraintStart_toEndOf="@+id/btnCallMobile"
+                    app:layout_constraintTop_toTopOf="@+id/btnCallMobile" />
+
+                <TextView
+                    android:id="@+id/tvMobilePhoneDisplay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:text="@string/mobile"
+                    android:textColor="@color/md_black_1000"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tvMobilePhone"
+                    app:layout_constraintTop_toBottomOf="@+id/tvMobilePhone" />
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.CardView>
 
         <View
             android:id="@+id/divider2"
@@ -141,35 +188,58 @@
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvMobilePhoneDisplay" />
+            app:layout_constraintTop_toBottomOf="@+id/cvMobilePhone" />
 
-        <ImageButton
-            android:id="@+id/btnSendEmail"
-            android:layout_width="wrap_content"
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cvEmail"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:background="@color/md_grey_100"
-            app:layout_constraintStart_toStartOf="@+id/btnCallMobile"
-            app:layout_constraintTop_toBottomOf="@+id/divider2"
-            app:srcCompat="@drawable/ic_email_red_24dp" />
+            app:cardBackgroundColor="@color/md_grey_100"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider2">
 
-        <TextView
-            android:id="@+id/tvEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textColor="@color/md_black_1000"
-            app:layout_constraintStart_toStartOf="@+id/tvMobilePhoneDisplay"
-            app:layout_constraintTop_toTopOf="@+id/btnSendEmail" />
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tvEmailDisplay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/work"
-            android:textColor="@color/md_black_1000"
-            app:layout_constraintStart_toStartOf="@+id/tvEmail"
-            app:layout_constraintTop_toBottomOf="@+id/tvEmail" />
+                <ImageButton
+                    android:id="@+id/btnSendEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/md_grey_100"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_email_red_24dp" />
+
+                <TextView
+                    android:id="@+id/tvEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="TextView"
+                    android:textColor="@color/md_black_1000"
+                    app:layout_constraintStart_toEndOf="@+id/btnSendEmail"
+                    app:layout_constraintTop_toTopOf="@+id/btnSendEmail" />
+
+                <TextView
+                    android:id="@+id/tvEmailDisplay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:text="@string/work"
+                    android:textColor="@color/md_black_1000"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tvEmail"
+                    app:layout_constraintTop_toBottomOf="@+id/tvEmail" />
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.CardView>
 
         <View
             android:id="@+id/divider3"
@@ -182,35 +252,57 @@
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvEmailDisplay" />
+            app:layout_constraintTop_toBottomOf="@+id/cvEmail" />
 
-        <ImageButton
-            android:id="@+id/btnMapPhysicalAddress"
-            android:layout_width="wrap_content"
+        <android.support.v7.widget.CardView
+            android:id="@+id/cvPhysicalAddress"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:background="@color/md_grey_100"
-            app:layout_constraintStart_toStartOf="@+id/btnSendEmail"
-            app:layout_constraintTop_toBottomOf="@+id/divider3"
-            app:srcCompat="@drawable/ic_location_red_24dp" />
+            app:cardBackgroundColor="@color/md_grey_100"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider3">
 
-        <TextView
-            android:id="@+id/tvPhysicalAddressTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/physicalAddress"
-            android:textColor="@color/md_black_1000"
-            app:layout_constraintStart_toStartOf="@+id/tvEmailDisplay"
-            app:layout_constraintTop_toTopOf="@+id/btnMapPhysicalAddress" />
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tvPhysicalAddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/md_black_1000"
-            app:layout_constraintStart_toStartOf="@+id/tvPhysicalAddressTitle"
-            app:layout_constraintTop_toBottomOf="@+id/tvPhysicalAddressTitle"
-            tools:text="TextView" />
+                <ImageButton
+                    android:id="@+id/btnMapPhysicalAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/md_grey_100"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_location_red_24dp" />
+
+                <TextView
+                    android:id="@+id/tvPhysicalAddressTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/physicalAddress"
+                    android:textColor="@color/md_black_1000"
+                    app:layout_constraintStart_toEndOf="@+id/btnMapPhysicalAddress"
+                    app:layout_constraintTop_toTopOf="@+id/btnMapPhysicalAddress" />
+
+                <TextView
+                    android:id="@+id/tvPhysicalAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:textColor="@color/md_black_1000"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tvPhysicalAddressTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPhysicalAddressTitle"
+                    tools:text="TextView" />
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.CardView>
 
         <View
             android:id="@+id/divider4"
@@ -223,35 +315,58 @@
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvPhysicalAddress" />
+            app:layout_constraintTop_toBottomOf="@+id/cvPhysicalAddress" />
 
-        <ImageButton
-            android:id="@+id/btnMapPostalAddress"
-            android:layout_width="wrap_content"
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cvPostalAddress"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:background="@android:color/transparent"
-            app:srcCompat="@drawable/ic_location_red_24dp"
-            app:layout_constraintStart_toStartOf="@+id/btnMapPhysicalAddress"
-            app:layout_constraintTop_toBottomOf="@+id/divider4" />
+            app:cardBackgroundColor="@color/md_grey_100"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider4">
 
-        <TextView
-            android:id="@+id/tvPostalAddressTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/postalAddress"
-            android:textColor="@color/md_black_1000"
-            app:layout_constraintStart_toStartOf="@+id/tvPhysicalAddress"
-            app:layout_constraintTop_toTopOf="@+id/btnMapPostalAddress" />
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tvPostalAddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textColor="@color/md_black_1000"
-            app:layout_constraintStart_toStartOf="@+id/tvPostalAddressTitle"
-            app:layout_constraintTop_toBottomOf="@+id/tvPostalAddressTitle" />
+                <ImageButton
+                    android:id="@+id/btnMapPostalAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@android:color/transparent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_location_red_24dp" />
+
+                <TextView
+                    android:id="@+id/tvPostalAddressTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/postalAddress"
+                    android:textColor="@color/md_black_1000"
+                    app:layout_constraintStart_toEndOf="@+id/btnMapPostalAddress"
+                    app:layout_constraintTop_toTopOf="@+id/btnMapPostalAddress" />
+
+                <TextView
+                    android:id="@+id/tvPostalAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:text="TextView"
+                    android:textColor="@color/md_black_1000"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tvPostalAddressTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPostalAddressTitle" />
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.CardView>
 
         <View
             android:id="@+id/divider5"
@@ -266,7 +381,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvPostalAddress" />
+            app:layout_constraintTop_toBottomOf="@+id/cvPostalAddress" />
 
     </android.support.constraint.ConstraintLayout>
 
