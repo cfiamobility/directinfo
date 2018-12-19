@@ -8,22 +8,31 @@
         android:icon="@drawable/search_widget"
         android:orderInCategory="100"
         android:title="search"
-
         app:showAsAction="always">
 
     </item>
 
     <item
-        android:id="@+id/gcdirectory"
+        android:id="@+id/miToggleSearchOptions"
+        android:title="@string/toggle_search_options"
+        android:orderInCategory="200"
+        app:showAsAction="never">
+    </item>
 
-        android:title="GCdirectory" />
+    <item
+        android:id="@+id/gcdirectory"
+        android:title="GCdirectory"
+        android:orderInCategory="300"
+        />
 
     <item
         android:id="@+id/abouticon"
         android:title="@string/about"
+        android:orderInCategory="400"
         app:showAsAction="never">
 
     </item>
+
     <!--<item-->
         <!--android:id="@+id/restBtn"-->
         <!--android:title="@string/resetMenuItem"-->

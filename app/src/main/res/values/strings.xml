@@ -17,4 +17,12 @@
     <string name="DialogPositiveBtn">OK</string>
     <string name="DialogTitle">User Options</string>
     <string name="resetMenuItem">Reset Database</string>
+    <string name="toggle_search_options">Toggle Search Options</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email">Email</string>
+    <string name="phone">Phone</string>
+    <string name="address">Address</string>
+    <string name="title">Title</string>
+    <string name="cfia">Canadian Food Inspection Agency</string>
 </resources>

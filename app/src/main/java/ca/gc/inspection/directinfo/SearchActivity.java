@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -18,6 +19,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.support.v7.app.AppCompatActivity;
 
@@ -42,10 +46,22 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
     ArrayList<Person> people;
     MaterialSearchView searchView;
     Toolbar toolbar;
-    String result_query="";
+    String result_query = "";
 
     ItemTouchHelper itemTouchHelper;
     SwipeGestureController swipeGestureController;
+
+    CardView cvSearchOptions;
+    CheckBox cbFirstName;
+    CheckBox cbLastName;
+    CheckBox cbEmail;
+    CheckBox cbPhone;
+    CheckBox cbAddress;
+    CheckBox cbTitle;
+
+    String searchBy = "default";
+
+    LinearLayout alphabet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +69,10 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
         setContentView(R.layout.activity_search);
         initToolbar();
 
+        cvSearchOptions = findViewById(R.id.cvSearchOptions);
+        cvSearchOptions.setVisibility(View.GONE);
+
+        setCheckBoxFunctionality();
 
         resultCount = findViewById(R.id.resultCountTv);
 
@@ -70,7 +90,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
         if (savedInstanceState != null) {
             result_query = savedInstanceState.getString("userInput");
             searchDatabase(result_query);
-        }else{
+        } else {
             searchDatabase("");
             resultCount.setText("");
         }
@@ -80,6 +100,185 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
 
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, recyclerView, this));
 
+        alphabet = findViewById(R.id.llAlphabet);
+
+        for (int i = 0; i < alphabet.getChildCount(); i++) {
+
+            TextView textView = (TextView) alphabet.getChildAt(i);
+            final String search = textView.getText().toString();
+
+            alphabet.getChildAt(i).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    searchBy = "first name";
+                    searchDatabase(search);
+                    searchBy = "default";
+                }
+            });
+        }
+
+    }
+
+    public void setCheckBoxFunctionality() {
+        cbFirstName = findViewById(R.id.cbFirstName);
+        cbLastName = findViewById(R.id.cbLastName);
+        cbEmail = findViewById(R.id.cbEmail);
+        cbPhone = findViewById(R.id.cbPhone);
+        cbAddress = findViewById(R.id.cbAddress);
+        cbTitle = findViewById(R.id.cbTitle);
+
+        cbFirstName.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+                if (cbFirstName.isChecked()) {
+                    cbEmail.setChecked(false);
+                    cbPhone.setChecked(false);
+                    cbAddress.setChecked(false);
+                    cbTitle.setChecked(false);
+
+                    if (cbLastName.isChecked()) {
+                        searchBy = "first name, last name";
+                    } else {
+                        searchBy = "first name";
+                    }
+
+                    Log.d(TAG, "setCheckBoxFunctionality: Search by: " + searchBy);
+                }
+
+                if (!cbFirstName.isChecked() && cbLastName.isChecked()) {
+                    searchBy = "last name";
+                    Log.d(TAG, "setCheckBoxFunctionality: Search by: " + searchBy);
+                } else if (!cbFirstName.isChecked() && !cbLastName.isChecked()) {
+                    searchBy = "default";
+                    Log.d(TAG, "setCheckBoxFunctionality: Search by: " + searchBy);
+                }
+            }
+        });
+
+        cbLastName.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (cbLastName.isChecked()) {
+                    cbEmail.setChecked(false);
+                    cbPhone.setChecked(false);
+                    cbAddress.setChecked(false);
+                    cbTitle.setChecked(false);
+
+                    if (cbFirstName.isChecked()) {
+                        searchBy = "first name, last name";
+                    } else {
+                        searchBy = "last name";
+                    }
+
+                    Log.d(TAG, "setCheckBoxFunctionality: Search by: " + searchBy);
+                }
+
+                if (!cbLastName.isChecked() && cbFirstName.isChecked()) {
+                    searchBy = "first name";
+                    Log.d(TAG, "setCheckBoxFunctionality: Search by: " + searchBy);
+                } else if (!cbFirstName.isChecked() && !cbLastName.isChecked()) {
+                    searchBy = "default";
+                    Log.d(TAG, "setCheckBoxFunctionality: Search by: " + searchBy);
+                }
+            }
+        });
+
+        cbEmail.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+                if (cbEmail.isChecked()) {
+                    cbFirstName.setChecked(false);
+                    cbLastName.setChecked(false);
+                    cbPhone.setChecked(false);
+                    cbAddress.setChecked(false);
+                    cbTitle.setChecked(false);
+
+                    searchBy = "email";
+
+                    Log.d(TAG, "setCheckBoxFunctionality: Search by: " + searchBy);
+                }
+
+                if (!cbEmail.isChecked()) {
+                    searchBy = "default";
+                    Log.d(TAG, "setCheckBoxFunctionality: Search by: " + searchBy);
+                }
+            }
+        });
+
+        cbPhone.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+                if (cbPhone.isChecked()) {
+                    cbFirstName.setChecked(false);
+                    cbLastName.setChecked(false);
+                    cbEmail.setChecked(false);
+                    cbAddress.setChecked(false);
+                    cbTitle.setChecked(false);
+
+                    searchBy = "phone";
+
+                    Log.d(TAG, "setCheckBoxFunctionality: Search by: " + searchBy);
+                }
+                if (!cbPhone.isChecked()) {
+                    searchBy = "default";
+                    Log.d(TAG, "setCheckBoxFunctionality: Search by: " + searchBy);
+                }
+            }
+        });
+
+        cbAddress.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+                if (cbAddress.isChecked()) {
+                    cbFirstName.setChecked(false);
+                    cbLastName.setChecked(false);
+                    cbPhone.setChecked(false);
+                    cbEmail.setChecked(false);
+                    cbTitle.setChecked(false);
+
+                    searchBy = "address";
+
+
+                    Log.d(TAG, "setCheckBoxFunctionality: Search by: " + searchBy);
+                }
+
+                if (!cbAddress.isChecked()) {
+                    searchBy = "default";
+                    Log.d(TAG, "setCheckBoxFunctionality: Search by: " + searchBy);
+                }
+            }
+        });
+
+
+
+        cbTitle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+                if (cbTitle.isChecked()) {
+                    cbFirstName.setChecked(false);
+                    cbLastName.setChecked(false);
+                    cbPhone.setChecked(false);
+                    cbAddress.setChecked(false);
+                    cbEmail.setChecked(false);
+
+                    searchBy = "title";
+
+                    Log.d(TAG, "setCheckBoxFunctionality: Search by: " + searchBy);
+                }
+
+                if (!cbTitle.isChecked()) {
+                    searchBy = "default";
+                    Log.d(TAG, "setCheckBoxFunctionality: Search by: " + searchBy);
+                }
+            }
+        });
+
+
     }
 
     @SuppressLint("SetTextI18n")
@@ -87,43 +286,37 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
 
         final String[] projection = {
                 DirectInfo._ID,                                     // 0
-                DirectInfo.COLUMN_NAME_FIRST_NAME + " || ' ' || " + DirectInfo.COLUMN_NAME_LAST_NAME + " AS 'name'",          // 1
-                DirectInfo.COLUMN_NAME_EMAIL,                       // 2
-                DirectInfo.COLUMN_NAME_TELEPHONE_NUMBER,            // 3
-                DirectInfo.COLUMN_NAME_TITLE_EN,                    // 4
-                DirectInfo.COLUMN_NAME_MOBILE_NUMBER,               // 5
-                DirectInfo.COLUMN_NAME_POSTAL_STREET_NUMBER,        // 6
-                DirectInfo.COLUMN_NAME_POSTAL_STREET_NAME,          // 7
-                DirectInfo.COLUMN_NAME_POSTAL_BUILDING_UNIT_TYPE,   // 8
-                DirectInfo.COLUMN_NAME_POSTAL_BUILDING_UNIT_ID,     // 9
-                DirectInfo.COLUMN_NAME_PO_BOX_EN,                   // 10
-                DirectInfo.COLUMN_NAME_POSTAL_CITY_EN,              // 11
-                DirectInfo.COLUMN_NAME_POSTAL_PROVINCE_EN,          // 12
-                DirectInfo.COLUMN_NAME_POSTAL_CODE,                 // 13
-                DirectInfo.COLUMN_NAME_BUILDING_NAME_EN,            // 14
-                DirectInfo.COLUMN_NAME_FLOOR,                       // 15
-                DirectInfo.COLUMN_NAME_ROOM,                        // 16
-                DirectInfo.COLUMN_NAME_PHYSICAL_STREET_NUMBER,      // 17
-                DirectInfo.COLUMN_NAME_PHYSICAL_STREET_NAME,        // 18
-                DirectInfo.COLUMN_NAME_PHYSICAL_BUILDING_UNIT_TYPE, // 19
-                DirectInfo.COLUMN_NAME_PHYSICAL_BUILDING_UNIT_ID,   // 20
-                DirectInfo.COLUMN_NAME_PHYSICAL_CITY_EN,            // 21
-                DirectInfo.COLUMN_NAME_PHYSICAL_PROVINCE_EN,        // 22
+                DirectInfo.COLUMN_NAME_FIRST_NAME,                  // 1
+                DirectInfo.COLUMN_NAME_LAST_NAME,                   // 2
+                DirectInfo.COLUMN_NAME_EMAIL,                       // 3
+                DirectInfo.COLUMN_NAME_TELEPHONE_NUMBER,            // 4
+                DirectInfo.COLUMN_NAME_TITLE_EN,                    // 5
+                DirectInfo.COLUMN_NAME_MOBILE_NUMBER,               // 6
+                DirectInfo.COLUMN_NAME_POSTAL_STREET_NUMBER,        // 7
+                DirectInfo.COLUMN_NAME_POSTAL_STREET_NAME,          // 8
+                DirectInfo.COLUMN_NAME_POSTAL_BUILDING_UNIT_TYPE,   // 9
+                DirectInfo.COLUMN_NAME_POSTAL_BUILDING_UNIT_ID,     // 10
+                DirectInfo.COLUMN_NAME_PO_BOX_EN,                   // 11
+                DirectInfo.COLUMN_NAME_POSTAL_CITY_EN,              // 12
+                DirectInfo.COLUMN_NAME_POSTAL_PROVINCE_EN,          // 13
+                DirectInfo.COLUMN_NAME_POSTAL_CODE,                 // 14
+                DirectInfo.COLUMN_NAME_BUILDING_NAME_EN,            // 15
+                DirectInfo.COLUMN_NAME_FLOOR,                       // 16
+                DirectInfo.COLUMN_NAME_ROOM,                        // 17
+                DirectInfo.COLUMN_NAME_PHYSICAL_STREET_NUMBER,      // 18
+                DirectInfo.COLUMN_NAME_PHYSICAL_STREET_NAME,        // 19
+                DirectInfo.COLUMN_NAME_PHYSICAL_BUILDING_UNIT_TYPE, // 20
+                DirectInfo.COLUMN_NAME_PHYSICAL_BUILDING_UNIT_ID,   // 21
+                DirectInfo.COLUMN_NAME_PHYSICAL_CITY_EN,            // 22
+                DirectInfo.COLUMN_NAME_PHYSICAL_PROVINCE_EN,        // 23
 
 
         };
 
-        // Filter resultCount WHERE "title" = 'My Title'
 //        final String selection = "name LIKE ?";
 
 
-        // search only entire GEDS database of employees by first name + last name, email, phone number, or title
-        final String selection = "name LIKE '%" + textToSearch + "%' OR " +
-                DirectInfo.COLUMN_NAME_EMAIL + " LIKE '%" + textToSearch + "%'  OR " +
-                DirectInfo.COLUMN_NAME_TELEPHONE_NUMBER + " LIKE '%" + textToSearch + "%' OR " +
-                DirectInfo.COLUMN_NAME_TITLE_EN + " LIKE '%" + textToSearch + "%' ";
-
-//        String[] selectionArgs = { "%" + textToSearch + "%"};
+        final String selection = getSelectionString(searchBy, textToSearch);
 
         // How you want the resultCount sorted in the resulting Cursor
         final String sortOrder =
@@ -133,7 +326,6 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
                 DirectInfo.TABLE_NAME,   // The table to query
                 projection,             // The array of columns to return (pass null to get all)
                 selection,              // The columns for the WHERE clause
-//                selectionArgs,          // The values for the WHERE clause
                 null,          // The values for the WHERE clause
                 null,                   // don't group the rows
                 null,                   // don't filter by row groups
@@ -146,28 +338,28 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
         while (!cursor.isAfterLast()) {
 
             Person person = new Person(
-                    cursor.getString(1),    // name
-                    cursor.getString(2),    // email
-                    cursor.getString(3),    // phone
-                    cursor.getString(4),    // title
-                    cursor.getString(5),    // mobile
-                    cursor.getString(6),    // postal street number
-                    cursor.getString(7),    // postal street name
-                    cursor.getString(8),    // postal building unit type
-                    cursor.getString(9),    // postal building unit id
-                    cursor.getString(10),   // po box
-                    cursor.getString(11),   // postal city
-                    cursor.getString(12),   // postal province
-                    cursor.getString(13),   // postal code
-                    cursor.getString(14),   // building name
-                    cursor.getString(15),   // floor
-                    cursor.getString(16),   // room
-                    cursor.getString(17),   // physical street number
-                    cursor.getString(18),   // physical street name
-                    cursor.getString(19),   // physical building unit type
-                    cursor.getString(20),   // physical building unit id
-                    cursor.getString(21),   // physical city
-                    cursor.getString(22)    // physical province
+                    cursor.getString(1) + " " + cursor.getString(2),   // name
+                    cursor.getString(3),                                        // email
+                    cursor.getString(4),                                        // phone
+                    cursor.getString(5),                                        // title
+                    cursor.getString(6),                                        // mobile
+                    cursor.getString(7),                                        // postal street number
+                    cursor.getString(8),                                        // postal street name
+                    cursor.getString(9),                                        // postal building unit type
+                    cursor.getString(10),                                        // postal building unit id
+                    cursor.getString(11),                                       // po box
+                    cursor.getString(12),                                       // postal city
+                    cursor.getString(13),                                       // postal province
+                    cursor.getString(14),                                       // postal code
+                    cursor.getString(15),                                       // building name
+                    cursor.getString(16),                                       // floor
+                    cursor.getString(17),                                       // room
+                    cursor.getString(18),                                       // physical street number
+                    cursor.getString(19),                                       // physical street name
+                    cursor.getString(20),                                       // physical building unit type
+                    cursor.getString(21),                                       // physical building unit id
+                    cursor.getString(22),                                       // physical city
+                    cursor.getString(23)                                        // physical province
             );
             people.add(person);
             cursor.moveToNext();
@@ -177,6 +369,65 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
         cursor.close();
 
     } // end of searchDatabase()
+
+    public String getSelectionString(String searchBy, String textToSearch) {
+        // search only entire GEDS database of employees by first name + last name, email, phone number, or title
+        String selection;
+
+
+        switch (searchBy) {
+            case "default":
+                // search the DirectInfo database of employees by first name + last name, email, phone number, or title
+                selection =
+                        DirectInfo.COLUMN_NAME_FIRST_NAME + " || ' ' || " + DirectInfo.COLUMN_NAME_LAST_NAME + " LIKE '" + textToSearch + "%' OR " +
+                        DirectInfo.COLUMN_NAME_EMAIL + " LIKE '%" + textToSearch + "%'  OR " +
+                        DirectInfo.COLUMN_NAME_TELEPHONE_NUMBER + " LIKE '%" + textToSearch + "%' OR " +
+                        DirectInfo.COLUMN_NAME_TITLE_EN + " LIKE '%" + textToSearch + "%' ";
+                break;
+            case "first name":
+                // search the DirectInfo database of employees by first name
+                selection = DirectInfo.COLUMN_NAME_FIRST_NAME + " LIKE '" + textToSearch + "%'";
+                break;
+            case "last name":
+                // search the DirectInfo database of employees by last name
+                selection = DirectInfo.COLUMN_NAME_LAST_NAME + " LIKE '" + textToSearch + "%'";
+                break;
+            case "first name, last name":
+                // search the DirectInfo database of employees by first name + last name
+                selection = DirectInfo.COLUMN_NAME_FIRST_NAME + " || ' ' || " + DirectInfo.COLUMN_NAME_LAST_NAME + " LIKE '" + textToSearch + "%'";
+                break;
+            case "email":
+                // search the DirectInfo database of employees by email
+                selection = DirectInfo.COLUMN_NAME_EMAIL + " LIKE '" + textToSearch + "%'";
+                break;
+            case "phone":
+                // search the DirectInfo database of employees by phone
+                selection = DirectInfo.COLUMN_NAME_TELEPHONE_NUMBER + " LIKE '%" + textToSearch + "%' OR " +
+                        DirectInfo.COLUMN_NAME_MOBILE_NUMBER + " LIKE '%" + textToSearch + "%'";
+                break;
+            case "address":
+                // search the DirectInfo database of employees by physical address
+                selection = DirectInfo.COLUMN_NAME_PHYSICAL_STREET_NUMBER + " || ' ' || " +
+                            DirectInfo.COLUMN_NAME_PHYSICAL_STREET_NAME + " || ' ' || " +
+                            DirectInfo.COLUMN_NAME_PHYSICAL_CITY_EN + " || ' ' || " +
+                            DirectInfo.COLUMN_NAME_PHYSICAL_PROVINCE_EN + " LIKE '%" + textToSearch + "%'";
+                break;
+            case "title":
+                // search the DirectInfo database of employees by title
+                selection = DirectInfo.COLUMN_NAME_TITLE_EN + " LIKE '%" + textToSearch + "%'";
+                break;
+            default:
+                // search the DirectInfo database of employees by first name + last name, email, phone number, or title
+                selection =
+                        DirectInfo.COLUMN_NAME_FIRST_NAME + " || ' ' || " + DirectInfo.COLUMN_NAME_LAST_NAME + " LIKE '" + textToSearch + "%' OR " +
+                        DirectInfo.COLUMN_NAME_EMAIL + " LIKE '%" + textToSearch + "%'  OR " +
+                        DirectInfo.COLUMN_NAME_TELEPHONE_NUMBER + " LIKE '%" + textToSearch + "%' OR " +
+                        DirectInfo.COLUMN_NAME_TITLE_EN + " LIKE '%" + textToSearch + "%' ";
+                break;
+        }
+
+        return selection;
+    }
 
     @Override
     public void onItemClick(View view, int position) {
@@ -228,7 +479,6 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
     }
 
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -242,6 +492,13 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);
+                break;
+
+            case R.id.miToggleSearchOptions:
+                if (cvSearchOptions.getVisibility() == View.VISIBLE)
+                    cvSearchOptions.setVisibility(View.GONE);
+                else if (cvSearchOptions.getVisibility() == View.GONE)
+                    cvSearchOptions.setVisibility(View.VISIBLE);
                 break;
 
 
@@ -265,7 +522,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
 //                builder.show();
 //                break;
 
-                default:
+            default:
                 return true;
         }
         return true;
