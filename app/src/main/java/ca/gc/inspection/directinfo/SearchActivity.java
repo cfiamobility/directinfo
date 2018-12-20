@@ -4,10 +4,15 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.view.GravityCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -22,11 +27,17 @@ import android.widget.TextView;
 import android.support.v7.app.AppCompatActivity;
 
 
+import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import ca.gc.inspection.directinfo.DirectInfoDbContract.DirectInfo;
+
+
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetView;
 
 public class SearchActivity extends AppCompatActivity implements RecyclerItemClickListener.OnRecyclerClickListener {
 
@@ -46,6 +57,10 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
 
     ItemTouchHelper itemTouchHelper;
     SwipeGestureController swipeGestureController;
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +94,8 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, recyclerView, this));
+
+
 
     }
 
@@ -286,5 +303,8 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
         outState.putString("userInput", result_query);
         super.onSaveInstanceState(outState);
     }
+
+
+
 
 } // end of class
