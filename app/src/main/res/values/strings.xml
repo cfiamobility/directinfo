@@ -21,4 +21,12 @@
     <string name="internetisworking">Please make you sure you have a working internet connection and try again</string>
 
     // Added later on
+    <string name="toggle_search_options">Toggle Search Options</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email">Email</string>
+    <string name="phone">Phone</string>
+    <string name="address">Address</string>
+    <string name="title">Title</string>
+    <string name="cfia">Canadian Food Inspection Agency</string>
 </resources>
