@@ -10,10 +10,12 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-
+import java.util.List;
+import java.util.Locale;
 
 public class DirectInfoAdapter extends RecyclerView.Adapter<DirectInfoAdapter.ViewHolder> {
 
@@ -39,6 +41,20 @@ public class DirectInfoAdapter extends RecyclerView.Adapter<DirectInfoAdapter.Vi
     DirectInfoAdapter(ArrayList<Person> people, Context context){
         this.people = people;
         this.context = context;
+
+
+//        for (int i = 0; i < people.size(); i++) {
+//            String character = people.get(i).getName();
+//            String firstCharacter = character.charAt(0) + "";
+//            firstCharacter = firstCharacter.toUpperCase(Locale.CANADA);
+//
+//            sectionLetters.add(firstCharacter);
+//
+//        }
+//        ArrayList<String>sectionList = new ArrayList<>(sectionLetters);
+//
+//        sections = new String[sectionList.size()];
+//        sectionList.toArray(sections);
     }
 
     @NonNull
@@ -50,15 +66,10 @@ public class DirectInfoAdapter extends RecyclerView.Adapter<DirectInfoAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         viewHolder.personNameTV.setText(people.get(i).getName());
         viewHolder.personPositionTV.setText(people.get(i).getTitle());
 
-//        if (searchByAddress) {
-//            viewHolder.tvDepartmentOrAddress.setText(people.get(i).getPhysicalAddress());
-//        } else {
-//            viewHolder.tvDepartmentOrAddress.setText(R.string.cfia);
-//        }
     }
 
     @Override
