@@ -20,7 +20,5 @@
     <string name="resetMenuItem">Réinitialiser la base de données</string>
     <string name="checknetworkconnection">Vérifier la connexion réseau</string>
     <string name="internetisworking">Assurez-vous d\'avoir une connexion Internet fonctionnelle et réessayez après.</string>
-
     // Added later on
-
 </resources>
