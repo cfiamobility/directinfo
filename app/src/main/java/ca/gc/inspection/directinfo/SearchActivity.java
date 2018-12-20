@@ -101,7 +101,8 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, recyclerView, this));
-
+        
+        // set up the alphabet sidebar
         alphabet = findViewById(R.id.llAlphabet);
 
         for (int i = 0; i < alphabet.getChildCount(); i++) {
