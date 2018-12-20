@@ -110,9 +110,10 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
             alphabet.getChildAt(i).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    String temp = searchBy;
                     searchBy = "first name";
                     searchDatabase(search);
-                    searchBy = "default";
+                    searchBy = temp;
                 }
             });
         }

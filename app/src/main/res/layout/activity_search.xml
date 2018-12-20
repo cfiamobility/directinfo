@@ -60,10 +60,10 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/llAlphabet"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/svAlphabet"
             app:layout_constraintTop_toBottomOf="@+id/resultCountTv" />
 
         <android.support.v7.widget.CardView
@@ -143,199 +143,204 @@
             </android.support.constraint.ConstraintLayout>
         </android.support.v7.widget.CardView>
 
-        <LinearLayout
-            android:id="@+id/llAlphabet"
+        <ScrollView
+            android:id="@+id/svAlphabet"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:orientation="vertical"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/searchResultsRecyclerView">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cvSearchOptions">
 
-            <TextView
-                android:id="@+id/A"
+            <LinearLayout
+                android:id="@+id/llAlphabet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:tag="A"
-                android:text="A" />
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/B"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:tag="B"
-                android:text="B" />
+                <TextView
+                    android:id="@+id/A"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tag="A"
+                    android:text="A" />
 
-            <TextView
-                android:id="@+id/C"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:tag="C"
-                android:text="C" />
+                <TextView
+                    android:id="@+id/B"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tag="B"
+                    android:text="B" />
 
-            <TextView
-                android:id="@+id/D"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:tag="D"
-                android:text="D" />
+                <TextView
+                    android:id="@+id/C"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tag="C"
+                    android:text="C" />
 
-            <TextView
-                android:id="@+id/E"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:tag="E"
-                android:text="E" />
+                <TextView
+                    android:id="@+id/D"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tag="D"
+                    android:text="D" />
 
-            <TextView
-                android:id="@+id/F"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:tag="F"
-                android:text="F" />
+                <TextView
+                    android:id="@+id/E"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tag="E"
+                    android:text="E" />
 
-            <TextView
-                android:id="@+id/G"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:tag="G"
-                android:text="G" />
+                <TextView
+                    android:id="@+id/F"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tag="F"
+                    android:text="F" />
 
-            <TextView
-                android:id="@+id/H"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:tag="H"
-                android:text="H" />
+                <TextView
+                    android:id="@+id/G"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tag="G"
+                    android:text="G" />
 
-            <TextView
-                android:id="@+id/I"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:tag="I"
-                android:text="I" />
+                <TextView
+                    android:id="@+id/H"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tag="H"
+                    android:text="H" />
 
-            <TextView
-                android:id="@+id/J"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:tag="J"
-                android:text="J" />
+                <TextView
+                    android:id="@+id/I"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tag="I"
+                    android:text="I" />
 
-            <TextView
-                android:id="@+id/K"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:tag="K"
-                android:text="K" />
+                <TextView
+                    android:id="@+id/J"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tag="J"
+                    android:text="J" />
 
-            <TextView
-                android:id="@+id/L"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:tag="L"
-                android:text="L" />
+                <TextView
+                    android:id="@+id/K"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tag="K"
+                    android:text="K" />
 
-            <TextView
-                android:id="@+id/M"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:tag="M"
-                android:text="M" />
+                <TextView
+                    android:id="@+id/L"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tag="L"
+                    android:text="L" />
 
-            <TextView
-                android:id="@+id/N"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:tag="N"
-                android:text="N" />
+                <TextView
+                    android:id="@+id/M"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tag="M"
+                    android:text="M" />
 
-            <TextView
-                android:id="@+id/O"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:tag="O"
-                android:text="O" />
+                <TextView
+                    android:id="@+id/N"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tag="N"
+                    android:text="N" />
 
-            <TextView
-                android:id="@+id/P"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:tag="P"
-                android:text="P" />
+                <TextView
+                    android:id="@+id/O"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tag="O"
+                    android:text="O" />
 
-            <TextView
-                android:id="@+id/Q"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:tag="Q"
-                android:text="Q" />
+                <TextView
+                    android:id="@+id/P"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tag="P"
+                    android:text="P" />
 
-            <TextView
-                android:id="@+id/R"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:tag="R"
-                android:text="R" />
+                <TextView
+                    android:id="@+id/Q"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tag="Q"
+                    android:text="Q" />
 
-            <TextView
-                android:id="@+id/S"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:tag="S"
-                android:text="S" />
+                <TextView
+                    android:id="@+id/R"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tag="R"
+                    android:text="R" />
 
-            <TextView
-                android:id="@+id/T"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:tag="T"
-                android:text="T" />
+                <TextView
+                    android:id="@+id/S"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tag="S"
+                    android:text="S" />
 
-            <TextView
-                android:id="@+id/U"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:tag="U"
-                android:text="U" />
+                <TextView
+                    android:id="@+id/T"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tag="T"
+                    android:text="T" />
 
-            <TextView
-                android:id="@+id/V"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:tag="V"
-                android:text="V" />
+                <TextView
+                    android:id="@+id/U"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tag="U"
+                    android:text="U" />
 
-            <TextView
-                android:id="@+id/W"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:tag="W"
-                android:text="W" />
+                <TextView
+                    android:id="@+id/V"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tag="V"
+                    android:text="V" />
 
-            <TextView
-                android:id="@+id/X"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:tag="X"
-                android:text="X" />
+                <TextView
+                    android:id="@+id/W"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tag="W"
+                    android:text="W" />
 
-            <TextView
-                android:id="@+id/Y"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:tag="Y"
-                android:text="Y" />
+                <TextView
+                    android:id="@+id/X"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tag="X"
+                    android:text="X" />
 
-            <TextView
-                android:id="@+id/Z"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:tag="Z"
-                android:text="Z" />
+                <TextView
+                    android:id="@+id/Y"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tag="Y"
+                    android:text="Y" />
 
-
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/Z"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tag="Z"
+                    android:text="Z" />
+            </LinearLayout>
+        </ScrollView>
     </android.support.constraint.ConstraintLayout>
 </LinearLayout>
