@@ -8,7 +8,6 @@
         android:icon="@drawable/search_widget"
         android:orderInCategory="100"
         android:title="search"
-
         app:showAsAction="always">
 
     </item>

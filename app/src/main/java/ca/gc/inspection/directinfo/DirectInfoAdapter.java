@@ -8,19 +8,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 
-public class DirectInfoAdapter extends RecyclerView.Adapter<DirectInfoAdapter.ViewHolder> {
+public class DirectInfoAdapter extends RecyclerView.Adapter<DirectInfoAdapter.ViewHolder> implements SectionIndexer {
 
     private Context context;
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView personNameTV;
-//        TextView personEmailTV;
+        //        TextView personEmailTV;
 //        TextView personPhoneTV;
         TextView personPositionTV;
 //        ImageView imageView;
@@ -41,10 +44,27 @@ public class DirectInfoAdapter extends RecyclerView.Adapter<DirectInfoAdapter.Vi
     } // end of ViewHolder class
 
     private ArrayList<Person> people;
+    List<String> sectionLetters = new ArrayList<>();
+    String [] sections;
 
-    DirectInfoAdapter(ArrayList<Person> people, Context context){
+
+    DirectInfoAdapter(ArrayList<Person> people, Context context) {
         this.people = people;
         this.context = context;
+
+
+        for (int i = 0; i < people.size(); i++) {
+            String character = people.get(i).getName();
+            String firstCharacter = character.charAt(0) + "";
+            firstCharacter = firstCharacter.toUpperCase(Locale.CANADA);
+
+            sectionLetters.add(firstCharacter);
+
+        }
+        ArrayList<String>sectionList = new ArrayList<>(sectionLetters);
+
+        sections = new String[sectionList.size()];
+        sectionList.toArray(sections);
     }
 
     @NonNull
@@ -54,6 +74,8 @@ public class DirectInfoAdapter extends RecyclerView.Adapter<DirectInfoAdapter.Vi
 //        View peopleView = inflater.inflate(R.layout.search_result_row, viewGroup, false);
 
 //        return new ViewHolder(peopleView);
+
+
         return new ViewHolder(inflater.inflate(R.layout.search_result_row, viewGroup, false));
     }
 
@@ -74,5 +96,23 @@ public class DirectInfoAdapter extends RecyclerView.Adapter<DirectInfoAdapter.Vi
 
     public Person getPerson(int position) {
         return ((people != null) && (people.size() != 0) ? people.get(position) : null);
+    }
+    //add methods for sectionindex
+
+
+    @Override
+    public int getSectionForPosition(int position) {
+        return position;
+    }
+
+    @Override
+    public Object[] getSections() {
+return  sections;
+
+    }
+
+    @Override
+    public int getPositionForSection(int sectionIndex) {
+        return sectionIndex;
     }
 }
