@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Locale;
 
 
-public class DirectInfoAdapter extends RecyclerView.Adapter<DirectInfoAdapter.ViewHolder> implements SectionIndexer {
+public class DirectInfoAdapter extends RecyclerView.Adapter<DirectInfoAdapter.ViewHolder>  {
 
     private Context context;
 
@@ -53,18 +53,18 @@ public class DirectInfoAdapter extends RecyclerView.Adapter<DirectInfoAdapter.Vi
         this.context = context;
 
 
-        for (int i = 0; i < people.size(); i++) {
-            String character = people.get(i).getName();
-            String firstCharacter = character.charAt(0) + "";
-            firstCharacter = firstCharacter.toUpperCase(Locale.CANADA);
-
-            sectionLetters.add(firstCharacter);
-
-        }
-        ArrayList<String>sectionList = new ArrayList<>(sectionLetters);
-
-        sections = new String[sectionList.size()];
-        sectionList.toArray(sections);
+//        for (int i = 0; i < people.size(); i++) {
+//            String character = people.get(i).getName();
+//            String firstCharacter = character.charAt(0) + "";
+//            firstCharacter = firstCharacter.toUpperCase(Locale.CANADA);
+//
+//            sectionLetters.add(firstCharacter);
+//
+//        }
+//        ArrayList<String>sectionList = new ArrayList<>(sectionLetters);
+//
+//        sections = new String[sectionList.size()];
+//        sectionList.toArray(sections);
     }
 
     @NonNull
@@ -100,19 +100,5 @@ public class DirectInfoAdapter extends RecyclerView.Adapter<DirectInfoAdapter.Vi
     //add methods for sectionindex
 
 
-    @Override
-    public int getSectionForPosition(int position) {
-        return position;
-    }
 
-    @Override
-    public Object[] getSections() {
-return  sections;
-
-    }
-
-    @Override
-    public int getPositionForSection(int sectionIndex) {
-        return sectionIndex;
-    }
 }
