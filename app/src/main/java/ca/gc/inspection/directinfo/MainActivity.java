@@ -10,18 +10,26 @@ import android.content.DialogInterface;
 import android.content.Intent;
 //import android.database.sqlite.SQLiteDatabase;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toolbar;
+
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetView;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 
 public class MainActivity extends Activity {
@@ -33,6 +41,7 @@ public class MainActivity extends Activity {
     SharedPreferences sharedPreferences;
     boolean check;
     long previous;
+
 
 
     @Override
@@ -100,6 +109,9 @@ public class MainActivity extends Activity {
             }
 
         }
+
+
+
     }
 
 
@@ -111,4 +123,6 @@ public class MainActivity extends Activity {
 
         return capabilities != null && capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED);
     }
+
+
 } // end of class
