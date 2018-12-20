@@ -30,8 +30,7 @@
             android:id="@+id/search_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="visible"
-            />
+            android:visibility="visible" />
     </FrameLayout>
 
 
@@ -54,17 +53,6 @@
             app:layout_constraintStart_toStartOf="@id/constraintForWidgets"
             app:layout_constraintTop_toBottomOf="@+id/cvSearchOptions"
             tools:text="TextView" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/searchResultsRecyclerView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="4dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/svAlphabet"
-            app:layout_constraintTop_toBottomOf="@+id/resultCountTv" />
 
         <android.support.v7.widget.CardView
             android:id="@+id/cvSearchOptions"
@@ -147,11 +135,12 @@
             android:id="@+id/svAlphabet"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cvSearchOptions">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cvSearchOptions"
+            app:layout_constraintVertical_bias="1.0">
 
             <LinearLayout
                 android:id="@+id/llAlphabet"
@@ -342,5 +331,22 @@
                     android:text="Z" />
             </LinearLayout>
         </ScrollView>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/searchResultsRecyclerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginStart="8dp"
+            app:fastScrollEnabled="true"
+            app:fastScrollHorizontalThumbDrawable="@drawable/thumb_drawable"
+            app:fastScrollHorizontalTrackDrawable="@drawable/line_drawable"
+            app:fastScrollVerticalThumbDrawable="@drawable/thumb_drawable"
+            app:fastScrollVerticalTrackDrawable="@drawable/line_drawable"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/svAlphabet"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/resultCountTv"
+            app:layout_constraintVertical_bias="1.0" />
     </android.support.constraint.ConstraintLayout>
 </LinearLayout>

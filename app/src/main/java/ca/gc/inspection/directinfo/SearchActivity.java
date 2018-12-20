@@ -80,6 +80,8 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
         db = dbHelper.getReadableDatabase();
 
         recyclerView = findViewById(R.id.searchResultsRecyclerView);
+
+
         swipeGestureController = new SwipeGestureController();
         itemTouchHelper = new ItemTouchHelper(swipeGestureController);
         itemTouchHelper.attachToRecyclerView(recyclerView);
@@ -321,7 +323,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
 
         // How you want the resultCount sorted in the resulting Cursor
         final String sortOrder =
-                DirectInfo.COLUMN_NAME_FIRST_NAME + " ASC ";
+                DirectInfo.COLUMN_NAME_FIRST_NAME + " ASC";
 
         Cursor cursor = db.query(
                 DirectInfo.TABLE_NAME,   // The table to query
@@ -448,6 +450,8 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
         MenuItem menuItem = menu.findItem(R.id.searchView);
         searchView = (MaterialSearchView) findViewById(R.id.search_view);
         searchView.setMenuItem(menuItem);
+        searchView.showSearch(true);
+
 
         searchView.setHint(getString(R.string.searchHint));
 
