@@ -21,4 +21,22 @@
     <string name="checknetworkconnection">Vérifier la connexion réseau</string>
     <string name="internetisworking">Assurez-vous d\'avoir une connexion Internet fonctionnelle et réessayez après.</string>
     // Added later on
+
+    <string name="toggle_search_options">Basculer entre les options de recherch</string>
+    <string name="first_name">Nom</string>
+    <string name="last_name">Prénom</string>
+    <string name="email">Courrie</string>
+    <string name="phone">Téléphone</string>
+    <string name="address">Addresse</string>
+    <string name="title">Titre</string>
+    <string name="cfia">Agence Canadienne d\'inspection des aliments</string>
+    <string name="contactname">Nom du Contact</string>
+    <string name="titleposition">Titre </string>
+    <string name="addtocontact">Ajouter a la liste de contacts</string>
+    <string name="phonenumber">Numéro de Téléphone</string>
+    <string name="emailaddress">Adresse Courriel</string>
+    <string name="physicaladdress">Adresse </string>
+    <string name="postaladdress">Adresse Postale</string>
+    <string name="searchby">Recherche par nom, prénom, numero de téléphone,courriel...</string>
+    <string name="firstletter">Chercher par la première lettre</string>
 </resources>

@@ -29,4 +29,13 @@
     <string name="address">Address</string>
     <string name="title">Title</string>
     <string name="cfia">Canadian Food Inspection Agency</string>
+    <string name="contactname">Contact Name</string>
+    <string name="titleposition">Title Position</string>
+    <string name="addtocontact">Add to Contact List</string>
+    <string name="phonenumber">Phone number</string>
+    <string name="emailaddress">Email Address</string>
+    <string name="physicaladdress">Physical Address</string>
+    <string name="postaladdress">Postal Address</string>
+    <string name="searchby">Search by name, phone number , email address ...</string>
+    <string name="firstletter">Search by first letter</string>
 </resources>
