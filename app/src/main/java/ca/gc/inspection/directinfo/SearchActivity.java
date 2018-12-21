@@ -4,8 +4,10 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -19,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
@@ -26,6 +29,8 @@ import android.widget.TextView;
 import android.support.v7.app.AppCompatActivity;
 
 
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.ArrayList;
@@ -62,6 +67,11 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
     String searchBy = "default";
 
     LinearLayout alphabet;
+
+    SharedPreferences.Editor editor;
+
+    View search;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,6 +130,22 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
                 }
             });
         }
+
+
+        search = findViewById(R.id.search_view);
+        SharedPreferences prefs = getSharedPreferences("prefs",MODE_PRIVATE);
+        boolean first = prefs.getBoolean("firststart",true);
+        if(first){
+            showdialog();
+        }
+
+    }
+    private void showdialog() {
+        startTutorial();
+        SharedPreferences prefs = getSharedPreferences("prefs",MODE_PRIVATE);
+        editor = prefs.edit();
+        editor.putBoolean("firststart",false);
+        editor.apply();
 
     }
 
@@ -549,5 +575,64 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
         outState.putString("userInput", result_query);
         super.onSaveInstanceState(outState);
     }
+
+    private void startTutorial() {
+
+        TapTargetSequence intro = new TapTargetSequence(this)
+                .targets(
+                        TapTarget.forView(search, getString(R.string.searchby))
+                                .outerCircleColor(R.color.md_blue_800)      // Specify a color for the outer circle
+                                .outerCircleAlpha(0.75f)            // Specify the alpha amount for the outer circle
+                                .titleTextSize(20)                  // Specify the size (in sp) of the title text
+                                .titleTextColor(R.color.md_white_1000)      // Specify the color of the title text
+                                .descriptionTextSize(16)            // Specify the size (in sp) of the description text
+                                .descriptionTextColor(R.color.md_white_1000)  // Specify the color of the description text
+                                .textColor(R.color.md_white_1000)            // Specify a color for both the title and description text
+                                .textTypeface(Typeface.SANS_SERIF)  // Specify a typeface for the text
+                                .drawShadow(true)                   // Whether to draw a drop shadow or not
+                                .cancelable(false)                  // Whether tapping outside the outer circle dismisses the view
+                                .tintTarget(true)                   // Whether to tint the target view's color
+                                .transparentTarget(false)           // Specify whether the target is transparent (displays the content underneath)
+                                .targetRadius(100)
+                                .id(1),
+                        TapTarget.forView(alphabet, getString(R.string.firstletter))
+                                .outerCircleColor(R.color.md_blue_800)      // Specify a color for the outer circle
+                                .outerCircleAlpha(0.75f)            // Specify the alpha amount for the outer circle
+                                .titleTextSize(20)                  // Specify the size (in sp) of the title text
+                                .titleTextColor(R.color.md_white_1000)      // Specify the color of the title text
+                                .descriptionTextSize(16)            // Specify the size (in sp) of the description text
+                                .descriptionTextColor(R.color.md_white_1000)  // Specify the color of the description text
+                                .textColor(R.color.md_white_1000)            // Specify a color for both the title and description text
+                                .textTypeface(Typeface.SANS_SERIF)  // Specify a typeface for the text
+                                .drawShadow(true)                   // Whether to draw a drop shadow or not
+                                .cancelable(false)                  // Whether tapping outside the outer circle dismisses the view
+                                .tintTarget(true)                   // Whether to tint the target view's color
+                                .transparentTarget(false)           // Specify whether the target is transparent (displays the content underneath)
+                                .targetRadius(100)
+                                .id(2))
+
+
+                .listener(new TapTargetSequence.Listener() {
+                    @Override
+                    public void onSequenceFinish() {
+                        // Yay
+                    }
+
+                    @Override
+                    public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
+                        if (lastTarget.id() == 1) {
+                            searchView.performClick();
+                        } else if (lastTarget.id() == 2) {
+                            alphabet.performClick();
+                        }
+                    }
+
+                    @Override
+                    public void onSequenceCanceled(TapTarget lastTarget) {
+                        // Boo
+                    }
+                });
+        intro.start();
+    } // end of startTutorial()
 
 } // end of class

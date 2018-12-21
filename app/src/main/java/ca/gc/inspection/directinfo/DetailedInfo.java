@@ -1,6 +1,8 @@
 package ca.gc.inspection.directinfo;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +16,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetSequence;
 
 public class DetailedInfo extends AppCompatActivity {
 
@@ -43,8 +48,10 @@ public class DetailedInfo extends AppCompatActivity {
     CardView cvPostalAddress;
 
     Person person;
-
     Toolbar toolbar;
+
+    SharedPreferences.Editor editor;
+
 
     private static final String TAG = "DetailedInfo";
 
@@ -189,6 +196,19 @@ public class DetailedInfo extends AppCompatActivity {
             cvMobilePhone.setVisibility(View.GONE);
         }
 
+        SharedPreferences prefs = getSharedPreferences("prefs",MODE_PRIVATE);
+        boolean first = prefs.getBoolean("detailInfo",true);
+        if(first){
+            showdialog();
+        }
+
+    }
+    private void showdialog() {
+        startTutorial();
+        SharedPreferences prefs = getSharedPreferences("prefs",MODE_PRIVATE);
+        editor = prefs.edit();
+        editor.putBoolean("detailInfo",false);
+        editor.apply();
     }
 
     public void startDial(String phoneNumber) {
@@ -252,5 +272,147 @@ public class DetailedInfo extends AppCompatActivity {
         }
         return true;
     }
+
+    /* Tutorial starts */
+    private void startTutorial() {
+
+        TapTargetSequence intro = new TapTargetSequence(this)
+                .targets(
+                        TapTarget.forView(tvName, getString(R.string.contactname))
+                                .outerCircleColor(R.color.md_blue_800)      // Specify a color for the outer circle
+                                .outerCircleAlpha(0.50f)            // Specify the alpha amount for the outer circle
+                                .titleTextSize(30)                  // Specify the size (in sp) of the title text
+                                .titleTextColor(R.color.md_white_1000)      // Specify the color of the title text
+                                .descriptionTextSize(48)            // Specify the size (in sp) of the description text
+                                .descriptionTextColor(R.color.md_white_1000)  // Specify the color of the description text
+                                .textColor(R.color.md_white_1000)            // Specify a color for both the title and description text
+                                .textTypeface(Typeface.SANS_SERIF)  // Specify a typeface for the text
+                                .drawShadow(false)                   // Whether to draw a drop shadow or not
+                                .cancelable(false)                  // Whether tapping outside the outer circle dismisses the view
+                                .tintTarget(true)                   // Whether to tint the target view's color
+                                .transparentTarget(true)           // Specify whether the target is transparent (displays the content underneath)
+                                .targetRadius(35)
+                                .id(1),
+                        TapTarget.forView(tvTitle, getString(R.string.titleposition))
+                                .outerCircleColor(R.color.md_blue_800)      // Specify a color for the outer circle
+                                .outerCircleAlpha(0.50f)            // Specify the alpha amount for the outer circle
+                                .titleTextSize(30)                  // Specify the size (in sp) of the title text
+                                .titleTextColor(R.color.md_white_1000)      // Specify the color of the title text
+                                .descriptionTextSize(48)            // Specify the size (in sp) of the description text
+                                .descriptionTextColor(R.color.md_white_1000)  // Specify the color of the description text
+                                .textColor(R.color.md_white_1000)            // Specify a color for both the title and description text
+                                .textTypeface(Typeface.SANS_SERIF)  // Specify a typeface for the text
+                                .drawShadow(true)                   // Whether to draw a drop shadow or not
+                                .cancelable(false)                  // Whether tapping outside the outer circle dismisses the view
+                                .tintTarget(true)                   // Whether to tint the target view's color
+                                .transparentTarget(true)           // Specify whether the target is transparent (displays the content underneath)
+                                .targetRadius(35)
+                                .id(2),
+                        TapTarget.forView(fabAddToContacts, getString(R.string.addtocontact))
+                                .outerCircleColor(R.color.md_blue_800)      // Specify a color for the outer circle
+                                .outerCircleAlpha(0.75f)            // Specify the alpha amount for the outer circle
+                                .titleTextSize(30)                  // Specify the size (in sp) of the title text
+                                .titleTextColor(R.color.md_white_1000)      // Specify the color of the title text
+                                .descriptionTextSize(48)            // Specify the size (in sp) of the description text
+                                .descriptionTextColor(R.color.md_white_1000)  // Specify the color of the description text
+                                .textColor(R.color.md_white_1000)            // Specify a color for both the title and description text
+                                .textTypeface(Typeface.SANS_SERIF)  // Specify a typeface for the text
+                                .drawShadow(true)                   // Whether to draw a drop shadow or not
+                                .cancelable(false)                  // Whether tapping outside the outer circle dismisses the view
+                                .tintTarget(true)                   // Whether to tint the target view's color
+                                .transparentTarget(true)           // Specify whether the target is transparent (displays the content underneath)
+                                .targetRadius(35)
+                                .id(3),
+                        TapTarget.forView(btnCallPrimary, getString(R.string.phonenumber))
+                                .outerCircleColor(R.color.md_blue_800)      // Specify a color for the outer circle
+                                .outerCircleAlpha(0.75f)            // Specify the alpha amount for the outer circle
+                                .titleTextSize(30)                  // Specify the size (in sp) of the title text
+                                .titleTextColor(R.color.md_white_1000)      // Specify the color of the title text
+                                .descriptionTextSize(16)            // Specify the size (in sp) of the description text
+                                .descriptionTextColor(R.color.md_white_1000)  // Specify the color of the description text
+                                .textColor(R.color.md_white_1000)            // Specify a color for both the title and description text
+                                .textTypeface(Typeface.SANS_SERIF)  // Specify a typeface for the text
+                                .drawShadow(true)                   // Whether to draw a drop shadow or not
+                                .cancelable(false)                  // Whether tapping outside the outer circle dismisses the view
+                                .tintTarget(true)                   // Whether to tint the target view's color
+                                .transparentTarget(true)           // Specify whether the target is transparent (displays the content underneath)
+                                .targetRadius(35)
+                                .id(4),
+                        TapTarget.forView(btnSendEmail, getString(R.string.emailaddress))
+                                .outerCircleColor(R.color.md_blue_800)      // Specify a color for the outer circle
+                                .outerCircleAlpha(0.75f)            // Specify the alpha amount for the outer circle
+                                .titleTextSize(30)                  // Specify the size (in sp) of the title text
+                                .titleTextColor(R.color.md_white_1000)      // Specify the color of the title text
+                                .descriptionTextSize(16)            // Specify the size (in sp) of the description text
+                                .descriptionTextColor(R.color.md_white_1000)  // Specify the color of the description text
+                                .textColor(R.color.md_white_1000)            // Specify a color for both the title and description text
+                                .textTypeface(Typeface.SANS_SERIF)  // Specify a typeface for the text
+                                .drawShadow(true)                   // Whether to draw a drop shadow or not
+                                .cancelable(false)                  // Whether tapping outside the outer circle dismisses the view
+                                .tintTarget(true)                   // Whether to tint the target view's color
+                                .transparentTarget(true)           // Specify whether the target is transparent (displays the content underneath)
+                                .targetRadius(35)
+                                .id(5),
+                        TapTarget.forView(btnMapPhysicalAddress, getString(R.string.physicaladdress))
+                                .outerCircleColor(R.color.md_blue_800)      // Specify a color for the outer circle
+                                .outerCircleAlpha(0.75f)            // Specify the alpha amount for the outer circle
+                                .titleTextSize(30)                  // Specify the size (in sp) of the title text
+                                .titleTextColor(R.color.md_white_1000)      // Specify the color of the title text
+                                .descriptionTextSize(16)            // Specify the size (in sp) of the description text
+                                .descriptionTextColor(R.color.md_white_1000)  // Specify the color of the description text
+                                .textColor(R.color.md_white_1000)            // Specify a color for both the title and description text
+                                .textTypeface(Typeface.SANS_SERIF)  // Specify a typeface for the text
+                                .drawShadow(true)                   // Whether to draw a drop shadow or not
+                                .cancelable(false)                  // Whether tapping outside the outer circle dismisses the view
+                                .tintTarget(true)                   // Whether to tint the target view's color
+                                .transparentTarget(true)           // Specify whether the target is transparent (displays the content underneath)
+                                .targetRadius(35)
+                                .id(6),
+                        TapTarget.forView(btnMapPostalAddress, getString(R.string.postaladdress))
+                                .outerCircleColor(R.color.md_blue_800)      // Specify a color for the outer circle
+                                .outerCircleAlpha(0.75f)            // Specify the alpha amount for the outer circle
+                                .titleTextSize(30)                  // Specify the size (in sp) of the title text
+                                .titleTextColor(R.color.md_white_1000)      // Specify the color of the title text
+                                .descriptionTextSize(16)            // Specify the size (in sp) of the description text
+                                .descriptionTextColor(R.color.md_white_1000)  // Specify the color of the description text
+                                .textColor(R.color.md_white_1000)            // Specify a color for both the title and description text
+                                .textTypeface(Typeface.SANS_SERIF)  // Specify a typeface for the text
+                                .drawShadow(true)                   // Whether to draw a drop shadow or not
+                                .cancelable(false)                  // Whether tapping outside the outer circle dismisses the view
+                                .tintTarget(true)                   // Whether to tint the target view's color
+                                .transparentTarget(true)           // Specify whether the target is transparent (displays the content underneath)
+                                .targetRadius(35)
+                )
+                .listener(new TapTargetSequence.Listener() {
+                    @Override
+                    public void onSequenceFinish() {
+                        // Yay
+                    }
+
+                    @Override
+                    public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
+                        if (lastTarget.id() == 1) {
+                            tvName.performClick();
+                        } else if (lastTarget.id() == 2) {
+                            tvTitle.performClick();
+                        }else if (lastTarget.id() == 3) {
+//                            fabAddToContacts.performClick();
+                        }else if (lastTarget.id() == 4) {
+                            tvPhone.performClick();
+                        }else if (lastTarget.id() == 5) {
+                            tvEmail.performClick();
+                        }else if (lastTarget.id() == 6) {
+                            tvPhysicalAddress.performClick();
+                        }
+                    }
+
+                    @Override
+                    public void onSequenceCanceled(TapTarget lastTarget) {
+                        // Boo
+                    }
+                });
+        intro.start();
+    } // end of startTutorial()
+
 
 } // end of class
