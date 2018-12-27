@@ -39,4 +39,5 @@
     <string name="postaladdress">Adresse Postale</string>
     <string name="searchby">Recherche par nom, prénom, numero de téléphone,courriel...</string>
     <string name="firstletter">Chercher par la première lettre</string>
+    <string name="url_handle">link to Direct-info not found</string>
 </resources>

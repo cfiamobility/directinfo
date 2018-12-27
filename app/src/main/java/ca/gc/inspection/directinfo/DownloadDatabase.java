@@ -1,8 +1,10 @@
 package ca.gc.inspection.directinfo;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
@@ -46,7 +48,7 @@ public class DownloadDatabase extends Activity {
 
     ImageView logo;
     Animation animation;
-
+    boolean checkUrl;
 
     final String DI_CSV_FILE_URL = "http://directinfo.agr.gc.ca/directInfo/extracts/searchResults-80a9p09u60ajoql7d0jg6iluu6.csv";
 
@@ -85,28 +87,35 @@ public class DownloadDatabase extends Activity {
                 gedsOpenData.createNewFile();
 
                 URL u = new URL(urls[0]);
-                URLConnection conn = u.openConnection();
+                HttpURLConnection conn = (HttpURLConnection) u.openConnection();
                 conn.setRequestProperty("Content-Type", "text/plain; charset=UTF-8");
                 conn.setDoInput(true);
                 conn.connect();
 
-                int contentLength = conn.getContentLength();
-                Log.d(TAG, "doInBackground: contentLength: " + contentLength);
+                if(conn.getResponseCode()==HttpURLConnection.HTTP_OK){
+                    int contentLength = conn.getContentLength();
+                    Log.d(TAG, "doInBackground: contentLength: " + contentLength);
 
-                InputStream stream = conn.getInputStream();
-                FileOutputStream fos = new FileOutputStream(gedsOpenData);
-                int downloadSize = 0;
+                    InputStream stream = conn.getInputStream();
+                    FileOutputStream fos = new FileOutputStream(gedsOpenData);
+                    int downloadSize = 0;
 
-                byte[] buffer = new byte[1024];
-                int bufferLength;
-                while ((bufferLength = stream.read(buffer)) > 0) {
-                    fos.write(buffer, 0, bufferLength);
-                    downloadSize += bufferLength;
+                    byte[] buffer = new byte[1024];
+                    int bufferLength;
+                    while ((bufferLength = stream.read(buffer)) > 0) {
+                        fos.write(buffer, 0, bufferLength);
+                        downloadSize += bufferLength;
+                    }
+
+                    fos.close();
+                    stream.close();
+                    Log.d(TAG, "doInBackground: downloadSize: " + downloadSize);
+                    checkUrl=true;
+                }else{
+                    checkUrl=false;
                 }
 
-                fos.close();
-                stream.close();
-                Log.d(TAG, "doInBackground: downloadSize: " + downloadSize);
+
 
             } catch (FileNotFoundException e) {
                 Log.d(TAG, "doInBackground: ERROR: FileNotFoundException: " + e.getMessage());
@@ -120,12 +129,26 @@ public class DownloadDatabase extends Activity {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            populateDatabase();
+            if (!checkUrl) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(DownloadDatabase.this);
+                builder.setTitle(R.string.checknetworkconnection)
+                        .setMessage(R.string.url_handle)
+                        .setPositiveButton(R.string.DialogPositiveBtn, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                finish();
+                            }
+                        }).show();
+            } else {
+
+                populateDatabase();
+            }
         }
     }
 
 
-    public void populateDatabase(){
+    public void populateDatabase() {
         db.beginTransaction();
 
         CsvParserSettings settings = new CsvParserSettings();
