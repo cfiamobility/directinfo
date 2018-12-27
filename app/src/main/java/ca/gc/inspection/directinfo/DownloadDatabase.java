@@ -50,7 +50,27 @@ public class DownloadDatabase extends Activity {
     Animation animation;
     boolean checkUrl;
 
-    final String DI_CSV_FILE_URL = "http://directinfo.agr.gc.ca/directInfo/extracts/searchResults-80a9p09u60ajoql7d0jg6iluu6.csv";
+    /*
+     * The link for the download of the DirectInfo database can be found by going to the directInfo site at
+     * http://directinfo.agr.gc.ca/directInfo/eng/index.php?fuseaction=agriInfo.orgUnit&dn=OU=CFIA-ACIA,o=gc,c=ca
+     * then clicking on customizable list from the 'Lists' submenu on the left hand side. After that scroll down to the
+     * 'Search Results' section and check the following boxes:
+     *
+     *          Under the Heading 'Employee Details' :
+     *              Official given name, Surname, English prefix,  English title,
+     *              Telephone number,  Mobile/cellular, Email
+     *          Under the Heading 'Employee Postal Address':
+     *              Street number, Street name, Building unit type, Building unit,
+     *              P.O. Box, City, Province, Country, Postal code
+     *          Under the Heading 'Employee Postal Address':
+     *               Building name, Floor, Room, Street number, Street name
+     *               Building unit type, Building unit, City, Province
+     *
+     * Also note that the link seems to change every month or so, even though it says on the site that it does not.
+     * */
+
+    //    final String DI_CSV_FILE_URL = "http://directinfo.agr.gc.ca/directInfo/extracts/searchResults-80a9p09u60ajoql7d0jg6iluu6.csv";
+    final String DI_CSV_FILE_URL = "http://directinfo.agr.gc.ca/directInfo/extracts/searchResults-7femegq9c7lbo91o7fpf4e06i4.csv";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
