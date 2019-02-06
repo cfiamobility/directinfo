@@ -79,28 +79,28 @@ public class MainActivity extends Activity {
             }
 
 
-        } else {
-            if (System.currentTimeMillis() - previous >= 60000) {
-
-                if (hasInternetConnection(this)) {
-                    editor.putBoolean("checkboolean", false).putLong("time", System.currentTimeMillis()).commit();
-                    Log.d(TAG, "onCreate: TIME > 1 MIN");
-                    startActivity(new Intent(context, DownloadDatabase.class));
-                    finish();
-                } else if (!hasInternetConnection(this) && !check) {
-                    startActivity(new Intent(context, SearchActivity.class));
-                    finish();
-                }else {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                    builder.setTitle(R.string.checknetworkconnection)
-                            .setMessage(R.string.internetisworking)
-                            .setPositiveButton(R.string.DialogPositiveBtn, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    finish();
-                                }
-                            }).show();
-                }
+//        } else {
+//            if (System.currentTimeMillis() - previous >= 60000) {
+//
+//                if (hasInternetConnection(this)) {
+//                    editor.putBoolean("checkboolean", false).putLong("time", System.currentTimeMillis()).commit();
+//                    Log.d(TAG, "onCreate: TIME > 1 MIN");
+//                    startActivity(new Intent(context, DownloadDatabase.class));
+//                    finish();
+//                } else if (!hasInternetConnection(this) && !check) {
+//                    startActivity(new Intent(context, SearchActivity.class));
+//                    finish();
+//                }else {
+//                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+//                    builder.setTitle(R.string.checknetworkconnection)
+//                            .setMessage(R.string.internetisworking)
+//                            .setPositiveButton(R.string.DialogPositiveBtn, new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialogInterface, int i) {
+//                                    finish();
+//                                }
+//                            }).show();
+//                }
 
             } else {
                 Log.d(TAG, "onCreate: TIME < 1 MIN");
@@ -112,7 +112,7 @@ public class MainActivity extends Activity {
 
 
 
-    }
+//    }
 
 
     public static boolean hasInternetConnection(final Context context) {

@@ -51,7 +51,7 @@ public class DownloadDatabase extends Activity {
     boolean checkUrl;
 
     /*
-     * The link for the download of the DirectInfo database can be found by going to the directInfo site at
+     * The link for the download of the DirectInfo database can be found by going to the directInfo site at bec
      * http://directinfo.agr.gc.ca/directInfo/eng/index.php?fuseaction=agriInfo.orgUnit&dn=OU=CFIA-ACIA,o=gc,c=ca
      * then clicking on customizable list from the 'Lists' submenu on the left hand side. After that scroll down to the
      * 'Search Results' section and check the following boxes:
@@ -70,7 +70,8 @@ public class DownloadDatabase extends Activity {
      * */
 
     //    final String DI_CSV_FILE_URL = "http://directinfo.agr.gc.ca/directInfo/extracts/searchResults-80a9p09u60ajoql7d0jg6iluu6.csv";
-    final String DI_CSV_FILE_URL = "http://directinfo.agr.gc.ca/directInfo/extracts/searchResults-7femegq9c7lbo91o7fpf4e06i4.csv";
+//    final String DI_CSV_FILE_URL = "http://directinfo.agr.gc.ca/directInfo/extracts/searchResults-7femegq9c7lbo91o7fpf4e06i4.csv";
+    final String DI_CSV_FILE_URL = "http://directinfo.agr.gc.ca/directInfo/extracts/searchResults-veqkh5p8lbf8ckln30fhcf5357.csv";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +114,7 @@ public class DownloadDatabase extends Activity {
                 conn.connect();
 
                 if(conn.getResponseCode()==HttpURLConnection.HTTP_OK){
-                    int contentLength = conn.getContentLength();
+                        int contentLength = conn.getContentLength();
                     Log.d(TAG, "doInBackground: contentLength: " + contentLength);
 
                     InputStream stream = conn.getInputStream();
