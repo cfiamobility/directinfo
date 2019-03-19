@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.getkeepsafe.taptargetview.TapTarget;
@@ -51,6 +52,13 @@ public class DetailedInfo extends AppCompatActivity {
     Toolbar toolbar;
 
     SharedPreferences.Editor editor;
+
+    /*
+    UPDATED: February 6, 2019 by Nicole
+    - added a back button to the contact view to go back to the search activity
+     */
+
+    ImageView backButton;
 
 
     private static final String TAG = "DetailedInfo";
@@ -187,7 +195,20 @@ public class DetailedInfo extends AppCompatActivity {
             }
         });
 
-        if (person.getMobile() == null) {
+        /*
+            UPDATED: February 6, 2019 by Nicole
+            - added a back button to the contact view to go back to the search activity
+        */
+        backButton = findViewById(R.id.backButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent back = new Intent(getApplicationContext(), SearchActivity.class);
+                startActivity(back);
+            }
+        });
+
+        if (person.getMobile().equals("null")) {
 //            tvMobile.setVisibility(View.INVISIBLE);
 //            tvDisplayMobile = findViewById(R.id.tvMobilePhoneDisplay);
 //            tvDisplayMobile.setVisibility(View.INVISIBLE);

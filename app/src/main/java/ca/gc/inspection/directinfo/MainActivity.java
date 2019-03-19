@@ -43,6 +43,7 @@ public class MainActivity extends Activity {
     long previous;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +57,6 @@ public class MainActivity extends Activity {
         check = sharedPreferences.getBoolean("checkboolean", true);
         long currentTime = System.currentTimeMillis();
         Log.d("TIME", "onCreate: " + currentTime);
-
 
         if (check) {
 
@@ -78,7 +78,7 @@ public class MainActivity extends Activity {
             }
 
 
-        } /*else {
+        } else {
             if (System.currentTimeMillis() - previous >= 60000) {
 
                 if (hasInternetConnection(this)) {
@@ -89,7 +89,7 @@ public class MainActivity extends Activity {
                 } else if (!hasInternetConnection(this) && !check) {
                     startActivity(new Intent(context, SearchActivity.class));
                     finish();
-                } else {
+                }else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                     builder.setTitle(R.string.checknetworkconnection)
                             .setMessage(R.string.internetisworking)
@@ -101,13 +101,12 @@ public class MainActivity extends Activity {
                             }).show();
                 }
 
-            } */else {
+            } else {
                 Log.d(TAG, "onCreate: TIME < 1 MIN");
                 startActivity(new Intent(context, SearchActivity.class));
                 finish();
             }
-        //}
-
+        }
     }
 
     public static boolean hasInternetConnection(final Context context) {

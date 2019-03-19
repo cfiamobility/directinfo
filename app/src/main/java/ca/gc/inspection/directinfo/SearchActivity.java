@@ -520,7 +520,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
                 break;
 
             case R.id.gcdirectory:
-                String url = "http://gcdirectory-gcannuaire.ssc-spc.gc.ca/en/GCD/?pgid=009";
+                String url = "https://www.geds.gc.ca/en/GEDS?pgid=002";
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);
