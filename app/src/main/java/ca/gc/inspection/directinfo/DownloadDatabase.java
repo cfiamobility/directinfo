@@ -116,7 +116,7 @@ public class DownloadDatabase extends Activity {
     }
 
     private void jsonParse() {
-        String url = "http://10.0.2.2:3000/users";
+        String url = "http://13.88.234.89:3000/user";
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
                     @Override
