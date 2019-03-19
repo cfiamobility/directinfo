@@ -1,22 +1,14 @@
 package ca.gc.inspection.directinfo;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.ImageView;
-import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
 public class DirectInfoAdapter extends RecyclerView.Adapter<DirectInfoAdapter.ViewHolder> {
 
     private Context context;
@@ -25,8 +17,6 @@ public class DirectInfoAdapter extends RecyclerView.Adapter<DirectInfoAdapter.Vi
 
         TextView personNameTV;
         TextView personPositionTV;
-        TextView tvDepartmentOrAddress;
-
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -41,20 +31,6 @@ public class DirectInfoAdapter extends RecyclerView.Adapter<DirectInfoAdapter.Vi
     DirectInfoAdapter(ArrayList<Person> people, Context context){
         this.people = people;
         this.context = context;
-
-
-//        for (int i = 0; i < people.size(); i++) {
-//            String character = people.get(i).getName();
-//            String firstCharacter = character.charAt(0) + "";
-//            firstCharacter = firstCharacter.toUpperCase(Locale.CANADA);
-//
-//            sectionLetters.add(firstCharacter);
-//
-//        }
-//        ArrayList<String>sectionList = new ArrayList<>(sectionLetters);
-//
-//        sections = new String[sectionList.size()];
-//        sectionList.toArray(sections);
     }
 
     @NonNull
@@ -68,8 +44,11 @@ public class DirectInfoAdapter extends RecyclerView.Adapter<DirectInfoAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         viewHolder.personNameTV.setText(people.get(i).getName());
-        viewHolder.personPositionTV.setText(people.get(i).getTitle());
-
+        if (people.get(i).getTitle().equals("")){
+            viewHolder.personPositionTV.setVisibility(View.GONE);
+        } else {
+            viewHolder.personPositionTV.setText(people.get(i).getTitle());
+        }
     }
 
     @Override
@@ -77,7 +56,7 @@ public class DirectInfoAdapter extends RecyclerView.Adapter<DirectInfoAdapter.Vi
         return people.size();
     }
 
-    public Person getPerson(int position) {
+    Person getPerson(int position) {
         return ((people != null) && (people.size() != 0) ? people.get(position) : null);
     }
 }

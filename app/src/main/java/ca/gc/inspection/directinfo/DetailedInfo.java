@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.Uri;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -30,8 +29,6 @@ public class DetailedInfo extends AppCompatActivity {
     TextView tvEmail;
     TextView tvPhysicalAddress;
     TextView tvPostalAddress;
-
-    TextView tvDisplayMobile;
 
 //    FloatingActionButton fabAddToContacts;
     ImageButton fabAddToContacts;
@@ -209,22 +206,17 @@ public class DetailedInfo extends AppCompatActivity {
         });
 
         if (person.getMobile().equals("null")) {
-//            tvMobile.setVisibility(View.INVISIBLE);
-//            tvDisplayMobile = findViewById(R.id.tvMobilePhoneDisplay);
-//            tvDisplayMobile.setVisibility(View.INVISIBLE);
-//            btnTextMobile.setVisibility(View.INVISIBLE);
-//            btnCallMobile.setVisibility(View.INVISIBLE);
             cvMobilePhone.setVisibility(View.GONE);
         }
 
         SharedPreferences prefs = getSharedPreferences("prefs",MODE_PRIVATE);
         boolean first = prefs.getBoolean("detailInfo",true);
         if(first){
-            showdialog();
+            showDialog();
         }
 
     }
-    private void showdialog() {
+    private void showDialog() {
         startTutorial();
         SharedPreferences prefs = getSharedPreferences("prefs",MODE_PRIVATE);
         editor = prefs.edit();
@@ -234,13 +226,17 @@ public class DetailedInfo extends AppCompatActivity {
 
     public void startDial(String phoneNumber) {
         Intent intent = new Intent(Intent.ACTION_DIAL);
-        intent.setData(Uri.parse("tel:" + phoneNumber));
+        intent.setData(Uri.parse("tel:" + (phoneNumber.length() > 14
+                                    ? phoneNumber.substring(0,14) + "," + phoneNumber.substring(20)
+                                    : phoneNumber.substring(0,14)))); // format's the extension properly
         startActivity(intent);
     }
 
     public void startText(String phoneNumber) {
         Intent intent = new Intent(Intent.ACTION_SENDTO);
-        intent.setData(Uri.parse("smsto:" + phoneNumber));
+        intent.setData(Uri.parse("smsto:" + (phoneNumber.length() > 14
+                                    ? phoneNumber.substring(0,14) + "," + phoneNumber.substring(20)
+                                    : phoneNumber.substring(0,14))));
         startActivity(intent);
     }
 
@@ -416,8 +412,6 @@ public class DetailedInfo extends AppCompatActivity {
                             tvName.performClick();
                         } else if (lastTarget.id() == 2) {
                             tvTitle.performClick();
-                        }else if (lastTarget.id() == 3) {
-//                            fabAddToContacts.performClick();
                         }else if (lastTarget.id() == 4) {
                             tvPhone.performClick();
                         }else if (lastTarget.id() == 5) {

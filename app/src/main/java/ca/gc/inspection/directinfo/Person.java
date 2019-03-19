@@ -2,6 +2,7 @@ package ca.gc.inspection.directinfo;
 
 import android.content.Intent;
 import android.provider.ContactsContract;
+import android.util.Log;
 
 import java.io.Serializable;
 
@@ -74,29 +75,11 @@ public class Person implements Serializable {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    public String getPhone() { return (formatNum(phone)) ;}
 
-    public String getPhone() {
-        return phone.subSequence(0, 14).toString();
-    }
+    public String getTitle() { return title.equals("null") ?  "": title; }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getMobile() {
-        return mobile;
-    }
+    public String getMobile() { return (formatNum(mobile)); }
 
     public String getPhysicalAddress() {
         StringBuilder physicalAddress = new StringBuilder();
@@ -178,5 +161,26 @@ public class Person implements Serializable {
         this.postalCity = (this.postalCity != null) ? this.postalCity : "";
         this.postalProvince = (this.postalProvince != null) ? this.postalProvince : "";
         return this.postalStreetNumber + this.postalStreetName + postalCity + postalProvince+this.postalCity;
+    }
+
+    /*// *** UPDATE March 19, 2019 ***
+    Name: formatNum
+    Author: Edison Mendoza
+    Parameters: num - Phone number from database
+    Return: Formatted number to display to app
+    Description: Helper function to format and display numbers properly to work with the inconsistent format of the database
+    */
+    private String formatNum (String num){
+        char[] arr = num.toCharArray();
+        String numOnly = "";
+        for (char c : arr){
+            if (Character.isDigit(c)) {
+                numOnly += c;
+            }
+        }
+        String ret = (numOnly.length() < 10) ? "null" : ("(" + numOnly.substring(0,3) + ") " +  numOnly.substring(3,6) + " " + numOnly.substring(6,10));
+        if (numOnly.length() > 10) // means there is an extension number
+            ret += " Ext. " + numOnly.substring(10);
+        return ret;
     }
 }
