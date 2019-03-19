@@ -69,8 +69,7 @@ public class DownloadDatabase extends Activity {
      * Also note that the link seems to change every month or so, even though it says on the site that it does not.
      * */
 
-    //    final String DI_CSV_FILE_URL = "http://directinfo.agr.gc.ca/directInfo/extracts/searchResults-80a9p09u60ajoql7d0jg6iluu6.csv";
-    final String DI_CSV_FILE_URL = "http://directinfo.agr.gc.ca/directInfo/extracts/searchResults-7femegq9c7lbo91o7fpf4e06i4.csv";
+    final String DI_CSV_FILE_URL = "http://directinfo.agr.gc.ca/directInfo/extracts/searchResults-veqkh5p8lbf8ckln30fhcf5357.csv";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,8 +92,11 @@ public class DownloadDatabase extends Activity {
 
         DownloadGEDSZipFile downloadGEDSZipFile = new DownloadGEDSZipFile();
         downloadGEDSZipFile.execute(DI_CSV_FILE_URL);
-
-    }
+ /*       gedsOpenData = new File("android.resource://ca.gc.inspection.directinfo/raw/list.csv");
+        if (gedsOpenData.canRead())
+            checkUrl = true;
+        else checkUrl = false;
+ */   }
 
 
     private class DownloadGEDSZipFile extends AsyncTask<String, Integer, Void> {
