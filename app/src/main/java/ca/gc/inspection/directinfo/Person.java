@@ -101,19 +101,19 @@ public class Person implements Serializable {
     public String getPhysicalAddress() {
         StringBuilder physicalAddress = new StringBuilder();
 
-        if (buildingName != null && !buildingName.isEmpty())
+        if (!buildingName.equals("null"))
             physicalAddress.append(buildingName).append("\n");
-        if (floor != null && !floor.isEmpty())
+        if (!floor.equals("null"))
             physicalAddress.append("Floor ").append(floor).append(", ");
-        if (roomNumber != null && !roomNumber.isEmpty())
+        if (!roomNumber.equals("null"))
             physicalAddress.append("Room ").append(roomNumber).append("\n");
-        if (physicalStreetNumber != null && !physicalStreetNumber.isEmpty())
+        if (!physicalStreetNumber.equals("null"))
             physicalAddress.append(physicalStreetNumber).append(" ").append(physicalStreetName);
-        if (physicalUnitType != null && !physicalUnitType.isEmpty())
+        if (!physicalUnitType.equals("null"))
             physicalAddress.append(", ").append(physicalUnitType).append(" ").append(physicalUnitID);
-        if (physicalCity != null && !physicalCity.isEmpty())
+        if (!physicalCity.equals("null"))
             physicalAddress.append("\n").append(physicalCity).append(", ").append(physicalProvince).append("\n");
-        if (postalCode != null && !postalCode.isEmpty())
+        if (!postalCode.equals("null"))
             physicalAddress.append(postalCode).append("\n");
         physicalAddress.append(country);
 
@@ -124,21 +124,21 @@ public class Person implements Serializable {
     public String getPostalAddress() {
         StringBuilder postalAddress = new StringBuilder();
 
-        if (buildingName != null && !buildingName.isEmpty())
+        if (!buildingName.equals("null"))
             postalAddress.append(buildingName).append("\n");
-        if (floor != null && !floor.isEmpty())
+        if (!floor.equals("null"))
             postalAddress.append("Floor ").append(floor).append(", ");
-        if (roomNumber != null && !roomNumber.isEmpty())
+        if (!roomNumber.equals("null"))
             postalAddress.append("Room ").append(roomNumber).append("\n");
-        if (postalStreetNumber != null && !postalStreetNumber.isEmpty())
+        if (!postalStreetNumber.equals("null"))
             postalAddress.append(postalStreetNumber).append(" ").append(postalStreetName);
-        if (postalUnitType != null && !postalUnitType.isEmpty())
+        if (!postalUnitType.equals("null"))
             postalAddress.append(", ").append(postalUnitType).append(" ").append(postalUnitID);
-        if (postOfficeBox != null && !postOfficeBox.isEmpty())
+        if (!postOfficeBox.equals("null"))
             postalAddress.append("\n").append(postOfficeBox);
-        if (postalCity != null && !postalCity.isEmpty())
+        if (!postalCity.equals("null"))
             postalAddress.append("\n").append(postalCity).append(", ").append(postalProvince).append("\n");
-        if (postalCode != null && !postalCode.isEmpty())
+        if (!postalCode.equals("null"))
             postalAddress.append(postalCode).append("\n");
         postalAddress.append(country);
 

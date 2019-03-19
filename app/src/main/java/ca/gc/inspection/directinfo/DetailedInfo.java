@@ -208,7 +208,7 @@ public class DetailedInfo extends AppCompatActivity {
             }
         });
 
-        if (person.getMobile() == null) {
+        if (person.getMobile().equals("null")) {
 //            tvMobile.setVisibility(View.INVISIBLE);
 //            tvDisplayMobile = findViewById(R.id.tvMobilePhoneDisplay);
 //            tvDisplayMobile.setVisibility(View.INVISIBLE);

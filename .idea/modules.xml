@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/direct-info-app.iml" filepath="$PROJECT_DIR$/.idea/direct-info-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/direct-info-app.iml" filepath="$PROJECT_DIR$/direct-info-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/direct-info-app1.iml" filepath="$PROJECT_DIR$/direct-info-app1.iml" />
     </modules>
   </component>
 </project>
