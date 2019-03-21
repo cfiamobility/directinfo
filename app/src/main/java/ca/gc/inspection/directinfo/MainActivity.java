@@ -1,36 +1,36 @@
 package ca.gc.inspection.directinfo;
 
 import android.app.Activity;
-import android.app.AlarmManager;
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.PendingIntent;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 //import android.database.sqlite.SQLiteDatabase;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.graphics.Typeface;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toolbar;
 
-import com.getkeepsafe.taptargetview.TapTarget;
-import com.getkeepsafe.taptargetview.TapTargetView;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 
-import java.util.Calendar;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
+import ca.gc.inspection.directinfo.DirectInfoDbContract.DirectInfo;
 
 public class MainActivity extends Activity {
 
@@ -42,6 +42,12 @@ public class MainActivity extends Activity {
     boolean check;
     long previous;
 
+    SQLiteDatabase db;
+    DirectInfoDbHelper dbHelper;
+
+
+    static String newDate;
+
 
 
     @Override
@@ -49,6 +55,10 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context = getApplicationContext();
+
+        dbHelper = new DirectInfoDbHelper(getApplicationContext());
+        db = dbHelper.getReadableDatabase();
+
 
         sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -84,8 +94,9 @@ public class MainActivity extends Activity {
                 if (hasInternetConnection(this)) {
                     editor.putBoolean("checkboolean", false).putLong("time", System.currentTimeMillis()).commit();
                     Log.d(TAG, "onCreate: TIME > 1 MIN");
-                    startActivity(new Intent(context, DownloadDatabase.class));
-                    finish();
+
+                    grabDate();
+
                 } else if (!hasInternetConnection(this) && !check) {
                     startActivity(new Intent(context, SearchActivity.class));
                     finish();
@@ -103,7 +114,7 @@ public class MainActivity extends Activity {
 
             } else {
                 Log.d(TAG, "onCreate: TIME < 1 MIN");
-                startActivity(new Intent(context, SearchActivity.class));
+                startActivity(new Intent(context, DownloadDatabase.class));
                 finish();
             }
         }
@@ -116,6 +127,67 @@ public class MainActivity extends Activity {
         final NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(network);
 
         return capabilities != null && capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED);
+    }
+
+    public void grabDate() {
+        String dateURL = "http://13.88.234.89:3000/users/update";
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, dateURL, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+
+                        // grabbing the new date from the database
+                        JSONObject jsonPart = response.getJSONObject(i);
+                        newDate = jsonPart.getString("date");
+                        Log.i("NEW DATE", newDate);
+
+                        // transforming the new date into a date object
+                        Date dateNew = simpleDateFormat.parse(newDate);
+
+                        // grabbing the date from the local database
+                        String dateQuery = "SELECT * FROM " + DirectInfo.TABLE_DATE_NAME + ";";
+                        Cursor cursor = db.rawQuery(dateQuery, null);
+
+                        if (cursor.moveToFirst()) {
+                            cursor.moveToFirst();
+                            String oldDate = cursor.getString(0);
+                            Date date = null;
+                            try {
+                                // transforming the old date into a date object
+                                date = simpleDateFormat.parse(oldDate);
+
+                                // comparing the two dates
+                                if (dateNew.after(date)) {
+                                    // if the new date is later than the old date it will download the database
+                                    startActivity(new Intent(context, DownloadDatabase.class));
+                                    finish();
+                                } else {
+                                    // if the new date is before the old date or the same, it will go straight into the SearchActivity class
+                                    startActivity(new Intent(context, SearchActivity.class));
+                                    finish();
+                                }
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        cursor.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        Volley.newRequestQueue(getApplicationContext()).add(jsonArrayRequest);
+        Log.i("RESPONSE", "DONE ALL GET REQUESTS");
     }
 
 

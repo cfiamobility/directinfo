@@ -23,10 +23,12 @@ public class DirectInfoDbHelper extends SQLiteOpenHelper {
         Log.d(TAG, "onCreate: " + DirectInfo.SQL_CREATE_ENTRIES);
 
         db.execSQL(DirectInfo.SQL_CREATE_ENTRIES);
+        db.execSQL(DirectInfo.SQL_DATE_CREATE);
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
         db.execSQL(DirectInfo.SQL_DELETE_ENTRIES);
+        db.execSQL(DirectInfo.SQL_DELETE_DATE);
         onCreate(db);
     }
 

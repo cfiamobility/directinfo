@@ -10,6 +10,7 @@ public final class DirectInfoDbContract {
     //inner class that defines the table contents
     public static final class DirectInfo implements BaseColumns {
         public static final String TABLE_NAME = "gedsOpenData";
+        public static final String TABLE_DATE_NAME = "updateDate";
 
 
         public static final String COLUMN_NAME_FIRST_NAME = "agofficialname";
@@ -37,6 +38,7 @@ public final class DirectInfoDbContract {
         public static final String COLUMN_NAME_PHYSICAL_BUILDING_UNIT_ID = "agphysicalbuildingunitid";
         public static final String COLUMN_NAME_PHYSICAL_CITY_EN = "agphysicalcityenglish";
         public static final String COLUMN_NAME_PHYSICAL_PROVINCE_EN = "agphysicalprovincenameenglish";
+        public static final String COLUMN_NAME_DATE = "date";
 
 
 
@@ -74,5 +76,12 @@ public final class DirectInfoDbContract {
 
         public static final String SQL_DELETE_ENTRIES =
                 "DROP TABLE IF EXISTS " + DirectInfo.TABLE_NAME;
+
+        public static String SQL_DATE_CREATE =
+                "CREATE TABLE " + DirectInfo.TABLE_DATE_NAME + " (" +
+                        DirectInfo.COLUMN_NAME_DATE + " TEXT )";
+
+        public static final String SQL_DELETE_DATE =
+                "DROP TABLE IF EXISTS " + DirectInfo.TABLE_DATE_NAME;
     }
 }

@@ -30,6 +30,7 @@ import com.univocity.parsers.csv.CsvParser;
 import com.univocity.parsers.csv.CsvParserSettings;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.DataInputStream;
@@ -44,6 +45,9 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import static ca.gc.inspection.directinfo.DirectInfoDbContract.DirectInfo;
 
@@ -89,9 +93,7 @@ public class DownloadDatabase extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        mQueue = Volley.newRequestQueue(this);
         jsonParse();
-
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_download_database);
@@ -103,6 +105,8 @@ public class DownloadDatabase extends Activity {
         db = dbHelper.getWritableDatabase();
         db.execSQL(DirectInfo.SQL_DELETE_ENTRIES);
         db.execSQL(DirectInfo.SQL_CREATE_ENTRIES);
+        db.execSQL(DirectInfo.SQL_DELETE_DATE);
+        db.execSQL(DirectInfo.SQL_DATE_CREATE);
 
         // animation
         logo = findViewById(R.id.logo);
@@ -116,7 +120,7 @@ public class DownloadDatabase extends Activity {
     }
 
     private void jsonParse() {
-        String url = "http://13.88.234.89:3000/user";
+        String url = "http://13.88.234.89:3000/users";
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -124,6 +128,10 @@ public class DownloadDatabase extends Activity {
                         try {
 
                             db.beginTransaction();
+
+                            ContentValues date = new ContentValues();
+                            date.put(DirectInfo.COLUMN_NAME_DATE, MainActivity.newDate);
+                            db.insert(DirectInfo.TABLE_DATE_NAME, null, date);
 
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject jsonPart = response.getJSONObject(i);
@@ -171,7 +179,7 @@ public class DownloadDatabase extends Activity {
             }
         });
 
-        mQueue.add(request);
+        Volley.newRequestQueue(getApplicationContext()).add(request);
     }
 
     @Override
