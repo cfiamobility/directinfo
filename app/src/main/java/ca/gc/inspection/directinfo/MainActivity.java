@@ -38,8 +38,9 @@ public class MainActivity extends Activity {
     Context context;
 
 
-    SharedPreferences sharedPreferences;
-    boolean check;
+    static SharedPreferences sharedPreferences;
+    static SharedPreferences.Editor editor;
+    static boolean check;
     long previous;
 
     SQLiteDatabase db;
@@ -61,7 +62,7 @@ public class MainActivity extends Activity {
 
 
         sharedPreferences = getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor = sharedPreferences.edit();
 
         previous = sharedPreferences.getLong("time", System.currentTimeMillis());
         check = sharedPreferences.getBoolean("checkboolean", true);
@@ -71,7 +72,6 @@ public class MainActivity extends Activity {
         if (check) {
 
             if (hasInternetConnection(this)) {
-                editor.putBoolean("checkboolean", false).putLong("time", System.currentTimeMillis()).commit();
                 Log.d(TAG, "onCreate: TIME FIRST RUN");
                 startActivity(new Intent(context, DownloadDatabase.class));
                 finish();
@@ -114,7 +114,7 @@ public class MainActivity extends Activity {
 
             } else {
                 Log.d(TAG, "onCreate: TIME < 1 MIN");
-                startActivity(new Intent(context, DownloadDatabase.class));
+                startActivity(new Intent(context, SearchActivity.class));
                 finish();
             }
         }
@@ -183,7 +183,16 @@ public class MainActivity extends Activity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("Server Error")
+                        .setMessage("The Server is currently down.")
+                        .setPositiveButton(R.string.DialogPositiveBtn, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                startActivity(new Intent(context, SearchActivity.class));
+                                finish();
+                            }
+                        }).show();
             }
         });
         Volley.newRequestQueue(getApplicationContext()).add(jsonArrayRequest);

@@ -127,6 +127,8 @@ public class DownloadDatabase extends Activity {
                     public void onResponse(JSONArray response) {
                         try {
 
+                            MainActivity.editor.putBoolean("checkboolean", false).putLong("time", System.currentTimeMillis()).commit();
+
                             db.beginTransaction();
 
                             ContentValues date = new ContentValues();
@@ -175,7 +177,20 @@ public class DownloadDatabase extends Activity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
+                AlertDialog.Builder builder = new AlertDialog.Builder(DownloadDatabase.this);
+                builder.setTitle("Server Error")
+                        .setMessage("The Server is currently down.")
+                        .setPositiveButton(R.string.DialogPositiveBtn, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                if (MainActivity.check) {
+                                    finish();
+                                } else {
+                                    startActivity(new Intent(context, SearchActivity.class));
+                                    finish();
+                                }
+                            }
+                        }).show();
             }
         });
 
