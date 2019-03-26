@@ -2,6 +2,7 @@ package ca.gc.inspection.directinfo;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -180,6 +181,7 @@ public class DownloadDatabase extends Activity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(DownloadDatabase.this);
                 builder.setTitle("Server Error")
                         .setMessage("The Server is currently down.")
+                        .setCancelable(false)
                         .setPositiveButton(R.string.DialogPositiveBtn, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -190,7 +192,10 @@ public class DownloadDatabase extends Activity {
                                     finish();
                                 }
                             }
-                        }).show();
+                        });
+
+                Dialog dialog = builder.show();
+                dialog.setCanceledOnTouchOutside(false);
             }
         });
 

@@ -2,7 +2,7 @@ package ca.gc.inspection.directinfo;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ContentValues;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -185,6 +185,7 @@ public class MainActivity extends Activity {
             public void onErrorResponse(VolleyError error) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setTitle("Server Error")
+                        .setCancelable(false)
                         .setMessage("The Server is currently down.")
                         .setPositiveButton(R.string.DialogPositiveBtn, new DialogInterface.OnClickListener() {
                             @Override
@@ -192,12 +193,20 @@ public class MainActivity extends Activity {
                                 startActivity(new Intent(context, SearchActivity.class));
                                 finish();
                             }
-                        }).show();
+                        });
+
+                Dialog dialog = builder.show();
+                dialog.setCanceledOnTouchOutside(false);
+
             }
         });
         Volley.newRequestQueue(getApplicationContext()).add(jsonArrayRequest);
         Log.i("RESPONSE", "DONE ALL GET REQUESTS");
     }
+//
+//    public void errorDialog() {
+//
+//    }
 
 
 } // end of class
