@@ -64,9 +64,7 @@ public class DownloadDatabase extends Activity {
 
     ImageView logo;
     Animation animation;
-    boolean checkUrl;
 
-    RequestQueue mQueue;
 
     /*
      * The link for the download of the DirectInfo database can be found by going to the directInfo site at bec
@@ -121,20 +119,17 @@ public class DownloadDatabase extends Activity {
     }
 
     private void jsonParse() {
-        String url = "http://13.88.234.89:3000/users";
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        String url = "http://10.0.2.2:3000/users";
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
                         try {
 
-                            MainActivity.editor.putBoolean("checkboolean", false).putLong("time", System.currentTimeMillis()).commit();
-
                             db.beginTransaction();
-
-                            ContentValues date = new ContentValues();
-                            date.put(DirectInfo.COLUMN_NAME_DATE, MainActivity.newDate);
-                            db.insert(DirectInfo.TABLE_DATE_NAME, null, date);
 
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject jsonPart = response.getJSONObject(i);
@@ -178,28 +173,41 @@ public class DownloadDatabase extends Activity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(DownloadDatabase.this);
-                builder.setTitle("Server Error")
-                        .setMessage("The Server is currently down.")
-                        .setCancelable(false)
-                        .setPositiveButton(R.string.DialogPositiveBtn, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                if (MainActivity.check) {
-                                    finish();
-                                } else {
-                                    startActivity(new Intent(context, SearchActivity.class));
-                                    finish();
-                                }
-                            }
-                        });
 
-                Dialog dialog = builder.show();
-                dialog.setCanceledOnTouchOutside(false);
             }
         });
 
-        Volley.newRequestQueue(getApplicationContext()).add(request);
+        queue.add(request);
+
+        String dateUrl = "http://10.0.2.2:3000/users/update";
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, dateUrl, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+
+                        // grab the date from the date column on the server table
+                        JSONObject jsonDate = response.getJSONObject(i);
+                        String serverDate = jsonDate.getString("date");
+
+                        // insert the new date into the sqlite database table
+                        ContentValues date = new ContentValues();
+                        date.put(DirectInfo.COLUMN_NAME_DATE, serverDate);
+                        db.insert(DirectInfo.TABLE_DATE_NAME, null, date);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        queue.add(jsonArrayRequest);
     }
 
     @Override
