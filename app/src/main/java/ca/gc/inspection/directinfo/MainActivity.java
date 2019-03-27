@@ -103,7 +103,7 @@ public class MainActivity extends Activity {
 
 
                     // grab date from server
-                    String serverDateUrl = "http://10.0.2.2:3000/users/update";
+                    String serverDateUrl = "http://13.88.234.89:3000/users/update";
                     JsonArrayRequest sqlDateArray = new JsonArrayRequest(Request.Method.GET, serverDateUrl, null, new Response.Listener<JSONArray>() {
                         @Override
                         public void onResponse(JSONArray response) {
@@ -220,7 +220,7 @@ public class MainActivity extends Activity {
     public void checkServer() {
 
         // instantiate the RequestQueue
-        String url = "http://10.0.2.2:3000";
+        String url = "http://13.88.234.89:3000";
 
         // Request a string response from the url
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {

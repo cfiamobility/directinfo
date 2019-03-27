@@ -122,7 +122,7 @@ public class DownloadDatabase extends Activity {
 
         RequestQueue queue = Volley.newRequestQueue(this);
 
-        String url = "http://10.0.2.2:3000/users";
+        String url = "http://13.88.234.89:3000/users";
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -179,7 +179,7 @@ public class DownloadDatabase extends Activity {
 
         queue.add(request);
 
-        String dateUrl = "http://10.0.2.2:3000/users/update";
+        String dateUrl = "http://13.88.234.89:3000/users/update";
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, dateUrl, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
