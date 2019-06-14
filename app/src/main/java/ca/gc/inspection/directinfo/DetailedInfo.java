@@ -24,26 +24,22 @@ public class DetailedInfo extends AppCompatActivity {
 
     TextView tvName;
     TextView tvTitle;
+    TextView tvDept;
+    TextView tvOrg;
     TextView tvPhone;
-    TextView tvMobile;
     TextView tvEmail;
     TextView tvPhysicalAddress;
-    TextView tvPostalAddress;
 
-//    FloatingActionButton fabAddToContacts;
     ImageButton fabAddToContacts;
     ImageButton btnCallPrimary;
-    ImageButton btnCallMobile;
-    ImageButton btnTextMobile;
+
     ImageButton btnSendEmail;
     ImageButton btnMapPhysicalAddress;
-    ImageButton btnMapPostalAddress;
 
     CardView cvPrimaryPhone;
-    CardView cvMobilePhone;
     CardView cvEmail;
     CardView cvPhysicalAddress;
-    CardView cvPostalAddress;
+
 
     Person person;
     Toolbar toolbar;
@@ -78,21 +74,21 @@ public class DetailedInfo extends AppCompatActivity {
         tvTitle = findViewById(R.id.tvTitle);
         tvTitle.setText(person.getTitle());
 
+        tvDept = findViewById(R.id.tvDept);
+        tvDept.setText(person.getDept());
+
+        tvOrg = findViewById(R.id.tvOrg);
+        tvOrg.setText(person.getOrg());
+
         tvPhone = findViewById(R.id.tvPrimaryPhone);
         tvPhone.setText(person.getPhone());
-
-        tvMobile = findViewById(R.id.tvMobilePhone);
-        tvMobile.setText(person.getMobile());
 
         tvEmail = findViewById(R.id.tvEmail);
         tvEmail.setText(person.getEmail());
 
 
         tvPhysicalAddress = findViewById(R.id.tvPhysicalAddress);
-        tvPhysicalAddress.setText(person.getPhysicalAddress());
-
-        tvPostalAddress = findViewById(R.id.tvPostalAddress);
-        tvPostalAddress.setText(person.getPostalAddress());
+        tvPhysicalAddress.setText(person.getAddress());
 
         fabAddToContacts = findViewById(R.id.addToContactsFAB);
         fabAddToContacts.setOnClickListener(new View.OnClickListener() {
@@ -107,14 +103,6 @@ public class DetailedInfo extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startDial(person.getPhone());
-            }
-        });
-
-        cvMobilePhone = findViewById(R.id.cvMobilePhone);
-        cvMobilePhone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startDial(person.getMobile());
             }
         });
 
@@ -134,37 +122,12 @@ public class DetailedInfo extends AppCompatActivity {
             }
         });
 
-        cvPostalAddress = findViewById(R.id.cvPostalAddress);
-        cvPostalAddress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startMaps(person.getPostalMapInfo());
-            }
-        });
-
-
-        btnTextMobile = findViewById(R.id.btnTextMobile);
-        btnTextMobile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startText(person.getMobile());
-            }
-        });
-
         btnCallPrimary = findViewById(R.id.btnCallPrimary);
         btnCallPrimary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String primary = person.getPhone();
                 startDial(primary);
-            }
-        });
-
-        btnCallMobile = findViewById(R.id.btnCallMobile);
-        btnCallMobile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startDial(person.getMobile());
             }
         });
 
@@ -184,14 +147,6 @@ public class DetailedInfo extends AppCompatActivity {
             }
         });
 
-        btnMapPostalAddress = findViewById(R.id.btnMapPostalAddress);
-        btnMapPostalAddress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startMaps(person.getPostalMapInfo());
-            }
-        });
-
         /*
             UPDATED: February 6, 2019 by Nicole
             - added a back button to the contact view to go back to the search activity
@@ -204,10 +159,6 @@ public class DetailedInfo extends AppCompatActivity {
                 startActivity(back);
             }
         });
-
-        if (person.getMobile().equals("null")) {
-            cvMobilePhone.setVisibility(View.GONE);
-        }
 
         SharedPreferences prefs = getSharedPreferences("prefs",MODE_PRIVATE);
         boolean first = prefs.getBoolean("detailInfo",true);
@@ -232,13 +183,13 @@ public class DetailedInfo extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void startText(String phoneNumber) {
+   /* public void startText(String phoneNumber) {
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("smsto:" + (phoneNumber.length() > 14
                                     ? phoneNumber.substring(0,14) + "," + phoneNumber.substring(20)
                                     : phoneNumber.substring(0,14))));
         startActivity(intent);
-    }
+    }*/
 
     public void startEmail(String email) {
         Intent intent = new Intent(Intent.ACTION_SENDTO);
@@ -299,7 +250,7 @@ public class DetailedInfo extends AppCompatActivity {
                                 .outerCircleColor(R.color.md_blue_800)      // Specify a color for the outer circle
                                 .outerCircleAlpha(0.50f)            // Specify the alpha amount for the outer circle
                                 .titleTextSize(30)                  // Specify the size (in sp) of the title text
-                                .titleTextColor(R.color.md_white_1000)      // Specify the color of the title text
+                                .titleTextColor(R.color.md_white_1000)// Specify the color of the title text
                                 .descriptionTextSize(48)            // Specify the size (in sp) of the description text
                                 .descriptionTextColor(R.color.md_white_1000)  // Specify the color of the description text
                                 .textColor(R.color.md_white_1000)            // Specify a color for both the title and description text
@@ -340,7 +291,7 @@ public class DetailedInfo extends AppCompatActivity {
                                 .transparentTarget(true)           // Specify whether the target is transparent (displays the content underneath)
                                 .targetRadius(35)
                                 .id(3),
-                        TapTarget.forView(btnCallPrimary, getString(R.string.phonenumber))
+                        TapTarget.forView(btnCallPrimary, getString(R.string.phonenumber), "Clicking here will automatically dial the number on your phone.")
                                 .outerCircleColor(R.color.md_blue_800)      // Specify a color for the outer circle
                                 .outerCircleAlpha(0.75f)            // Specify the alpha amount for the outer circle
                                 .titleTextSize(30)                  // Specify the size (in sp) of the title text
@@ -355,7 +306,7 @@ public class DetailedInfo extends AppCompatActivity {
                                 .transparentTarget(true)           // Specify whether the target is transparent (displays the content underneath)
                                 .targetRadius(35)
                                 .id(4),
-                        TapTarget.forView(btnSendEmail, getString(R.string.emailaddress))
+                        TapTarget.forView(btnSendEmail, getString(R.string.emailaddress), "Clicking here will open your default email application to quickly send an email to the person.")
                                 .outerCircleColor(R.color.md_blue_800)      // Specify a color for the outer circle
                                 .outerCircleAlpha(0.75f)            // Specify the alpha amount for the outer circle
                                 .titleTextSize(30)                  // Specify the size (in sp) of the title text
@@ -370,7 +321,7 @@ public class DetailedInfo extends AppCompatActivity {
                                 .transparentTarget(true)           // Specify whether the target is transparent (displays the content underneath)
                                 .targetRadius(35)
                                 .id(5),
-                        TapTarget.forView(btnMapPhysicalAddress, getString(R.string.physicaladdress))
+                        TapTarget.forView(btnMapPhysicalAddress, getString(R.string.physicaladdress), "Need directions? Clicking here will open up the Map on your phone!")
                                 .outerCircleColor(R.color.md_blue_800)      // Specify a color for the outer circle
                                 .outerCircleAlpha(0.75f)            // Specify the alpha amount for the outer circle
                                 .titleTextSize(30)                  // Specify the size (in sp) of the title text
@@ -384,8 +335,8 @@ public class DetailedInfo extends AppCompatActivity {
                                 .tintTarget(true)                   // Whether to tint the target view's color
                                 .transparentTarget(true)           // Specify whether the target is transparent (displays the content underneath)
                                 .targetRadius(35)
-                                .id(6),
-                        TapTarget.forView(btnMapPostalAddress, getString(R.string.postaladdress))
+                                .id(6)
+                        /*TapTarget.forView(btnMapPostalAddress, getString(R.string.postaladdress))
                                 .outerCircleColor(R.color.md_blue_800)      // Specify a color for the outer circle
                                 .outerCircleAlpha(0.75f)            // Specify the alpha amount for the outer circle
                                 .titleTextSize(30)                  // Specify the size (in sp) of the title text
@@ -398,7 +349,7 @@ public class DetailedInfo extends AppCompatActivity {
                                 .cancelable(false)                  // Whether tapping outside the outer circle dismisses the view
                                 .tintTarget(true)                   // Whether to tint the target view's color
                                 .transparentTarget(true)           // Specify whether the target is transparent (displays the content underneath)
-                                .targetRadius(35)
+                                .targetRadius(35)*/
                 )
                 .listener(new TapTargetSequence.Listener() {
                     @Override

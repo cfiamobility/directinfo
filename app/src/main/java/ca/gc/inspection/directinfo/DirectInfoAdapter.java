@@ -17,12 +17,14 @@ public class DirectInfoAdapter extends RecyclerView.Adapter<DirectInfoAdapter.Vi
 
         TextView personNameTV;
         TextView personPositionTV;
+        TextView personDeptTV;
 
         ViewHolder(View itemView) {
             super(itemView);
 
             personNameTV = itemView.findViewById(R.id.personNameTV);
             personPositionTV = itemView.findViewById(R.id.personPositionTV);
+            personDeptTV = itemView.findViewById(R.id.personDepartmentTV);
         }
     } // end of ViewHolder class
 
@@ -49,6 +51,7 @@ public class DirectInfoAdapter extends RecyclerView.Adapter<DirectInfoAdapter.Vi
         } else {
             viewHolder.personPositionTV.setText(people.get(i).getTitle());
         }
+        viewHolder.personDeptTV.setText(people.get(i).getDeptAndOrg());
     }
 
     @Override

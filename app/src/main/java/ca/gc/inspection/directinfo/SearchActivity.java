@@ -34,6 +34,7 @@ import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import ca.gc.inspection.directinfo.DirectInfoDbContract.DirectInfo;
 
@@ -316,41 +317,43 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
 
         final String[] projection = {
                 DirectInfo._ID,                                     // 0
-                DirectInfo.COLUMN_NAME_FIRST_NAME,                  // 1
-                DirectInfo.COLUMN_NAME_LAST_NAME,                   // 2
-                DirectInfo.COLUMN_NAME_EMAIL,                       // 3
-                DirectInfo.COLUMN_NAME_TELEPHONE_NUMBER,            // 4
-                DirectInfo.COLUMN_NAME_TITLE_EN,                    // 5
-                DirectInfo.COLUMN_NAME_MOBILE_NUMBER,               // 6
-                DirectInfo.COLUMN_NAME_POSTAL_STREET_NUMBER,        // 7
-                DirectInfo.COLUMN_NAME_POSTAL_STREET_NAME,          // 8
-                DirectInfo.COLUMN_NAME_POSTAL_BUILDING_UNIT_TYPE,   // 9
-                DirectInfo.COLUMN_NAME_POSTAL_BUILDING_UNIT_ID,     // 10
-                DirectInfo.COLUMN_NAME_PO_BOX_EN,                   // 11
-                DirectInfo.COLUMN_NAME_POSTAL_CITY_EN,              // 12
-                DirectInfo.COLUMN_NAME_POSTAL_PROVINCE_EN,          // 13
-                DirectInfo.COLUMN_NAME_POSTAL_CODE,                 // 14
-                DirectInfo.COLUMN_NAME_BUILDING_NAME_EN,            // 15
-                DirectInfo.COLUMN_NAME_FLOOR,                       // 16
-                DirectInfo.COLUMN_NAME_ROOM,                        // 17
-                DirectInfo.COLUMN_NAME_PHYSICAL_STREET_NUMBER,      // 18
-                DirectInfo.COLUMN_NAME_PHYSICAL_STREET_NAME,        // 19
-                DirectInfo.COLUMN_NAME_PHYSICAL_BUILDING_UNIT_TYPE, // 20
-                DirectInfo.COLUMN_NAME_PHYSICAL_BUILDING_UNIT_ID,   // 21
-                DirectInfo.COLUMN_NAME_PHYSICAL_CITY_EN,            // 22
-                DirectInfo.COLUMN_NAME_PHYSICAL_PROVINCE_EN,        // 23
-
-
+                DirectInfo.COLUMN_NAME_SURNAME,                  // 1
+                DirectInfo.COLUMN_NAME_GIVEN_NAME,                     // 2
+                DirectInfo.COLUMN_NAME_INITIALS,                       // 3
+                DirectInfo.COLUMN_NAME_PREFIX_EN,            // 4
+                DirectInfo.COLUMN_NAME_PREFIX_FR,                    // 5
+                DirectInfo.COLUMN_NAME_SUFFIX_EN,               // 6
+                DirectInfo.COLUMN_NAME_SUFFIX_FR,        // 7
+                DirectInfo.COLUMN_NAME_TITLE_EN,          // 8
+                DirectInfo.COLUMN_NAME_TITLE_FR,   // 9
+                DirectInfo.COLUMN_NAME_TELEPHONE_NUMBER,     // 10
+                DirectInfo.COLUMN_NAME_FAX_NUMBER,                   // 11
+                DirectInfo.COLUMN_NAME_TDD_NUMBER,              // 12
+                DirectInfo.COLUMN_NAME_EMAIL,          // 13
+                DirectInfo.COLUMN_NAME_STREET_ADDRESS_EN,                 // 14
+                DirectInfo.COLUMN_NAME_STREET_ADDRESS_FR,            // 15
+                DirectInfo.COLUMN_NAME_COUNTRY_EN,                       // 16
+                DirectInfo.COLUMN_NAME_COUNTRY_FR,                        // 17
+                DirectInfo.COLUMN_NAME_PROVINCE_EN,      // 18
+                DirectInfo.COLUMN_NAME_PROVINCE_FR,        // 19
+                DirectInfo.COLUMN_NAME_CITY_EN, // 20
+                DirectInfo.COLUMN_NAME_CITY_FR,   // 21
+                DirectInfo.COLUMN_NAME_POSTAL_CODE,            // 22
+                DirectInfo.COLUMN_NAME_DEPARTMENT_ACRONYM,        // 23
+                DirectInfo.COLUMN_NAME_DEPARTMENT_NAME_EN,        // 24
+                DirectInfo.COLUMN_NAME_DEPARTMENT_NAME_FR,        // 25
+                DirectInfo.COLUMN_NAME_ORGANIZATION_ACRONYM,        // 26
+                DirectInfo.COLUMN_NAME_ORGANIZATION_NAME_EN,        // 27
+                DirectInfo.COLUMN_NAME_ORGANIZATION_NAME_FR,        // 28
         };
 
 //        final String selection = "name LIKE ?";
-
 
         final String selection = getSelectionString(searchBy, textToSearch);
 
         // How you want the resultCount sorted in the resulting Cursor
         final String sortOrder =
-                DirectInfo.COLUMN_NAME_FIRST_NAME + " ASC";
+                DirectInfo.COLUMN_NAME_GIVEN_NAME + " ASC";
 
         Cursor cursor = db.query(
                 DirectInfo.TABLE_NAME,   // The table to query
@@ -365,31 +368,28 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
         people.clear();
         resultCount.setText("Your search returned " + cursor.getCount() + " results");
         cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
+        int i;
+        Log.i("current language", Locale.getDefault().getDisplayLanguage());
+        if (Locale.getDefault().getDisplayLanguage().equals("français")) i = 1;
+        else i = 0;
 
+        while (!cursor.isAfterLast()) {
             Person person = new Person(
-                    cursor.getString(1) + " " + cursor.getString(2),   // name
-                    cursor.getString(3),                                        // email
-                    cursor.getString(4),                                        // phone
-                    cursor.getString(5),                                        // title
-                    cursor.getString(6),                                        // mobile
-                    cursor.getString(7),                                        // postal street number
-                    cursor.getString(8),                                        // postal street name
-                    cursor.getString(9),                                        // postal building unit type
-                    cursor.getString(10),                                        // postal building unit id
-                    cursor.getString(11),                                       // po box
-                    cursor.getString(12),                                       // postal city
-                    cursor.getString(13),                                       // postal province
-                    cursor.getString(14),                                       // postal code
-                    cursor.getString(15),                                       // building name
-                    cursor.getString(16),                                       // floor
-                    cursor.getString(17),                                       // room
-                    cursor.getString(18),                                       // physical street number
-                    cursor.getString(19),                                       // physical street name
-                    cursor.getString(20),                                       // physical building unit type
-                    cursor.getString(21),                                       // physical building unit id
-                    cursor.getString(22),                                       // physical city
-                    cursor.getString(23)                                        // physical province
+                cursor.getString(2) + " " + cursor.getString(1),    //name
+                cursor.getString(8 + i),                                                   // title
+                cursor.getString(10),                                                   // phone
+                cursor.getString(11),                                                   // fax
+                cursor.getString(12),                                                   // tdd
+                cursor.getString(13),                                                   // email
+                cursor.getString(14 + i),                                                   // address
+                cursor.getString(16 + i),                                                   // country
+                cursor.getString(18 + i),                                                  // province
+                cursor.getString(20 + i),                                                  // city
+                cursor.getString(22),                                                  // postalcode
+                cursor.getString(23),                                                  // deptAcronym
+                cursor.getString(24 + i),                                                  // deptName
+                cursor.getString(26),                                                  // orgAcronym
+                cursor.getString(27 + i)                                                   // orgName
             );
             people.add(person);
             cursor.moveToNext();
@@ -409,22 +409,23 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
             case "default":
                 // search the DirectInfo database of employees by first name + last name, email, phone number, or title
                 selection =
-                        DirectInfo.COLUMN_NAME_FIRST_NAME + " || ' ' || " + DirectInfo.COLUMN_NAME_LAST_NAME + " LIKE '" + textToSearch + "%' OR " +
+                        DirectInfo.COLUMN_NAME_GIVEN_NAME + " || ' ' || " + DirectInfo.COLUMN_NAME_SURNAME + " LIKE '" + textToSearch + "%' OR " +
                                 DirectInfo.COLUMN_NAME_EMAIL + " LIKE '%" + textToSearch + "%'  OR " +
                                 DirectInfo.COLUMN_NAME_TELEPHONE_NUMBER + " LIKE '%" + textToSearch + "%' OR " +
+                                DirectInfo.COLUMN_NAME_DEPARTMENT_ACRONYM + " LIKE '%" + textToSearch + "%' OR " +
                                 DirectInfo.COLUMN_NAME_TITLE_EN + " LIKE '%" + textToSearch + "%' ";
                 break;
             case "first name":
                 // search the DirectInfo database of employees by first name
-                selection = DirectInfo.COLUMN_NAME_FIRST_NAME + " LIKE '" + textToSearch + "%'";
+                selection = DirectInfo.COLUMN_NAME_GIVEN_NAME + " LIKE '" + textToSearch + "%'";
                 break;
             case "last name":
                 // search the DirectInfo database of employees by last name
-                selection = DirectInfo.COLUMN_NAME_LAST_NAME + " LIKE '" + textToSearch + "%'";
+                selection = DirectInfo.COLUMN_NAME_SURNAME + " LIKE '" + textToSearch + "%'";
                 break;
             case "first name, last name":
                 // search the DirectInfo database of employees by first name + last name
-                selection = DirectInfo.COLUMN_NAME_FIRST_NAME + " || ' ' || " + DirectInfo.COLUMN_NAME_LAST_NAME + " LIKE '" + textToSearch + "%'";
+                selection = DirectInfo.COLUMN_NAME_GIVEN_NAME + " || ' ' || " + DirectInfo.COLUMN_NAME_SURNAME + " LIKE '" + textToSearch + "%'";
                 break;
             case "email":
                 // search the DirectInfo database of employees by email
@@ -433,14 +434,13 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
             case "phone":
                 // search the DirectInfo database of employees by phone
                 selection = DirectInfo.COLUMN_NAME_TELEPHONE_NUMBER + " LIKE '%" + textToSearch + "%' OR " +
-                        DirectInfo.COLUMN_NAME_MOBILE_NUMBER + " LIKE '%" + textToSearch + "%'";
+                        DirectInfo.COLUMN_NAME_FAX_NUMBER + " LIKE '%" + textToSearch + "%'";
                 break;
             case "address":
                 // search the DirectInfo database of employees by physical address
-                selection = DirectInfo.COLUMN_NAME_PHYSICAL_STREET_NUMBER + " || ' ' || " +
-                        DirectInfo.COLUMN_NAME_PHYSICAL_STREET_NAME + " || ' ' || " +
-                        DirectInfo.COLUMN_NAME_PHYSICAL_CITY_EN + " || ' ' || " +
-                        DirectInfo.COLUMN_NAME_PHYSICAL_PROVINCE_EN + " LIKE '%" + textToSearch + "%'";
+                selection = DirectInfo.COLUMN_NAME_STREET_ADDRESS_EN + " || ' ' || " +
+                        DirectInfo.COLUMN_NAME_CITY_EN + " || ' ' || " +
+                        DirectInfo.COLUMN_NAME_PROVINCE_EN + " LIKE '%" + textToSearch + "%'";
                 break;
             case "title":
                 // search the DirectInfo database of employees by title
@@ -449,7 +449,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
             default:
                 // search the DirectInfo database of employees by first name + last name, email, phone number, or title
                 selection =
-                        DirectInfo.COLUMN_NAME_FIRST_NAME + " || ' ' || " + DirectInfo.COLUMN_NAME_LAST_NAME + " LIKE '" + textToSearch + "%' OR " +
+                        DirectInfo.COLUMN_NAME_GIVEN_NAME + " || ' ' || " + DirectInfo.COLUMN_NAME_SURNAME + " LIKE '" + textToSearch + "%' OR " +
                                 DirectInfo.COLUMN_NAME_EMAIL + " LIKE '%" + textToSearch + "%'  OR " +
                                 DirectInfo.COLUMN_NAME_TELEPHONE_NUMBER + " LIKE '%" + textToSearch + "%' OR " +
                                 DirectInfo.COLUMN_NAME_TITLE_EN + " LIKE '%" + textToSearch + "%' ";
@@ -466,6 +466,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
         Intent intent = new Intent(this, DetailedInfo.class);
         intent.putExtra("PERSON", adapter.getPerson(position));
         startActivity(intent);
+
     }
 
     @Override

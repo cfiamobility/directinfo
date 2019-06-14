@@ -2,7 +2,6 @@ package ca.gc.inspection.directinfo;
 
 import android.content.Intent;
 import android.provider.ContactsContract;
-import android.util.Log;
 
 import java.io.Serializable;
 
@@ -10,125 +9,78 @@ public class Person implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private String name;                    // a + b
-    private String email;                   // g
-    private String phone;                   // e
-    private String title;                   // d
-    private String mobile;                  // f
-    private String postalStreetNumber;      // h
-    private String postalStreetName;        // i
-    private String postalUnitType;          // j
-    private String postalUnitID;            // k
-    private String postOfficeBox;           // l
-    private String postalCity;              // m
-    private String postalProvince;          // n
-    private String postalCode;              // p
-    private String buildingName;            // q
-    private String floor;                   // r
-    private String roomNumber;              // s
-    private String physicalStreetNumber;    // t
-    private String physicalStreetName;      // u
-    private String physicalUnitType;        // v
-    private String physicalUnitID;          // w
-    private String physicalCity;            // x
-    private String physicalProvince;        // y
-    private String country = "Canada";
+    private String name;                    // (d|e) + b + a + (f|g) (prefix + first + last + suffix)
+    private String title;                   // (h|i)
+    private String phone;                   // j
+    private String fax;                     // k
+    private String tdd;                     // l
+    private String email;                   // m
+    private String address;                 // (n|o)
+    private String country;                 // (p|q)
+    private String province;                // (r|s)
+    private String city;                    // (t|u)
+    private String postalCode;              // v
+    private String deptAcronym;             // w
+    private String deptName;                //(x|y)
+    private String orgAcronym;              // z
+    private String orgName;                 // (aa|ab)
 
-    public Person(String name, String email, String phone, String title, String mobile, String postalStreetNumber,
-                  String postalStreetName, String postalUnitType, String postalUnitID, String postOfficeBox,
-                  String postalCity, String postalProvince, String postalCode, String buildingName, String floor,
-                  String roomNumber, String physicalStreetNumber, String physicalStreetName, String physicalUnitType,
-                  String physicalUnitID, String physicalCity, String physicalProvince) {
-        this.name = name;
-        this.email = email;
-        this.phone = phone;
-        this.title = title;
-        this.mobile = mobile;
-        this.postalStreetNumber = postalStreetNumber;
-        this.postalStreetName = postalStreetName;
-        this.postalUnitType = postalUnitType;
-        this.postalUnitID = postalUnitID;
-        this.postOfficeBox = postOfficeBox;
-        this.postalCity = postalCity;
-        this.postalProvince = postalProvince;
-        this.postalCode = postalCode;
-        this.buildingName = buildingName;
-        this.floor = floor;
-        this.roomNumber = roomNumber;
-        this.physicalStreetNumber = physicalStreetNumber;
-        this.physicalStreetName = physicalStreetName;
-        this.physicalUnitType = physicalUnitType;
-        this.physicalUnitID = physicalUnitID;
-        this.physicalCity = physicalCity;
-        this.physicalProvince = physicalProvince;
+
+    Person(String abdefg, String hi, String j, String k, String l, String m, String no,
+           String pq, String rs, String tu, String v, String w, String xy, String z,
+           String aaab) {
+        this.name = abdefg;
+        this.title = hi;
+        this.phone = j;
+        this.fax = k;
+        this.tdd = l;
+        this.email = m;
+        this.address = no;
+        this.country = pq;
+        this.province = rs;
+        this.city = tu;
+        this.postalCode = v;
+        this.deptAcronym = w;
+        this.deptName = xy;
+        this.orgAcronym = z;
+        this.orgName = aaab;
     }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    String getTitle() { return title; }
 
-    public String getEmail() {
-        return email;
-    }
+    String getDept() { return deptName; }
+    String getDeptAndOrg() {return  deptAcronym.split("-")[0] + " - " + orgAcronym.split("-")[0]; }
 
-    public String getPhone() { return (formatNum(phone)) ;}
+    String getOrg() { return orgName; }
 
-    public String getTitle() { return title.equals("null") ?  "": title; }
 
-    public String getMobile() { return (formatNum(mobile)); }
+    String getPhone() { return (formatNum(phone)) ;}
+/*    public String getFax() { return (formatNum(fax)); }
+    public String getTdd() { return (formatNum(tdd)); }*/
 
-    public String getPhysicalAddress() {
+    String getEmail() {return email;}
+
+    String getAddress() {
         StringBuilder physicalAddress = new StringBuilder();
 
-        if (!buildingName.equals("null"))
-            physicalAddress.append(buildingName).append("\n");
-        if (!floor.equals("null"))
-            physicalAddress.append("Floor ").append(floor).append(", ");
-        if (!roomNumber.equals("null"))
-            physicalAddress.append("Room ").append(roomNumber).append("\n");
-        if (!physicalStreetNumber.equals("null"))
-            physicalAddress.append(physicalStreetNumber).append(" ").append(physicalStreetName);
-        if (!physicalUnitType.equals("null"))
-            physicalAddress.append(", ").append(physicalUnitType).append(" ").append(physicalUnitID);
-        if (!physicalCity.equals("null"))
-            physicalAddress.append("\n").append(physicalCity).append(", ").append(physicalProvince).append("\n");
+        if (!address.equals("null"))
+            physicalAddress.append(address).append("\n");
+        if (!city.equals("null"))
+            physicalAddress.append(city).append(", ");
+        if (!province.equals("null"))
+            physicalAddress.append(province).append(" ");
         if (!postalCode.equals("null"))
             physicalAddress.append(postalCode).append("\n");
-        physicalAddress.append(country);
-
-
+        if (!country.equals("null"))
+            physicalAddress.append(country);
         return physicalAddress.toString();
     }
 
-    public String getPostalAddress() {
-        StringBuilder postalAddress = new StringBuilder();
 
-        if (!buildingName.equals("null"))
-            postalAddress.append(buildingName).append("\n");
-        if (!floor.equals("null"))
-            postalAddress.append("Floor ").append(floor).append(", ");
-        if (!roomNumber.equals("null"))
-            postalAddress.append("Room ").append(roomNumber).append("\n");
-        if (!postalStreetNumber.equals("null"))
-            postalAddress.append(postalStreetNumber).append(" ").append(postalStreetName);
-        if (!postalUnitType.equals("null"))
-            postalAddress.append(", ").append(postalUnitType).append(" ").append(postalUnitID);
-        if (!postOfficeBox.equals("null"))
-            postalAddress.append("\n").append(postOfficeBox);
-        if (!postalCity.equals("null"))
-            postalAddress.append("\n").append(postalCity).append(", ").append(postalProvince).append("\n");
-        if (!postalCode.equals("null"))
-            postalAddress.append(postalCode).append("\n");
-        postalAddress.append(country);
-
-        return postalAddress.toString();
-    }
-
-    public Intent addToContacts() {
+    Intent addToContacts() {
         Intent intent = new Intent(ContactsContract.Intents.Insert.ACTION);
         intent.setType(ContactsContract.RawContacts.CONTENT_TYPE);
 
@@ -137,8 +89,6 @@ public class Person implements Serializable {
                 .putExtra(ContactsContract.Intents.Insert.EMAIL_TYPE, ContactsContract.CommonDataKinds.Email.TYPE_WORK);
         intent.putExtra(ContactsContract.Intents.Insert.PHONE, this.phone)
                 .putExtra(ContactsContract.Intents.Insert.PHONE_TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_WORK);
-        intent.putExtra(ContactsContract.Intents.Insert.SECONDARY_PHONE, this.mobile)
-                .putExtra(ContactsContract.Intents.Insert.SECONDARY_PHONE_TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE);
         intent.putExtra(ContactsContract.Intents.Insert.COMPANY, "CFIA");
         intent.putExtra(ContactsContract.Intents.Insert.JOB_TITLE, this.title);
 
@@ -146,24 +96,11 @@ public class Person implements Serializable {
     }
 
     //for google map searching
-    public String getPhysicalMapInfo() {
-        this.physicalStreetNumber = (this.physicalStreetNumber != null) ? this.physicalStreetNumber : "";
-        this.physicalProvince = (this.physicalProvince != null) ? this.physicalProvince : "";
-        this.physicalCity = (this.physicalCity != null) ? this.physicalCity : "";
-        this.physicalStreetName = (this.physicalStreetName != null) ? this.physicalStreetName : "";
-
-        return this.physicalStreetNumber + this.physicalStreetName + this.physicalCity + physicalProvince;
+    String getPhysicalMapInfo() {
+       return this.address + this.city + this.province;
     }
 
-    public String getPostalMapInfo() {
-        this.postalStreetNumber = (this.postalStreetNumber != null) ? this.postalStreetNumber : "";
-        this.postalStreetName = (this.postalStreetName != null) ? this.postalStreetName : "";
-        this.postalCity = (this.postalCity != null) ? this.postalCity : "";
-        this.postalProvince = (this.postalProvince != null) ? this.postalProvince : "";
-        return this.postalStreetNumber + this.postalStreetName + postalCity + postalProvince+this.postalCity;
-    }
-
-    /*// *** UPDATE March 19, 2019 ***
+    /** *** UPDATE March 19, 2019 ***
     Name: formatNum
     Author: Edison Mendoza
     Parameters: num - Phone number from database
@@ -172,10 +109,10 @@ public class Person implements Serializable {
     */
     private String formatNum (String num){
         char[] arr = num.toCharArray();
-        String numOnly = "";
+        StringBuilder numOnly = new StringBuilder();
         for (char c : arr){
             if (Character.isDigit(c)) {
-                numOnly += c;
+                numOnly.append(c);
             }
         }
         String ret = (numOnly.length() < 10) ? "null" : ("(" + numOnly.substring(0,3) + ") " +  numOnly.substring(3,6) + " " + numOnly.substring(6,10));

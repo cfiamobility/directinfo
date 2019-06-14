@@ -38,8 +38,8 @@ import ca.gc.inspection.directinfo.DirectInfoDbContract.DirectInfo;
 public class MainActivity extends Activity {
 
     private static final String TAG = "MainActivity";
+    static String IP_ADDRESS = "http://10.0.2.2:3000/";
     Context context;
-
 
     static SharedPreferences sharedPreferences;
     static SharedPreferences.Editor editor;
@@ -48,7 +48,6 @@ public class MainActivity extends Activity {
 
     SQLiteDatabase db;
     DirectInfoDbHelper dbHelper;
-
 
     static String newDate;
 
@@ -103,7 +102,7 @@ public class MainActivity extends Activity {
 
 
                     // grab date from server
-                    String serverDateUrl = "http://13.88.234.89:3000/users/update";
+                    String serverDateUrl = IP_ADDRESS + "users/update";
                     JsonArrayRequest sqlDateArray = new JsonArrayRequest(Request.Method.GET, serverDateUrl, null, new Response.Listener<JSONArray>() {
                         @Override
                         public void onResponse(JSONArray response) {
@@ -220,7 +219,7 @@ public class MainActivity extends Activity {
     public void checkServer() {
 
         // instantiate the RequestQueue
-        String url = "http://13.88.234.89:3000";
+        String url = IP_ADDRESS;
 
         // Request a string response from the url
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {

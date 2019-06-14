@@ -15,7 +15,7 @@
         <View
             android:id="@+id/contact_banner"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="219dp"
             android:background="@color/md_red_700"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="16dp"
-            android:paddingTop="60dp"
+            android:paddingTop="50dp"
             android:text="Lingwan Zhou"
             android:textColor="@android:color/white"
             android:textSize="35dp"
@@ -41,15 +41,37 @@
             android:paddingLeft="16dp"
             android:text="Mobile Developer"
             android:textColor="@android:color/white"
-            android:textSize="20dp"
+            android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@+id/tvName"
             app:layout_constraintTop_toBottomOf="@+id/tvName" />
+
+        <TextView
+            android:id="@+id/tvDept"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:text="CFIA"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+        <TextView
+            android:id="@+id/tvOrg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:text="Mobility"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDept" />
 
         <ImageButton
             android:id="@+id/addToContactsFAB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="16dp"
             android:background="@android:color/transparent"
             android:clickable="true"
@@ -57,7 +79,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/contact_banner"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvTitle"
-            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintVertical_bias="1.0"
             app:srcCompat="@drawable/ic_person_add_white" />
 
         <android.support.v7.widget.CardView
@@ -102,12 +124,13 @@
                     android:id="@+id/tvPrimaryPhoneDisplay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="2dp"
+                    android:layout_marginBottom="8dp"
                     android:text="@string/work"
                     android:textColor="@color/md_black_1000"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/tvPrimaryPhone"
                     app:layout_constraintTop_toBottomOf="@+id/tvPrimaryPhone" />
+
             </android.support.constraint.ConstraintLayout>
         </android.support.v7.widget.CardView>
 
@@ -122,73 +145,19 @@
             app:cardBackgroundColor="@color/md_grey_100"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cvPrimaryPhone">
-
-            <android.support.constraint.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageButton
-                    android:id="@+id/btnCallMobile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/ic_phone_red_24dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageButton
-                    android:id="@+id/btnTextMobile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:background="@android:color/transparent"
-                    android:paddingBottom="10dp"
-                    android:paddingEnd="10dp"
-                    android:paddingStart="10dp"
-                    android:paddingTop="10dp"
-                    android:src="@drawable/ic_textsms_red_24dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvMobilePhone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="+1 (989) 787 6767"
-                    android:textColor="@color/md_black_1000"
-                    app:layout_constraintStart_toEndOf="@+id/btnCallMobile"
-                    app:layout_constraintTop_toTopOf="@+id/btnCallMobile" />
-
-                <TextView
-                    android:id="@+id/tvMobilePhoneDisplay"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="2dp"
-                    android:text="@string/mobile"
-                    android:textColor="@color/md_black_1000"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/tvMobilePhone"
-                    app:layout_constraintTop_toBottomOf="@+id/tvMobilePhone" />
-            </android.support.constraint.ConstraintLayout>
-        </android.support.v7.widget.CardView>
+            app:layout_constraintTop_toBottomOf="@id/cvPrimaryPhone"/>
 
         <View
             android:id="@+id/divider2"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:background="?android:attr/listDivider"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cvMobilePhone" />
+            app:layout_constraintTop_toTopOf="@+id/cvMobilePhone" />
 
 
         <android.support.v7.widget.CardView
@@ -232,7 +201,7 @@
                     android:id="@+id/tvEmailDisplay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="2dp"
+                    android:layout_marginBottom="8dp"
                     android:text="@string/work"
                     android:textColor="@color/md_black_1000"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -295,7 +264,7 @@
                     android:id="@+id/tvPhysicalAddress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="2dp"
+                    android:layout_marginBottom="8dp"
                     android:textColor="@color/md_black_1000"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/tvPhysicalAddressTitle"
@@ -317,71 +286,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cvPhysicalAddress" />
 
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/cvPostalAddress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            app:cardBackgroundColor="@color/md_grey_100"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/divider4">
-
-            <android.support.constraint.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageButton
-                    android:id="@+id/btnMapPostalAddress"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@android:color/transparent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_location_red_24dp" />
-
-                <TextView
-                    android:id="@+id/tvPostalAddressTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="@string/postalAddress"
-                    android:textColor="@color/md_black_1000"
-                    app:layout_constraintStart_toEndOf="@+id/btnMapPostalAddress"
-                    app:layout_constraintTop_toTopOf="@+id/btnMapPostalAddress" />
-
-                <TextView
-                    android:id="@+id/tvPostalAddress"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="2dp"
-                    android:text="TextView"
-                    android:textColor="@color/md_black_1000"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/tvPostalAddressTitle"
-                    app:layout_constraintTop_toBottomOf="@+id/tvPostalAddressTitle" />
-            </android.support.constraint.ConstraintLayout>
-        </android.support.v7.widget.CardView>
-
-        <View
-            android:id="@+id/divider5"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:background="?android:attr/listDivider"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cvPostalAddress" />
 
         <ImageView
             android:id="@+id/backButton"

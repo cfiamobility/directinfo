@@ -2,86 +2,98 @@ package ca.gc.inspection.directinfo;
 
 import android.provider.BaseColumns;
 
-public final class DirectInfoDbContract {
+final class DirectInfoDbContract {
 
     // constructor is private to prevent instantiation of the contract class
     private DirectInfoDbContract(){}
 
-    //inner class that defines the table contents
-    public static final class DirectInfo implements BaseColumns {
-        public static final String TABLE_NAME = "gedsOpenData";
-        public static final String TABLE_DATE_NAME = "updateDate";
+    /** Inner class that defines the table contents
+     *  DirectInfo Schema has two tables:
+     *  "people" table that holds information about employees
+     *  "updateDate" table that holds the time that the database was last updated
+     *      - This is the trigger used by the application to check if it needs to download
+     *      the new data set from the app
+     */
+    static final class DirectInfo implements BaseColumns {
 
+        /** people table, fields, and functions */
+        static final String TABLE_NAME = "people";
 
-        public static final String COLUMN_NAME_FIRST_NAME = "agofficialname";
-        public static final String COLUMN_NAME_LAST_NAME = "sn";
-        public static final String COLUMN_NAME_PREFIX_EN = "gcprefixenglish";
-        public static final String COLUMN_NAME_TITLE_EN = "gctitleenglish";
-        public static final String COLUMN_NAME_TELEPHONE_NUMBER = "telephonenumber";
-        public static final String COLUMN_NAME_MOBILE_NUMBER = "mobile";
-        public static final String COLUMN_NAME_EMAIL = "mail";
-        public static final String COLUMN_NAME_POSTAL_STREET_NUMBER = "agpostalstreetnumber";
-        public static final String COLUMN_NAME_POSTAL_STREET_NAME = "agpostalstreetnameenglish";
-        public static final String COLUMN_NAME_POSTAL_BUILDING_UNIT_TYPE = "agpostalbuildingunittypeenglish";
-        public static final String COLUMN_NAME_POSTAL_BUILDING_UNIT_ID = "agpostalbuildingunitid";
-        public static final String COLUMN_NAME_PO_BOX_EN = "gcpostofficeboxenglish";
-        public static final String COLUMN_NAME_POSTAL_CITY_EN = "gccityenglish";
-        public static final String COLUMN_NAME_POSTAL_PROVINCE_EN = "gcprovincenameenglish";
-        public static final String COLUMN_NAME_C = "c";
-        public static final String COLUMN_NAME_POSTAL_CODE = "postalcode";
-        public static final String COLUMN_NAME_BUILDING_NAME_EN = "gcbuildingnameenglish";
-        public static final String COLUMN_NAME_FLOOR = "agfloorenglish";
-        public static final String COLUMN_NAME_ROOM = "agroomnumberenglish";
-        public static final String COLUMN_NAME_PHYSICAL_STREET_NUMBER = "agphysicalstreetnumber";
-        public static final String COLUMN_NAME_PHYSICAL_STREET_NAME = "agphysicalstreetnameenglish";
-        public static final String COLUMN_NAME_PHYSICAL_BUILDING_UNIT_TYPE = "agphysicalbuildingunittypeenglish";
-        public static final String COLUMN_NAME_PHYSICAL_BUILDING_UNIT_ID = "agphysicalbuildingunitid";
-        public static final String COLUMN_NAME_PHYSICAL_CITY_EN = "agphysicalcityenglish";
-        public static final String COLUMN_NAME_PHYSICAL_PROVINCE_EN = "agphysicalprovincenameenglish";
-        public static final String COLUMN_NAME_DATE = "date";
+        static final String COLUMN_NAME_SURNAME = "surname";
+        static final String COLUMN_NAME_GIVEN_NAME = "givenname";
+        static final String COLUMN_NAME_INITIALS = "initials";
+        static final String COLUMN_NAME_PREFIX_EN = "prefix_en";
+        static final String COLUMN_NAME_PREFIX_FR = "prefix_fr";
+        static final String COLUMN_NAME_SUFFIX_EN = "suffix_en";
+        static final String COLUMN_NAME_SUFFIX_FR = "suffix_fr";
+        static final String COLUMN_NAME_TITLE_EN = "title_en";
+        static final String COLUMN_NAME_TITLE_FR = "title_fr";
+        static final String COLUMN_NAME_TELEPHONE_NUMBER = "telephonenumber";
+        static final String COLUMN_NAME_FAX_NUMBER = "faxnumber";
+        static final String COLUMN_NAME_TDD_NUMBER = "tddnumber";
+        static final String COLUMN_NAME_EMAIL = "email";
+        static final String COLUMN_NAME_STREET_ADDRESS_EN = "streetaddress_en";
+        static final String COLUMN_NAME_STREET_ADDRESS_FR = "streetaddress_fr";
+        static final String COLUMN_NAME_COUNTRY_EN = "country_en";
+        static final String COLUMN_NAME_COUNTRY_FR = "country_fr";
+        static final String COLUMN_NAME_PROVINCE_EN = "province_en";
+        static final String COLUMN_NAME_PROVINCE_FR = "province_fr";
+        static final String COLUMN_NAME_CITY_EN = "city_en";
+        static final String COLUMN_NAME_CITY_FR = "city_fr";
+        static final String COLUMN_NAME_POSTAL_CODE = "postalcode";
+        static final String COLUMN_NAME_DEPARTMENT_ACRONYM = "departmentacronym";
+        static final String COLUMN_NAME_DEPARTMENT_NAME_EN = "departmentname_en";
+        static final String COLUMN_NAME_DEPARTMENT_NAME_FR = "departmentname_fr";
+        static final String COLUMN_NAME_ORGANIZATION_ACRONYM = "organizationacronym";
+        static final String COLUMN_NAME_ORGANIZATION_NAME_EN = "organizationname_en";
+        static final String COLUMN_NAME_ORGANIZATION_NAME_FR = "organizationname_fr";
 
-
-
-
-
-
-        public static final String SQL_CREATE_ENTRIES =
+        static final String SQL_CREATE_ENTRIES =
                 "CREATE TABLE " + DirectInfo.TABLE_NAME + " (" +
                         DirectInfo._ID + " INTEGER PRIMARY KEY, " +
-                        DirectInfo.COLUMN_NAME_FIRST_NAME + " TEXT, " +
-                        DirectInfo.COLUMN_NAME_LAST_NAME + " TEXT, " +
+                        DirectInfo.COLUMN_NAME_SURNAME + " TEXT, " +
+                        DirectInfo.COLUMN_NAME_GIVEN_NAME + " TEXT, " +
+                        DirectInfo.COLUMN_NAME_INITIALS + " TEXT, " +
                         DirectInfo.COLUMN_NAME_PREFIX_EN + " TEXT, " +
+                        DirectInfo.COLUMN_NAME_PREFIX_FR + " TEXT, " +
+                        DirectInfo.COLUMN_NAME_SUFFIX_EN + " TEXT, " +
+                        DirectInfo.COLUMN_NAME_SUFFIX_FR + " TEXT, " +
                         DirectInfo.COLUMN_NAME_TITLE_EN + " TEXT, " +
+                        DirectInfo.COLUMN_NAME_TITLE_FR + " TEXT, " +
                         DirectInfo.COLUMN_NAME_TELEPHONE_NUMBER + " TEXT, " +
-                        DirectInfo.COLUMN_NAME_MOBILE_NUMBER + " TEXT, " +
+                        DirectInfo.COLUMN_NAME_FAX_NUMBER + " TEXT, " +
+                        DirectInfo.COLUMN_NAME_TDD_NUMBER + " TEXT, " +
                         DirectInfo.COLUMN_NAME_EMAIL + " TEXT, " +
-                        DirectInfo.COLUMN_NAME_POSTAL_STREET_NUMBER + " TEXT, " +
-                        DirectInfo.COLUMN_NAME_POSTAL_STREET_NAME + " TEXT, " +
-                        DirectInfo.COLUMN_NAME_POSTAL_BUILDING_UNIT_TYPE + " TEXT, " +
-                        DirectInfo.COLUMN_NAME_POSTAL_BUILDING_UNIT_ID + " TEXT, " +
-                        DirectInfo.COLUMN_NAME_PO_BOX_EN + " TEXT, " +
-                        DirectInfo.COLUMN_NAME_POSTAL_CITY_EN + " TEXT, " +
-                        DirectInfo.COLUMN_NAME_POSTAL_PROVINCE_EN + " TEXT, " +
-                        DirectInfo.COLUMN_NAME_C + " TEXT, " +
+                        DirectInfo.COLUMN_NAME_STREET_ADDRESS_EN + " TEXT, " +
+                        DirectInfo.COLUMN_NAME_STREET_ADDRESS_FR + " TEXT, " +
+                        DirectInfo.COLUMN_NAME_COUNTRY_EN + " TEXT, " +
+                        DirectInfo.COLUMN_NAME_COUNTRY_FR + " TEXT, " +
+                        DirectInfo.COLUMN_NAME_PROVINCE_EN + " TEXT, " +
+                        DirectInfo.COLUMN_NAME_PROVINCE_FR + " TEXT, " +
+                        DirectInfo.COLUMN_NAME_CITY_EN + " TEXT, " +
+                        DirectInfo.COLUMN_NAME_CITY_FR + " TEXT, " +
                         DirectInfo.COLUMN_NAME_POSTAL_CODE + " TEXT, " +
-                        DirectInfo.COLUMN_NAME_BUILDING_NAME_EN + " TEXT, " +
-                        DirectInfo.COLUMN_NAME_FLOOR + " TEXT, " +
-                        DirectInfo.COLUMN_NAME_ROOM + " TEXT, " +
-                        DirectInfo.COLUMN_NAME_PHYSICAL_STREET_NUMBER + " TEXT, " +
-                        DirectInfo.COLUMN_NAME_PHYSICAL_STREET_NAME + " TEXT, " +
-                        DirectInfo.COLUMN_NAME_PHYSICAL_BUILDING_UNIT_TYPE + " TEXT, " +
-                        DirectInfo.COLUMN_NAME_PHYSICAL_BUILDING_UNIT_ID + " TEXT, " +
-                        DirectInfo.COLUMN_NAME_PHYSICAL_CITY_EN + " TEXT, " +
-                        DirectInfo.COLUMN_NAME_PHYSICAL_PROVINCE_EN + " TEXT )" ;
+                        DirectInfo.COLUMN_NAME_DEPARTMENT_ACRONYM + " TEXT, " +
+                        DirectInfo.COLUMN_NAME_DEPARTMENT_NAME_EN + " TEXT, " +
+                        DirectInfo.COLUMN_NAME_DEPARTMENT_NAME_FR + " TEXT, " +
+                        DirectInfo.COLUMN_NAME_ORGANIZATION_ACRONYM + " TEXT, " +
+                        DirectInfo.COLUMN_NAME_ORGANIZATION_NAME_EN + " TEXT, " +
+                        DirectInfo.COLUMN_NAME_ORGANIZATION_NAME_FR + " TEXT )" ;
 
-        public static final String SQL_DELETE_ENTRIES =
+        static final String SQL_DELETE_ENTRIES =
                 "DROP TABLE IF EXISTS " + DirectInfo.TABLE_NAME;
 
-        public static String SQL_DATE_CREATE =
+
+
+        /** updateDate table, fields, and functions */
+        static final String TABLE_DATE_NAME = "updateDate";
+        static final String COLUMN_NAME_DATE = "date";
+
+        static String SQL_DATE_CREATE =
                 "CREATE TABLE " + DirectInfo.TABLE_DATE_NAME + " (" +
                         DirectInfo.COLUMN_NAME_DATE + " TEXT )";
 
-        public static final String SQL_DELETE_DATE =
+        static final String SQL_DELETE_DATE =
                 "DROP TABLE IF EXISTS " + DirectInfo.TABLE_DATE_NAME;
     }
 }
