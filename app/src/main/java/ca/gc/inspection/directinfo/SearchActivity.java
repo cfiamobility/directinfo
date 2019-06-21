@@ -1,8 +1,6 @@
 package ca.gc.inspection.directinfo;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -13,7 +11,6 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
@@ -21,7 +18,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
@@ -35,6 +31,7 @@ import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Objects;
 
 import ca.gc.inspection.directinfo.DirectInfoDbContract.DirectInfo;
 
@@ -347,8 +344,6 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
                 DirectInfo.COLUMN_NAME_ORGANIZATION_NAME_FR,        // 28
         };
 
-//        final String selection = "name LIKE ?";
-
         final String selection = getSelectionString(searchBy, textToSearch);
 
         // How you want the resultCount sorted in the resulting Cursor
@@ -476,7 +471,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
         menuInflater.inflate(R.menu.menu_search, menu);
 
         MenuItem menuItem = menu.findItem(R.id.searchView);
-        searchView = (MaterialSearchView) findViewById(R.id.search_view);
+        searchView = findViewById(R.id.search_view);
         searchView.setMenuItem(menuItem);
         searchView.showSearch(true);
 
@@ -567,7 +562,7 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
         //disable toolbar name
 
 
-        getSupportActionBar().setTitle(R.string.searchToolbar);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.searchToolbar);
     }
 
     @Override

@@ -49,9 +49,6 @@ public class MainActivity extends Activity {
     SQLiteDatabase db;
     DirectInfoDbHelper dbHelper;
 
-    static String newDate;
-
-    private boolean serverCheck;
     private String serverDate;
     private String sqliteDate;
 
@@ -102,7 +99,7 @@ public class MainActivity extends Activity {
 
 
                     // grab date from server
-                    String serverDateUrl = IP_ADDRESS + "users/update";
+                    String serverDateUrl = IP_ADDRESS + "users/updategeds";
                     JsonArrayRequest sqlDateArray = new JsonArrayRequest(Request.Method.GET, serverDateUrl, null, new Response.Listener<JSONArray>() {
                         @Override
                         public void onResponse(JSONArray response) {

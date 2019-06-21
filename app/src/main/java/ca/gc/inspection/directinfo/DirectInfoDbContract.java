@@ -17,7 +17,7 @@ final class DirectInfoDbContract {
     static final class DirectInfo implements BaseColumns {
 
         /** people table, fields, and functions */
-        static final String TABLE_NAME = "people";
+        static final String TABLE_NAME = "opengeds";
 
         static final String COLUMN_NAME_SURNAME = "surname";
         static final String COLUMN_NAME_GIVEN_NAME = "givenname";
@@ -83,7 +83,8 @@ final class DirectInfoDbContract {
         static final String SQL_DELETE_ENTRIES =
                 "DROP TABLE IF EXISTS " + DirectInfo.TABLE_NAME;
 
-
+        static final String SQL_DELETE_OLD_ENTRIES =
+                "DROP TABLE IF EXISTS people";
 
         /** updateDate table, fields, and functions */
         static final String TABLE_DATE_NAME = "updateDate";
