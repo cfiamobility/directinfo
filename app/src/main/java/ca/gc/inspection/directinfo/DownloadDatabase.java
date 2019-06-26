@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -37,21 +38,25 @@ public class DownloadDatabase extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        jsonParse();
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_download_database);
         ThreeBounce wave = new ThreeBounce();
         progressBar = findViewById(R.id.SpinKit);
         progressBar.setIndeterminateDrawable(wave);
         context = getApplicationContext();
-        dbHelper = new DirectInfoDbHelper(context);
+
+        dbHelper = new DirectInfoDbHelper(this);
         db = dbHelper.getWritableDatabase();
+        if (MainActivity.freshUpdate()){
+            MainActivity.sharedPreferences.edit().putBoolean("freshUpdate", false).apply();
+            db.execSQL(DirectInfo.SQL_DELETE_OLD_ENTRIES);
+        }
         db.execSQL(DirectInfo.SQL_DELETE_ENTRIES);
         db.execSQL(DirectInfo.SQL_CREATE_ENTRIES);
         db.execSQL(DirectInfo.SQL_DELETE_DATE);
         db.execSQL(DirectInfo.SQL_DATE_CREATE);
+
+        jsonParse();
 
         // animation
         logo = findViewById(R.id.logo);

@@ -262,11 +262,13 @@
 
                 <TextView
                     android:id="@+id/tvPhysicalAddress"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp"
                     android:layout_marginBottom="8dp"
                     android:textColor="@color/md_black_1000"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/tvPhysicalAddressTitle"
                     app:layout_constraintTop_toBottomOf="@+id/tvPhysicalAddressTitle"
                     tools:text="TextView" />

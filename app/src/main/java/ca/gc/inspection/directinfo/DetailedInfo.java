@@ -63,7 +63,6 @@ public class DetailedInfo extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar);
-//        toolbar.setTitle("");
 
         Intent intent = getIntent();
         person = (Person) intent.getSerializableExtra("PERSON");
@@ -182,14 +181,6 @@ public class DetailedInfo extends AppCompatActivity {
                                     : phoneNumber.substring(0,14)))); // format's the extension properly
         startActivity(intent);
     }
-
-   /* public void startText(String phoneNumber) {
-        Intent intent = new Intent(Intent.ACTION_SENDTO);
-        intent.setData(Uri.parse("smsto:" + (phoneNumber.length() > 14
-                                    ? phoneNumber.substring(0,14) + "," + phoneNumber.substring(20)
-                                    : phoneNumber.substring(0,14))));
-        startActivity(intent);
-    }*/
 
     public void startEmail(String email) {
         Intent intent = new Intent(Intent.ACTION_SENDTO);
@@ -336,20 +327,6 @@ public class DetailedInfo extends AppCompatActivity {
                                 .transparentTarget(true)           // Specify whether the target is transparent (displays the content underneath)
                                 .targetRadius(35)
                                 .id(6)
-                        /*TapTarget.forView(btnMapPostalAddress, getString(R.string.postaladdress))
-                                .outerCircleColor(R.color.md_blue_800)      // Specify a color for the outer circle
-                                .outerCircleAlpha(0.75f)            // Specify the alpha amount for the outer circle
-                                .titleTextSize(30)                  // Specify the size (in sp) of the title text
-                                .titleTextColor(R.color.md_white_1000)      // Specify the color of the title text
-                                .descriptionTextSize(16)            // Specify the size (in sp) of the description text
-                                .descriptionTextColor(R.color.md_white_1000)  // Specify the color of the description text
-                                .textColor(R.color.md_white_1000)            // Specify a color for both the title and description text
-                                .textTypeface(Typeface.SANS_SERIF)  // Specify a typeface for the text
-                                .drawShadow(true)                   // Whether to draw a drop shadow or not
-                                .cancelable(false)                  // Whether tapping outside the outer circle dismisses the view
-                                .tintTarget(true)                   // Whether to tint the target view's color
-                                .transparentTarget(true)           // Specify whether the target is transparent (displays the content underneath)
-                                .targetRadius(35)*/
                 )
                 .listener(new TapTargetSequence.Listener() {
                     @Override

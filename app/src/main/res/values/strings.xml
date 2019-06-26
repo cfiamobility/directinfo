@@ -41,4 +41,11 @@
     <string name="url_handle">link to Direct-info not found</string>
 
     <string name="language">english</string>
+    <string name="logo">logo</string>
+
+    <string name="internetErrorMessage">Please connect to the internet to continue.</string>
+    <string name="internetErrorTitle">Internet Required</string>
+    <string name="downloadingMessage">Hold on tight! Just making sure you are up-to-date.</string>
+    <string name="serverErrorTitle">Server Down</string>
+    <string name="serverErrorMessage">Our server is currently going under maintenance. Please try again later!</string>
 </resources>

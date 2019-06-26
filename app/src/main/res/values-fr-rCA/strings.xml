@@ -43,4 +43,13 @@
 
     <string name="language">french</string>
 
+    <string name="logo">logo</string>
+
+    <string name="internetErrorMessage"> Veuillez vous connecter à Internet pour continuer.</string>
+    <string name="internetErrorTitle"> Internet requis</string>
+    <string name="downloadingMessage">Veuillez patienter! Nous nous assurons que vous êtes à jour.</string>
+    <string name="serverErrorTitle"> Serveur hors-service</string>
+    <string name="serverErrorMessage"> Notre serveur est actuellement en maintenance. Veuillez réessayer plus tard!</string>
+
+
 </resources>

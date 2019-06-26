@@ -12,100 +12,27 @@
         android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="logo"
+        android:contentDescription="@string/logo"
         android:src="@drawable/logo" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="15dp"
+        android:text="@string/downloadingMessage"
+        android:textColor="@color/md_white_1000"
+        android:textSize="14sp" />
 
     <com.github.ybq.android.spinkit.SpinKitView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/SpinKit"
         style="@style/SpinKitView.ThreeBounce"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         app:SpinKit_Color="@color/colorAccent">
 
     </com.github.ybq.android.spinkit.SpinKitView>
 
 </LinearLayout>
-
-
-
-
-    <!--<?xml version="1.0" encoding="utf-8"?>-->
-<!--<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-    <!--xmlns:tools="http://schemas.android.com/tools"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--tools:context=".DownloadDatabase">-->
-
-    <!--<ProgressBar-->
-    <!--android:id="@+id/progressBar"-->
-    <!--style="?android:attr/progressBarStyleHorizontal"-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginBottom="8dp"-->
-    <!--android:layout_marginEnd="16dp"-->
-    <!--android:layout_marginStart="16dp"-->
-    <!--android:layout_marginTop="8dp"-->
-    <!--app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--app:layout_constraintEnd_toEndOf="parent"-->
-    <!--app:layout_constraintStart_toStartOf="parent"-->
-    <!--app:layout_constraintTop_toBottomOf="@+id/downloadingTv" />-->
-    <!--<com.github.ybq.android.spinkit.SpinKitView xmlns:app="http://schemas.android.com/apk/res-auto"-->
-        <!--android:id="@+id/SpinKit"-->
-        <!--style="@style/SpinKitView.ThreeBounce"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginBottom="8dp"-->
-        <!--android:layout_marginTop="8dp"-->
-        <!--app:SpinKit_Color="@color/colorAccent"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--app:layout_constraintLeft_toLeftOf="parent"-->
-        <!--app:layout_constraintRight_toRightOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent">-->
-
-    <!--</com.github.ybq.android.spinkit.SpinKitView>-->
-
-    <!--<ProgressBar-->
-    <!--android:id="@+id/progressBar2"-->
-    <!--style="?android:progressBarStyleHorizontal"-->
-    <!--android:layout_width="50dp"-->
-    <!--android:layout_height="50dp"-->
-    <!--android:layout_margin="8dp"-->
-    <!--android:layout_marginEnd="8dp"-->
-    <!--android:layout_marginStart="8dp"-->
-    <!--android:layout_marginTop="4dp"-->
-    <!--android:indeterminate="false"-->
-    <!--android:max="100"-->
-
-
-    <!--android:progress="0"-->
-    <!--android:progressDrawable="@drawable/circular_progressbar"-->
-    <!--app:layout_constraintEnd_toEndOf="parent"-->
-    <!--app:layout_constraintStart_toStartOf="parent"-->
-    <!--app:layout_constraintTop_toBottomOf="@id/downloadingTv">-->
-
-    <!--</ProgressBar>-->
-    <!--<TextView-->
-    <!--android:id="@+id/testingPercent"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--app:layout_constraintTop_toBottomOf="@id/progressBar2"-->
-    <!--app:layout_constraintLeft_toLeftOf="parent"-->
-
-    <!--&gt;-->
-    <!--</TextView>-->
-
-    <!--<Button-->
-        <!--android:id="@+id/searchBtn2"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginBottom="8dp"-->
-        <!--android:layout_marginEnd="8dp"-->
-        <!--android:layout_marginTop="8dp"-->
-        <!--android:text="SEARCH"-->
-        <!--app:layout_constraintBottom_toTopOf="@+id/downloadingTv"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent" />-->
-<!--</android.support.constraint.ConstraintLayout>-->
