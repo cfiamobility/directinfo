@@ -30,8 +30,8 @@ import java.util.Locale;
 import ca.gc.inspection.directinfo.DirectInfoDbContract.DirectInfo;
 
 public class MainActivity extends Activity {
-    //static String IP_ADDRESS = "http://13.88.234.89:3000/";
-
+    //Use this as a toggle between testing locally vs testing the backend-server
+    //static String IP_ADDRESS = "http://[IP_ADDRESS]:3000/";
     static String IP_ADDRESS = "http://10.0.2.2:3000/";
     static SharedPreferences sharedPreferences;
 
@@ -113,41 +113,40 @@ public class MainActivity extends Activity {
     }
 
     private void checkUpdate() {
-        String dateQuery = DirectInfo.SQL_SELECT_CURRENT_DATE;
-        Cursor cursor = db.rawQuery(dateQuery, null);
-        if (cursor.moveToFirst()) {
-            cursor.moveToFirst();
-            final String sqliteDate = cursor.getString(0);
+        Log.i("Status", "Inside checkUpdate");
 
-            String serverDateURL = IP_ADDRESS + "users/updategeds";
-            StringRequest serverUpdate = new StringRequest(Request.Method.GET, serverDateURL, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String serverDate) {
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
-                    try {
-                        Date sqliteDateFormat = simpleDateFormat.parse(sqliteDate);
-                        serverDate = serverDate.replaceAll("\"", "");
-                        Date serverDateFormat = simpleDateFormat.parse(serverDate);
+        final Long localUpdateDate = getApplicationContext().getSharedPreferences("ca.gc.inspection.directinfo", MODE_PRIVATE).getLong("LocalUpdateDate", 0);
 
-                        if (sqliteDateFormat.equals(serverDateFormat)) {
-                            goToSearch();
-                        } else {
-                            downloadDatabase();
-                        }
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
+        String serverDateURL = IP_ADDRESS + "users/updategeds";
+        StringRequest serverUpdate = new StringRequest(Request.Method.GET, serverDateURL,
+            new Response.Listener<String>() {
+            @Override
+            public void onResponse(String serverDate) {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+            try {
+                serverDate = serverDate.replaceAll("\"", "");
+                Date serverDateFormat = simpleDateFormat.parse(serverDate);
+                Long serverUpdateDate = serverDateFormat.getTime();
+                Log.i("Status", "Comparing " + serverUpdateDate + " and " + localUpdateDate);
+
+                if (serverUpdateDate.equals(localUpdateDate)) {
                     goToSearch();
+                } else {
+                    downloadDatabase();
                 }
-            });
-            queue.add(serverUpdate);
-        }
-        cursor.close();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                goToSearch();
+            }
+        });
+        queue.add(serverUpdate);
     }
+
     private boolean hasInternetConnection() {
         final ConnectivityManager connectivityManager = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
 

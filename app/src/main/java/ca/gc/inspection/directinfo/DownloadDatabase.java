@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,12 +18,18 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.github.ybq.android.spinkit.style.ThreeBounce;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import static ca.gc.inspection.directinfo.DirectInfoDbContract.DirectInfo;
 
@@ -56,7 +63,9 @@ public class DownloadDatabase extends Activity {
         db.execSQL(DirectInfo.SQL_DELETE_DATE);
         db.execSQL(DirectInfo.SQL_DATE_CREATE);
 
+        dateParse();
         jsonParse();
+
 
         // animation
         logo = findViewById(R.id.logo);
@@ -65,6 +74,36 @@ public class DownloadDatabase extends Activity {
         logo.setAnimation(animation);
     }
 
+    private void dateParse(){
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String serverDateURL = MainActivity.IP_ADDRESS + "users/updategeds";
+        StringRequest serverUpdate = new StringRequest(Request.Method.GET, serverDateURL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String serverDate) {
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+                        try {
+                            serverDate = serverDate.replaceAll("\"", "");
+                            Date serverDateFormat = simpleDateFormat.parse(serverDate);
+                            Long serverDateLong = serverDateFormat.getTime();
+                            SharedPreferences mSharedPreferences = getApplicationContext().getSharedPreferences("ca.gc.inspection.directinfo", MODE_PRIVATE);
+
+                            mSharedPreferences.edit().putLong("LocalUpdateDate", serverDateLong).apply();
+
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        });
+        queue.add(serverUpdate);
+
+
+
+    }
     private void jsonParse() {
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = MainActivity.IP_ADDRESS + "users/geds/";
@@ -134,38 +173,7 @@ public class DownloadDatabase extends Activity {
 
             }
         });
-
         queue.add(request);
-
-        String dateUrl = MainActivity.IP_ADDRESS + "users/updategeds";
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, dateUrl, null, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                for (int i = 0; i < response.length(); i++) {
-                    try {
-
-                        // grab the date from the date column on the server table
-                        JSONObject jsonDate = response.getJSONObject(i);
-                        String serverDate = jsonDate.getString("date");
-
-                        // insert the new date into the sqlite database table
-                        ContentValues date = new ContentValues();
-                        date.put(DirectInfo.COLUMN_NAME_DATE, serverDate);
-                        db.insert(DirectInfo.TABLE_DATE_NAME, null, date);
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-
-        queue.add(jsonArrayRequest);
     }
 
     @Override
