@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.Network;
@@ -27,12 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import ca.gc.inspection.directinfo.DirectInfoDbContract.DirectInfo;
-
 public class MainActivity extends Activity {
-    //Use this as a toggle between testing locally vs testing the backend-server
-    //static String IP_ADDRESS = "http://[IP_ADDRESS]:3000/";
-    static String IP_ADDRESS = "http://10.0.2.2:3000/";
     static SharedPreferences sharedPreferences;
 
     SQLiteDatabase db;
@@ -73,7 +67,7 @@ public class MainActivity extends Activity {
     // to check if the server is running
     private void checkServer() {
         // Request a string response from the url
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, IP_ADDRESS, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Config.IP_ADDRESS, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.i("Status", "Got a response from middle tier");
@@ -85,7 +79,7 @@ public class MainActivity extends Activity {
                 if (firstRun() || freshUpdate()) {
                 /* If it's the app's first run - it needs to download the database to be functional
                 If the app was freshly updated to the new database, it needs to download
-                the new database to be functional.*/
+                the new database to be functional as well.*/
                     alertAndClose(getResources().getString(R.string.serverErrorTitle),
                             getResources().getString(R.string.serverErrorMessage));
                 } else {
@@ -115,9 +109,7 @@ public class MainActivity extends Activity {
     private void checkUpdate() {
         Log.i("Status", "Inside checkUpdate");
 
-        final Long localUpdateDate = getApplicationContext().getSharedPreferences("ca.gc.inspection.directinfo", MODE_PRIVATE).getLong("LocalUpdateDate", 0);
-
-        String serverDateURL = IP_ADDRESS + "users/updategeds";
+        String serverDateURL = Config.IP_ADDRESS + "users/updategeds";
         StringRequest serverUpdate = new StringRequest(Request.Method.GET, serverDateURL,
             new Response.Listener<String>() {
             @Override
@@ -127,6 +119,7 @@ public class MainActivity extends Activity {
                 serverDate = serverDate.replaceAll("\"", "");
                 Date serverDateFormat = simpleDateFormat.parse(serverDate);
                 Long serverUpdateDate = serverDateFormat.getTime();
+                Long localUpdateDate = sharedPreferences.getLong("LocalUpdateDate", 0);
                 Log.i("Status", "Comparing " + serverUpdateDate + " and " + localUpdateDate);
 
                 if (serverUpdateDate.equals(localUpdateDate)) {

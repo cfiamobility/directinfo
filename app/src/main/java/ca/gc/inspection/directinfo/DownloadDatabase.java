@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -23,7 +22,6 @@ import com.android.volley.toolbox.Volley;
 import com.github.ybq.android.spinkit.style.ThreeBounce;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.ParseException;
@@ -54,6 +52,11 @@ public class DownloadDatabase extends Activity {
 
         dbHelper = new DirectInfoDbHelper(this);
         db = dbHelper.getWritableDatabase();
+
+        /** The freshUpdate is a trigger for users who had the old version with the
+         * DirectInfo structure DB. This is used so that we can delete that old database structure
+         * to make room for the new one.
+         */
         if (MainActivity.freshUpdate()){
             MainActivity.sharedPreferences.edit().putBoolean("freshUpdate", false).apply();
             db.execSQL(DirectInfo.SQL_DELETE_OLD_ENTRIES);
@@ -76,27 +79,27 @@ public class DownloadDatabase extends Activity {
 
     private void dateParse(){
         RequestQueue queue = Volley.newRequestQueue(this);
-        String serverDateURL = MainActivity.IP_ADDRESS + "users/updategeds";
+        String serverDateURL = Config.IP_ADDRESS + "users/updategeds";
         StringRequest serverUpdate = new StringRequest(Request.Method.GET, serverDateURL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String serverDate) {
-                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
-                        try {
-                            serverDate = serverDate.replaceAll("\"", "");
-                            Date serverDateFormat = simpleDateFormat.parse(serverDate);
-                            Long serverDateLong = serverDateFormat.getTime();
-                            SharedPreferences mSharedPreferences = getApplicationContext().getSharedPreferences("ca.gc.inspection.directinfo", MODE_PRIVATE);
+            new Response.Listener<String>() {
+                @Override
+                public void onResponse(String serverDate) {
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+                    try {
+                        serverDate = serverDate.replaceAll("\"", "");
+                        Date serverDateFormat = simpleDateFormat.parse(serverDate);
+                        long serverDateLong = serverDateFormat.getTime();
 
-                            mSharedPreferences.edit().putLong("LocalUpdateDate", serverDateLong).apply();
+                        MainActivity.sharedPreferences.edit().putLong("LocalUpdateDate", serverDateLong).apply();
 
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
                     }
-                }, new Response.ErrorListener() {
+                }
+            }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+
             }
         });
         queue.add(serverUpdate);
@@ -106,7 +109,7 @@ public class DownloadDatabase extends Activity {
     }
     private void jsonParse() {
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = MainActivity.IP_ADDRESS + "users/geds/";
+        String url = Config.IP_ADDRESS + "users/geds/";
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
             new Response.Listener<JSONArray>() {
                 @Override
@@ -170,7 +173,6 @@ public class DownloadDatabase extends Activity {
             }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
             }
         });
         queue.add(request);

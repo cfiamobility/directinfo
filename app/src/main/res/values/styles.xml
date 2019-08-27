@@ -18,19 +18,25 @@
         <item name="android:fastScrollAlwaysVisible">true</item>
         <item name="android:fastScrollPreviewBackgroundRight">@color/colorPrimary</item>
 
+        <item name="android:windowAnimationStyle">@style/CustomActivityAnimation</item>
+
 
     </style>
 
 
 <!--overflow button color-->
-
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:actionOverflowButtonStyle">@style/MyOverflowButtonStyle</item>
-
-      </style>
+    </style>
 
     <style name="MyOverflowButtonStyle" parent="Widget.AppCompat.ActionButton.Overflow">
         <item name="android:tint">@color/md_black_1000 </item>
     </style>
 
+    <style name="CustomActivityAnimation" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
+        <item name="android:activityCloseEnterAnimation">@anim/slide_in_left</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+    </style>
 </resources>

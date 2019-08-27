@@ -154,8 +154,7 @@ public class DetailedInfo extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent back = new Intent(getApplicationContext(), SearchActivity.class);
-                startActivity(back);
+                onBackPressed();
             }
         });
 

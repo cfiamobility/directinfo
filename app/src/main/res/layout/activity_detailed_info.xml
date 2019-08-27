@@ -15,10 +15,9 @@
         <View
             android:id="@+id/contact_banner"
             android:layout_width="match_parent"
-            android:layout_height="219dp"
+            android:layout_height="232dp"
             android:background="@color/md_red_700"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,60 +25,72 @@
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="16dp"
-            android:paddingTop="50dp"
+            android:layout_marginEnd="15dp"
+            android:paddingLeft="0dp"
+            android:paddingTop="0dp"
             android:text="Lingwan Zhou"
             android:textColor="@android:color/white"
             android:textSize="35dp"
-            app:layout_constraintStart_toStartOf="@id/contact_banner"
-            app:layout_constraintTop_toTopOf="@id/contact_banner" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addToContactsFAB" />
 
         <TextView
             android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingLeft="16dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:paddingLeft="0dp"
             android:text="Mobile Developer"
+            android:textAlignment="textEnd"
             android:textColor="@android:color/white"
             android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@+id/tvName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvName" />
 
         <TextView
             android:id="@+id/tvDept"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingStart="16dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:paddingStart="0dp"
             android:text="CFIA"
+            android:textAlignment="textEnd"
             android:textColor="@android:color/white"
-            android:textSize="18sp"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
         <TextView
             android:id="@+id/tvOrg"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingStart="16dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:paddingStart="0dp"
+            android:paddingBottom="0dp"
             android:text="Mobility"
+            android:textAlignment="textEnd"
             android:textColor="@android:color/white"
             android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvDept" />
 
         <ImageButton
             android:id="@+id/addToContactsFAB"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="16dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
             android:background="@android:color/transparent"
             android:clickable="true"
             android:focusable="true"
-            app:layout_constraintBottom_toBottomOf="@+id/contact_banner"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvTitle"
-            app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintEnd_toEndOf="@+id/contact_banner"
+            app:layout_constraintTop_toTopOf="@+id/contact_banner"
             app:srcCompat="@drawable/ic_person_add_white" />
 
         <android.support.v7.widget.CardView
@@ -291,12 +302,13 @@
 
         <ImageView
             android:id="@+id/backButton"
-            android:layout_width="48dp"
-            android:layout_height="47dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toStartOf="@+id/tvName"
-            app:layout_constraintTop_toTopOf="@+id/tvName"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/md_white_1000"
+            app:layout_constraintStart_toStartOf="@+id/contact_banner"
+            app:layout_constraintTop_toTopOf="@+id/contact_banner"
             app:srcCompat="@drawable/ic_action_navigation_arrow_back" />
 
     </android.support.constraint.ConstraintLayout>
