@@ -373,8 +373,6 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
                 cursor.getString(2) + " " + cursor.getString(1),    //name
                 cursor.getString(8 + i),                                                   // title
                 cursor.getString(10),                                                   // phone
-                cursor.getString(11),                                                   // fax
-                cursor.getString(12),                                                   // tdd
                 cursor.getString(13),                                                   // email
                 cursor.getString(14 + i),                                                   // address
                 cursor.getString(16 + i),                                                   // country
@@ -528,27 +526,6 @@ public class SearchActivity extends AppCompatActivity implements RecyclerItemCli
                 else if (cvSearchOptions.getVisibility() == View.GONE)
                     cvSearchOptions.setVisibility(View.VISIBLE);
                 break;
-
-
-//            case R.id.restBtn:
-//                AlertDialog.Builder builder = new AlertDialog.Builder(SearchActivity.this);
-//                builder.setTitle(R.string.DialogTitle);
-//
-//                builder.setNegativeButton(R.string.DialogNegativeBtn, new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i) {
-//
-//                    }
-//                });
-//                builder.setPositiveButton(R.string.DialogPositiveBtn, new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i) {
-//                        startActivity(new Intent(SearchActivity.this, DownloadDatabase.class));
-//                        finish();
-//                    }
-//                });
-//                builder.show();
-//                break;
 
             default:
                 return true;

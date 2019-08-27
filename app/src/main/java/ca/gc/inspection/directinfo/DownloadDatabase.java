@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.animation.Animation;
@@ -53,7 +52,7 @@ public class DownloadDatabase extends Activity {
         dbHelper = new DirectInfoDbHelper(this);
         db = dbHelper.getWritableDatabase();
 
-        /** The freshUpdate is a trigger for users who had the old version with the
+        /* The freshUpdate is a trigger for users who had the old version with the
          * DirectInfo structure DB. This is used so that we can delete that old database structure
          * to make room for the new one.
          */

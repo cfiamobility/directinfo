@@ -12,8 +12,6 @@ public class Person implements Serializable {
     private String name;                    // (d|e) + b + a + (f|g) (prefix + first + last + suffix)
     private String title;                   // (h|i)
     private String phone;                   // j
-    private String fax;                     // k
-    private String tdd;                     // l
     private String email;                   // m
     private String address;                 // (n|o)
     private String country;                 // (p|q)
@@ -26,14 +24,12 @@ public class Person implements Serializable {
     private String orgName;                 // (aa|ab)
 
 
-    Person(String abdefg, String hi, String j, String k, String l, String m, String no,
+    Person(String abdefg, String hi, String j, String m, String no,
            String pq, String rs, String tu, String v, String w, String xy, String z,
            String aaab) {
         this.name = abdefg;
         this.title = hi;
         this.phone = j;
-        this.fax = k;
-        this.tdd = l;
         this.email = m;
         this.address = no;
         this.country = pq;
@@ -58,8 +54,6 @@ public class Person implements Serializable {
 
 
     String getPhone() { return (formatNum(phone)) ;}
-/*    public String getFax() { return (formatNum(fax)); }
-    public String getTdd() { return (formatNum(tdd)); }*/
 
     String getEmail() {return email;}
 

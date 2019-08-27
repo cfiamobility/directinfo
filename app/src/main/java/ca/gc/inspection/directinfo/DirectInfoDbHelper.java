@@ -11,11 +11,11 @@ import ca.gc.inspection.directinfo.DirectInfoDbContract.DirectInfo;
 public class DirectInfoDbHelper extends SQLiteOpenHelper {
 
     private static final String TAG = "DirectInfoDbHelper";
-    public static final int DATABASE_VERSION = 6;
-    public static final String DATABASE_NAME = "DirectInfo.db";
+    private static final int DATABASE_VERSION = 6;
+    private static final String DATABASE_NAME = "DirectInfo.db";
 
 
-    public  DirectInfoDbHelper(Context context) {
+    DirectInfoDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 

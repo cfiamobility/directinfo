@@ -86,9 +86,6 @@ final class DirectInfoDbContract {
         static final String SQL_DELETE_OLD_ENTRIES =
                 "DROP TABLE IF EXISTS people";
 
-        static final String SQL_SELECT_CURRENT_DATE =
-                "SELECT * FROM " + DirectInfo.TABLE_DATE_NAME;
-
         /** updateDate table, fields, and functions */
         static final String TABLE_DATE_NAME = "updateDate";
         static final String COLUMN_NAME_DATE = "date";

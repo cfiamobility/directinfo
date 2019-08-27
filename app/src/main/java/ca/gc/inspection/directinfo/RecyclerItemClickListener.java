@@ -1,6 +1,7 @@
 package ca.gc.inspection.directinfo;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,11 +16,9 @@ class RecyclerItemClickListener extends RecyclerView.SimpleOnItemTouchListener {
         void onItemClick(View view, int position);
     }
 
-    private final OnRecyclerClickListener listener;
     private final GestureDetectorCompat gestureDetector;
 
-    public RecyclerItemClickListener(Context context, final RecyclerView recyclerView, final OnRecyclerClickListener listener) {
-        this.listener = listener;
+    RecyclerItemClickListener(Context context, final RecyclerView recyclerView, final OnRecyclerClickListener listener) {
         gestureDetector = new GestureDetectorCompat(context, new GestureDetector.SimpleOnGestureListener(){
             @Override
             public boolean onSingleTapUp(MotionEvent e) {
@@ -45,7 +44,7 @@ class RecyclerItemClickListener extends RecyclerView.SimpleOnItemTouchListener {
     }
 
     @Override
-    public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+    public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
         Log.d(TAG, "onInterceptTouchEvent: starts");
         if (gestureDetector != null) {
             boolean result = gestureDetector.onTouchEvent(e);

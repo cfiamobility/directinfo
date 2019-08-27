@@ -1,6 +1,6 @@
 package ca.gc.inspection.directinfo;
 
-public class Config {
+class Config {
 
     /** IP_ADDRESS is the ip of where the middle tier is running. IE. 10.0.2.2 is "localhost" for
      *  mobile emulators, which connects to the middle tier (node) running on the local machine.
